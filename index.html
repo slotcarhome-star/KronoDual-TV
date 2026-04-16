@@ -101,7 +101,7 @@
         <div class="chrome-panel p-8 rounded-2xl max-w-sm text-center border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.3)]">
             <i class="fas fa-user-shield text-4xl text-red-400 mb-4"></i>
             <h3 class="text-xl font-bold text-white mb-2">Sesión Finalizada</h3>
-            <p class="text-sm text-slate-300 mb-6">Se ha detectado un inicio de sesión en otro dispositivo.</p>
+            <p class="text-sm text-slate-300 mb-6">Se ha detectado un inicio de sesión en este modo desde otro dispositivo.</p>
             <button onclick="location.reload()" class="btn-gold w-full py-3 rounded-xl font-bold text-xs uppercase tracking-widest">
                 Entendido
             </button>
@@ -141,20 +141,20 @@
                     </h2>
                     
                     <p class="text-amber-900/90 text-sm mb-6 leading-relaxed font-bold">
-                        Tecnología de precisión para Slot. Un solo pago de 10€, control total de por vida.
+                        Tecnología de precisión para Slot. Un solo pago de 15 euros, control total de por vida.
                     </p>
 
                     <div class="bg-black/10 rounded-2xl p-5 border border-black/10 mb-6">
                         <ul class="text-xs space-y-3 text-amber-950 font-black">
                             <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-amber-800"></i> Solicita acceso vía Email</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-amber-800"></i> Pago único de 10,00€</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-amber-800"></i> Pago único de 15 euros</li>
                             <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-amber-800"></i> Activación Vitalicia</li>
                         </ul>
                     </div>
                 </div>
 
                 <a id="mail-link" href="#" class="block w-full bg-black hover:bg-neutral-900 text-yellow-400 font-black py-4 rounded-xl text-center shadow-2xl transition duration-300 transform hover:scale-[1.02] text-sm tracking-widest uppercase border border-yellow-600">
-                    SOLICITAR AHORA (10€)
+                    SOLICITAR AHORA (15 EUROS)
                 </a>
             </div>
 
@@ -177,6 +177,15 @@
                             class="w-full input-metallic rounded-xl p-4 text-center tracking-[0.5em] uppercase font-mono text-sm"
                             placeholder="XXX-XXX">
                     </div>
+
+                    <!-- Selector de Dispositivo reincorporado para la lógica DUAL -->
+                    <div>
+                        <label class="block text-[10px] font-black text-yellow-600/80 uppercase mb-2 tracking-widest">Uso de este dispositivo</label>
+                        <select id="device-role" class="w-full input-metallic rounded-xl p-4 text-sm font-bold uppercase cursor-pointer">
+                            <option value="sensor">📱 Mando (Usar Cámara)</option>
+                            <option value="tv">📺 Pantalla (Recibir TV)</option>
+                        </select>
+                    </div>
                     
                     <div id="msg-box" class="hidden p-3 rounded-xl text-xs text-center font-bold break-words"></div>
 
@@ -194,7 +203,7 @@
 
     <iframe id="app-frame" src="about:blank"></iframe>
     
-    <button onclick="logout()" id="logout-btn" class="hidden fixed bottom-8 right-8 btn-gold w-14 h-14 rounded-2xl shadow-2xl z-[100] flex items-center justify-center text-xl border-2 border-white">
+    <button onclick="logoutDual()" id="logout-btn" class="hidden fixed bottom-8 right-8 btn-gold w-14 h-14 rounded-2xl shadow-2xl z-[100] flex items-center justify-center text-xl border-2 border-white">
         <i class="fas fa-power-off"></i>
     </button>
 
@@ -209,12 +218,13 @@
           projectId: "correo-95e58",
           storageBucket: "correo-95e58.firebasestorage.app",
           messagingSenderId: "977860532946",
-          appId: "1:977860532946:web:3738c6b7165201bce7ab0b"
+          appId: "1:977860532946:web:3738c6b7165201bce7ab0b",
+          measurementId: "G-6DMG51VQ92"
         };
         
         const ADMIN_EMAIL = "slotcarhome@gmail.com"; 
-        const APP_FILENAME = "kronodual.html";
-        const APP_ID = "app_kronodual";
+        const APP_FILENAME = "kronodual-tv.html"; 
+        const APP_ID = "app_kronodual_tv";     // <-- NUEVO NOMBRE DE BASE DE DATOS ACTUALIZADO
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -224,23 +234,23 @@
 
         const mailLink = document.getElementById('mail-link');
         const emailInput = document.getElementById('email');
-        let unsubscribeSession = null;
+        let unsubscribeSessionDual = null;
 
-        function generateUUID() {
+        function generateUUIDDual() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
         }
         
-        function updateMailLink() {
+        function updateMailLinkDual() {
             const userEmail = emailInput.value || "[tu correo]";
             const subject = "Interés Licencia KronoDual GOLD";
-            const body = `Hola equipo de KronoDual,%0D%0A%0D%0AEstoy muy interesado en adquirir la licencia GOLD (10€) para mi usuario: ${userEmail}%0D%0A%0D%0AQuedo a la espera de sus instrucciones para proceder con el pago.%0D%0A%0D%0AGracias y un saludo.`;
+            const body = `Hola equipo de KronoDual,%0D%0A%0D%0AEstoy muy interesado en adquirir la licencia GOLD por 15 euros para mi usuario: ${userEmail}%0D%0A%0D%0AQuedo a la espera de sus instrucciones para proceder con el pago.%0D%0A%0D%0AGracias y un saludo.`;
             mailLink.href = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
         }
-        emailInput.addEventListener('input', updateMailLink);
-        updateMailLink();
+        emailInput.addEventListener('input', updateMailLinkDual);
+        updateMailLinkDual();
 
         mailLink.addEventListener('click', async () => {
             try {
@@ -253,6 +263,7 @@
             e.preventDefault();
             const email = emailInput.value.toLowerCase().trim();
             const code = document.getElementById('code').value.trim();
+            const deviceRole = document.getElementById('device-role').value;
             const btn = document.getElementById('btn-login');
             
             btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>'; btn.disabled = true;
@@ -267,81 +278,94 @@
                     const userData = docSnap.data();
                     
                     if(userData.active === false) {
-                        showMessage("⛔ LICENCIA NO ACTIVA", "error");
+                        showMessageDual("⛔ LICENCIA NO ACTIVA", "error");
                     } else { 
+                        // Lógica de Doble Sesión reincorporada
                         try {
-                            const sessionId = generateUUID();
+                            const sessionId = generateUUIDDual();
+                            const sessionField = deviceRole === 'tv' ? 'current_session_tv' : 'current_session_sensor';
+                            
                             const docRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'access_codes', docSnap.id);
-                            await updateDoc(docRef, { current_session: sessionId, last_login: new Date().toISOString() });
+                            await updateDoc(docRef, { [sessionField]: sessionId, last_login: new Date().toISOString() });
 
                             localStorage.setItem('user_' + APP_ID, email);
                             localStorage.setItem('doc_id_' + APP_ID, docSnap.id);
                             localStorage.setItem('session_' + APP_ID, sessionId);
+                            localStorage.setItem('role_' + APP_ID, deviceRole);
 
-                            monitorSession(docSnap.id);
-                            showApp(); 
+                            monitorSessionDual(docSnap.id);
+                            showAppDual(); 
                         } catch (writeError) {
                             localStorage.setItem('user_' + APP_ID, email);
-                            showApp(); 
+                            localStorage.setItem('role_' + APP_ID, deviceRole);
+                            showAppDual(); 
                         }
                     }
                 } else {
-                    showMessage("❌ DATOS INVÁLIDOS", "error");
+                    showMessageDual("❌ DATOS INVÁLIDOS", "error");
                 }
-            } catch (error) { showMessage("ERROR: " + error.message, "error"); }
+            } catch (error) { showMessageDual("ERROR: " + error.message, "error"); }
             btn.innerHTML = 'ENTRAR <i class="fas fa-chevron-right ml-3 text-xs"></i>'; btn.disabled = false;
         });
 
-        function monitorSession(docId) {
-            if (unsubscribeSession) unsubscribeSession();
+        function monitorSessionDual(docId) {
+            if (unsubscribeSessionDual) unsubscribeSessionDual();
             try {
                 const docRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'access_codes', docId);
-                unsubscribeSession = onSnapshot(docRef, (docSnap) => {
+                unsubscribeSessionDual = onSnapshot(docRef, (docSnap) => {
                     const data = docSnap.data();
                     const localSession = localStorage.getItem('session_' + APP_ID);
-                    if (data && data.current_session && data.current_session !== localSession) {
-                        forceLogout();
+                    const role = localStorage.getItem('role_' + APP_ID) || 'sensor';
+                    const sessionField = role === 'tv' ? 'current_session_tv' : 'current_session_sensor';
+
+                    if (data && data[sessionField] && data[sessionField] !== localSession) {
+                        forceLogoutDual();
                     }
                 });
             } catch (e) {}
         }
 
-        function showMessage(text, type) {
+        function showMessageDual(text, type) {
             const box = document.getElementById('msg-box');
             box.textContent = text;
             box.className = `p-3 rounded-xl text-xs text-center font-bold border ${type === 'error' ? 'bg-red-900/40 text-red-200 border-red-500/50' : 'bg-green-900/40 text-green-200 border-green-500/50'}`;
             box.classList.remove('hidden');
         }
 
-        function showApp() {
+        function showAppDual() {
             document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('app-frame').src = APP_FILENAME;
+            const role = localStorage.getItem('role_' + APP_ID);
+            const targetUrl = role === 'tv' ? `${APP_FILENAME}?tv=true` : APP_FILENAME;
+            
+            document.getElementById('app-frame').src = targetUrl;
             document.getElementById('app-frame').style.display = 'block';
             document.getElementById('logout-btn').classList.remove('hidden');
         }
 
-        function forceLogout() {
+        function forceLogoutDual() {
             document.getElementById('session-alert').style.display = 'flex';
             localStorage.removeItem('user_' + APP_ID); 
             localStorage.removeItem('session_' + APP_ID);
             localStorage.removeItem('doc_id_' + APP_ID);
+            localStorage.removeItem('role_' + APP_ID);
             document.getElementById('app-frame').src = 'about:blank';
         }
 
-        window.logout = function() { 
-            if (unsubscribeSession) unsubscribeSession();
+        window.logoutDual = function() { 
+            if (unsubscribeSessionDual) unsubscribeSessionDual();
             localStorage.removeItem('user_' + APP_ID); 
             localStorage.removeItem('session_' + APP_ID);
             localStorage.removeItem('doc_id_' + APP_ID);
+            localStorage.removeItem('role_' + APP_ID);
             location.reload(); 
         }
 
         const savedUser = localStorage.getItem('user_' + APP_ID);
         const savedDocId = localStorage.getItem('doc_id_' + APP_ID);
         if(savedUser && savedDocId) {
-            showApp();
-            monitorSession(savedDocId);
-        } else if (savedUser) window.logout(); 
+            showAppDual();
+            monitorSessionDual(savedDocId);
+        } else if (savedUser) window.logoutDual(); 
     </script>
 </body>
 </html>
