@@ -176,20 +176,27 @@
         .tv-scrollbar::-webkit-scrollbar { width: 6px; }
         .tv-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
         .tv-scrollbar::-webkit-scrollbar-thumb { background: rgba(250, 204, 21, 0.3); border-radius: 4px; }
-        .tv-grid-snapping { grid-auto-rows: 120px; }
-        .tv-widget { transition: box-shadow 0.2s ease, border-color 0.2s ease; container-type: size; height: 100%; }
+        
+        /* CUADRÍCULA ESTRICTA (0 SCROLL) */
+        .tv-grid-perfect { 
+            grid-template-columns: repeat(12, minmax(0, 1fr)); 
+            grid-template-rows: repeat(10, minmax(0, 1fr)); 
+        }
+        
+        .tv-widget { transition: box-shadow 0.2s ease, border-color 0.2s ease; container-type: size; height: 100%; min-height: 0; min-width: 0; }
         .tv-widget:hover { border-color: rgba(250, 204, 21, 0.3); }
         
-        /* Typography TV */
-        .cq-text-xxs { font-size: clamp(0.5rem, 3cqmin, 1rem); line-height: 1.1; }
-        .cq-text-xs { font-size: clamp(0.6rem, 4cqmin, 1.25rem); line-height: 1.1; }
-        .cq-text-sm { font-size: clamp(0.75rem, 5cqmin, 1.5rem); line-height: 1.1; }
-        .cq-text-2xl { font-size: clamp(1.5rem, 12cqmin, 4.5rem); line-height: 1; }
-        .cq-text-3xl { font-size: clamp(1.875rem, 15cqmin, 5.5rem); line-height: 1; }
-        .cq-text-5xl { font-size: clamp(3rem, 25cqmin, 9rem); line-height: 0.9; }
-        .cq-text-giant { font-size: clamp(4rem, 35cqmin, 15rem); line-height: 0.8; letter-spacing: -0.02em; }
-        .cq-text-table { font-size: clamp(0.75rem, 3.5cqmin, 1.25rem); line-height: 1.2; }
-        .cq-text-table-header { font-size: clamp(0.6rem, 2.5cqmin, 1rem); line-height: 1.2; }
+        /* TIPOGRAFÍA TV FLUIDA 100% ADAPTATIVA AL CONTENEDOR (CQMIN) */
+        .cq-text-xxs { font-size: clamp(0.4rem, 2.5cqmin, 0.9rem); line-height: 1.1; }
+        .cq-text-xs  { font-size: clamp(0.5rem, 3.5cqmin, 1.25rem); line-height: 1.1; }
+        .cq-text-sm  { font-size: clamp(0.6rem, 5cqmin, 1.75rem); line-height: 1.1; }
+        .cq-text-base{ font-size: clamp(0.7rem, 6.5cqmin, 2.25rem); line-height: 1.1; }
+        .cq-text-lg  { font-size: clamp(0.8rem, 8cqmin, 3rem); line-height: 1.1; }
+        .cq-text-xl  { font-size: clamp(1rem, 10cqmin, 4rem); line-height: 1.1; }
+        .cq-text-2xl { font-size: clamp(1.2rem, 12cqmin, 5rem); line-height: 1; }
+        .cq-text-4xl { font-size: clamp(1.5rem, 16cqmin, 7rem); line-height: 0.9; }
+        .cq-text-5xl { font-size: clamp(2rem, 22cqmin, 9rem); line-height: 0.9; }
+        .cq-text-giant{font-size: clamp(2.5rem, 30cqmin, 15rem); line-height: 0.8; letter-spacing: -0.02em; }
 
         .drag-handle { cursor: grab; touch-action: none; } .drag-handle:active { cursor: grabbing; }
         .resize-widget-handle { touch-action: none; }
@@ -236,7 +243,7 @@
                         <span class="text-[11px] font-bold uppercase tracking-wider">TV CLOUD</span>
                     </button>
                     <button id="direct-tv-btn" class="shrink-0 flex items-center text-slate-800 hover:text-white transition-colors px-3 py-1.5 rounded-full bg-slate-200 hover:bg-slate-800 border border-slate-500 shadow-sm">
-                        <span class="text-[11px] font-bold uppercase tracking-wider">MODO TV</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider">TELEMETRÍA TV</span>
                     </button>
                 </div>
             </div>
@@ -385,15 +392,23 @@
             
             <div id="telemetry-grid" class="telemetry-grid-twin">
                 <div class="telemetry-col">
+                    <div class="flex flex-col items-center justify-center bg-yellow-100/50 border border-yellow-400/50 rounded-lg p-1.5 mb-1 shadow-sm">
+                        <span id="p1-telemetry-name" class="text-xs font-black text-amber-900 uppercase tracking-wide truncate w-full text-center">PILOTO 1</span>
+                        <span id="p1-telemetry-car" class="text-[9px] font-bold text-yellow-700 uppercase tracking-widest truncate w-full text-center">PORSCHE 911</span>
+                    </div>
                     <div class="telemetry-item bg-p1-soft"><p class="telemetry-label" data-lang-key="best_lap">MEJOR VUELTA</p><p id="p1-best-lap" class="telemetry-data font-arial text-lg">--.---</p></div>
                     <div class="telemetry-item"><p class="telemetry-label" data-lang-key="last_lap">ÚLTIMA</p><p id="p1-last-lap" class="telemetry-data font-arial">--.---</p></div>
-                    <div class="telemetry-item"><p class="telemetry-label" data-lang-key="speed">VELOCIDAD</p><p id="p1-avg-speed" class="telemetry-data font-arial">--.- Km/h</p></div>
+                    <div class="telemetry-item"><p class="telemetry-label" data-lang-key="speed">VELOCIDAD</p><p id="p1-avg-speed" class="telemetry-data font-arial">--.- Km/h <span class="text-[10px] text-amber-800 ml-1 font-bold">(1:32: --.-)</span></p></div>
                     <div class="telemetry-item"><p class="telemetry-label">GAP</p><p id="p1-gap" class="telemetry-data font-arial text-amber-900">--</p></div>
                 </div>
                 <div id="p2-telemetry-col" class="telemetry-col">
+                    <div class="flex flex-col items-center justify-center bg-orange-100/50 border border-orange-400/50 rounded-lg p-1.5 mb-1 shadow-sm">
+                        <span id="p2-telemetry-name" class="text-xs font-black text-orange-900 uppercase tracking-wide truncate w-full text-center">PILOTO 2</span>
+                        <span id="p2-telemetry-car" class="text-[9px] font-bold text-orange-700 uppercase tracking-widest truncate w-full text-center">AUDI R8</span>
+                    </div>
                     <div class="telemetry-item bg-p2-soft"><p class="telemetry-label" data-lang-key="best_lap">MEJOR VUELTA</p><p id="p2-best-lap" class="telemetry-data font-arial text-lg">--.---</p></div>
                     <div class="telemetry-item"><p class="telemetry-label" data-lang-key="last_lap">ÚLTIMA</p><p id="p2-last-lap" class="telemetry-data font-arial">--.---</p></div>
-                    <div class="telemetry-item"><p class="telemetry-label" data-lang-key="speed">VELOCIDAD</p><p id="p2-avg-speed" class="telemetry-data font-arial">--.- Km/h</p></div>
+                    <div class="telemetry-item"><p class="telemetry-label" data-lang-key="speed">VELOCIDAD</p><p id="p2-avg-speed" class="telemetry-data font-arial">--.- Km/h <span class="text-[10px] text-amber-800 ml-1 font-bold">(1:32: --.-)</span></p></div>
                     <div class="telemetry-item"><p class="telemetry-label">GAP</p><p id="p2-gap" class="telemetry-data font-arial text-amber-900">--</p></div>
                 </div>
             </div>
@@ -431,123 +446,124 @@
             </div>
         </div>
         
-        <div id="tv-grid-container" class="flex-1 grid grid-cols-1 md:grid-cols-6 xl:grid-cols-12 gap-4 lg:gap-5 overflow-y-auto tv-scrollbar pb-6 tv-grid-snapping">
+        <div id="tv-grid-container" class="flex-1 grid gap-3 lg:gap-4 overflow-hidden pb-2 tv-grid-perfect">
             
-            <!-- TIEMPO GLOBAL -->
-            <div id="w-time" class="tv-widget col-span-1 md:col-span-6 xl:col-span-12 row-span-1 tv-panel flex flex-col justify-center items-center border-b-2 border-slate-600/50 group">
+            <!-- TIEMPO GLOBAL (Fila 1: Ancho Completo) -->
+            <div id="w-time" class="tv-widget col-span-12 row-span-1 tv-panel flex flex-col justify-center items-center border-b-2 border-slate-600/50 group p-1">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span class="text-slate-400 font-rajdhani font-semibold cq-text-xs mb-1 pointer-events-none">TIEMPO GLOBAL</span>
-                <span id="tv-race-time" class="tv-font cq-text-5xl font-black text-white pointer-events-none">00:00.0</span>
+                <span class="text-slate-400 font-rajdhani font-semibold cq-text-sm mb-1 pointer-events-none tracking-widest leading-none">TIEMPO GLOBAL</span>
+                <span id="tv-race-time" class="tv-font cq-text-giant font-black text-white pointer-events-none leading-none">00:00.0</span>
             </div>
 
-            <!-- P1 MAIN -->
-            <div id="w-p1-main" class="tv-widget col-span-1 md:col-span-3 xl:col-span-3 row-span-2 tv-panel flex flex-col items-center justify-center border-t-4 border-yellow-400 bg-yellow-900/10 group">
+            <!-- P1 MAIN (Fila 2, 3: Ancho 3) -->
+            <div id="w-p1-main" class="tv-widget col-span-3 row-span-2 tv-panel flex flex-col items-center justify-center border-t-4 border-yellow-400 bg-yellow-900/10 group p-2">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span id="tv-p1-name" class="cq-text-sm font-rajdhani font-bold text-yellow-400 tracking-widest uppercase mb-2 pointer-events-none">P1</span>
-                <span id="tv-p1-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none">00.000</span>
-                <div class="mt-4 pointer-events-none"><span id="tv-p1-gap" class="tv-font cq-text-2xl font-bold px-4 py-1.5 rounded-lg shadow-md">--</span></div>
+                <span id="tv-p1-name" class="cq-text-xl font-rajdhani font-bold text-yellow-400 tracking-widest uppercase mb-1 pointer-events-none text-center leading-none">P1</span>
+                <span id="tv-p1-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none leading-none">00.000</span>
+                <div class="mt-2 pointer-events-none"><span id="tv-p1-gap" class="tv-font cq-text-2xl font-bold px-3 py-1 rounded-lg shadow-md leading-none flex items-center justify-center">--</span></div>
             </div>
 
-            <!-- P2 MAIN -->
-            <div id="w-p2-main" class="tv-widget col-span-1 md:col-span-3 xl:col-span-3 row-span-2 tv-panel flex flex-col items-center justify-center border-t-4 border-orange-500 bg-orange-900/10 group">
-                <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-orange-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span id="tv-p2-name" class="cq-text-sm font-rajdhani font-bold text-orange-400 tracking-widest uppercase mb-2 pointer-events-none">P2</span>
-                <span id="tv-p2-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none">00.000</span>
-                <div class="mt-4 pointer-events-none"><span id="tv-p2-gap" class="tv-font cq-text-2xl font-bold px-4 py-1.5 rounded-lg shadow-md">--</span></div>
-            </div>
-
-            <!-- P1 STATS -->
-            <div id="w-p1-stats" class="tv-widget col-span-1 md:col-span-3 xl:col-span-3 row-span-2 tv-panel flex flex-col justify-center p-4 border-l-4 border-yellow-400/50 group">
+            <!-- P1 STATS (Fila 2, 3: Ancho 3) -->
+            <div id="w-p1-stats" class="tv-widget col-span-3 row-span-2 tv-panel flex flex-col justify-between p-3 lg:p-4 border-l-4 border-yellow-400/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span class="text-yellow-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest text-xs pointer-events-none">Estadísticas Oro</span>
-                <div class="grid grid-cols-2 gap-2 text-sm mt-1 pointer-events-none">
-                    <div><span class="text-slate-400 block text-[10px] font-bold">VUELTAS</span><span id="tv-p1-laps" class="font-bold text-white tv-font">0</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">CONSISTENCIA</span><span id="tv-p1-cons" class="font-bold text-blue-400 tv-font">--%</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">MEJOR</span><span id="tv-p1-best" class="font-bold text-green-400 tv-font">--.---</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">ÚLTIMA</span><span id="tv-p1-last" class="font-bold text-white tv-font">--.---</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">VEL. MED</span><span id="tv-p1-spd" class="font-bold text-white tv-font">--.-</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">VEL. MÁX</span><span id="tv-p1-max" class="font-bold text-purple-400 tv-font">--.-</span></div>
+                <span class="text-yellow-400 font-rajdhani font-bold mb-1 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none shrink-0 leading-none">Estadísticas Oro</span>
+                <div class="grid grid-cols-2 gap-x-2 gap-y-1 mt-1 pointer-events-none flex-1 content-between w-full h-full min-h-0">
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">VUELTAS</span><span id="tv-p1-laps" class="font-bold text-white tv-font cq-text-lg leading-none">0</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">CONSISTENCIA</span><span id="tv-p1-cons" class="font-bold text-blue-400 tv-font cq-text-lg leading-none">--%</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">MEJOR</span><span id="tv-p1-best" class="font-bold text-green-400 tv-font cq-text-lg leading-none">--.---</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">ÚLTIMA</span><span id="tv-p1-last" class="font-bold text-white tv-font cq-text-lg leading-none">--.---</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">VEL. MED</span><span id="tv-p1-spd" class="font-bold text-white tv-font cq-text-lg leading-none flex items-baseline truncate">--.- <span class="text-slate-500 cq-text-xs ml-1">(1:32: --.-)</span></span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">VEL. MÁX</span><span id="tv-p1-max" class="font-bold text-purple-400 tv-font cq-text-lg leading-none flex items-baseline truncate">--.- <span class="text-slate-500 cq-text-xs ml-1">(1:32: --.-)</span></span></div>
                 </div>
             </div>
 
-            <!-- P2 STATS -->
-            <div id="w-p2-stats" class="tv-widget col-span-1 md:col-span-3 xl:col-span-3 row-span-2 tv-panel flex flex-col justify-center p-4 border-l-4 border-orange-500/50 group">
+            <!-- P2 MAIN (Fila 2, 3: Ancho 3) -->
+            <div id="w-p2-main" class="tv-widget col-span-3 row-span-2 tv-panel flex flex-col items-center justify-center border-t-4 border-orange-500 bg-orange-900/10 group p-2">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-orange-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span class="text-orange-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest text-xs pointer-events-none">Estadísticas Cobre</span>
-                <div class="grid grid-cols-2 gap-2 text-sm mt-1 pointer-events-none">
-                    <div><span class="text-slate-400 block text-[10px] font-bold">VUELTAS</span><span id="tv-p2-laps" class="font-bold text-white tv-font">0</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">CONSISTENCIA</span><span id="tv-p2-cons" class="font-bold text-blue-400 tv-font">--%</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">MEJOR</span><span id="tv-p2-best" class="font-bold text-green-400 tv-font">--.---</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">ÚLTIMA</span><span id="tv-p2-last" class="font-bold text-white tv-font">--.---</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">VEL. MED</span><span id="tv-p2-spd" class="font-bold text-white tv-font">--.-</span></div>
-                    <div><span class="text-slate-400 block text-[10px] font-bold">VEL. MÁX</span><span id="tv-p2-max" class="font-bold text-purple-400 tv-font">--.-</span></div>
+                <span id="tv-p2-name" class="cq-text-xl font-rajdhani font-bold text-orange-400 tracking-widest uppercase mb-1 pointer-events-none text-center leading-none">P2</span>
+                <span id="tv-p2-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none leading-none">00.000</span>
+                <div class="mt-2 pointer-events-none"><span id="tv-p2-gap" class="tv-font cq-text-2xl font-bold px-3 py-1 rounded-lg shadow-md leading-none flex items-center justify-center">--</span></div>
+            </div>
+
+            <!-- P2 STATS (Fila 2, 3: Ancho 3) -->
+            <div id="w-p2-stats" class="tv-widget col-span-3 row-span-2 tv-panel flex flex-col justify-between p-3 lg:p-4 border-l-4 border-orange-500/50 group">
+                <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
+                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-orange-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <span class="text-orange-400 font-rajdhani font-bold mb-1 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none shrink-0 leading-none">Estadísticas Cobre</span>
+                <div class="grid grid-cols-2 gap-x-2 gap-y-1 mt-1 pointer-events-none flex-1 content-between w-full h-full min-h-0">
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">VUELTAS</span><span id="tv-p2-laps" class="font-bold text-white tv-font cq-text-lg leading-none">0</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">CONSISTENCIA</span><span id="tv-p2-cons" class="font-bold text-blue-400 tv-font cq-text-lg leading-none">--%</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">MEJOR</span><span id="tv-p2-best" class="font-bold text-green-400 tv-font cq-text-lg leading-none">--.---</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">ÚLTIMA</span><span id="tv-p2-last" class="font-bold text-white tv-font cq-text-lg leading-none">--.---</span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">VEL. MED</span><span id="tv-p2-spd" class="font-bold text-white tv-font cq-text-lg leading-none flex items-baseline truncate">--.- <span class="text-slate-500 cq-text-xs ml-1">(1:32: --.-)</span></span></div>
+                    <div class="flex flex-col justify-center"><span class="text-slate-400 block cq-text-xs font-bold leading-tight">VEL. MÁX</span><span id="tv-p2-max" class="font-bold text-purple-400 tv-font cq-text-lg leading-none flex items-baseline truncate">--.- <span class="text-slate-500 cq-text-xs ml-1">(1:32: --.-)</span></span></div>
                 </div>
             </div>
 
-            <!-- COMBINED GRAPH -->
-            <div id="w-combined-graph" class="tv-widget col-span-1 md:col-span-6 xl:col-span-6 row-span-2 tv-panel flex flex-col p-4 group">
+            <!-- COMBINED GRAPH (Fila 4, 5, 6: Ancho 8) -->
+            <div id="w-combined-graph" class="tv-widget col-span-8 row-span-3 tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-cyan-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-cyan-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                 <span class="cq-text-xs text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 z-10 pointer-events-none">Evolución Tiempos & Delta (S)</span>
-                 <canvas id="tv-combined-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
+                 <span class="cq-text-sm text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 z-10 pointer-events-none leading-none shrink-0">Evolución Tiempos & Delta (S)</span>
+                 <canvas id="tv-combined-graph" class="w-full flex-1 min-h-0 mt-2 pointer-events-none"></canvas>
             </div>
 
-            <!-- GRAPH -->
-            <div id="w-graph" class="tv-widget col-span-1 md:col-span-6 xl:col-span-6 row-span-2 tv-panel flex flex-col p-4 group">
-                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                 <span class="cq-text-xs text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none">Comparativa Barras</span>
-                 <canvas id="tv-lap-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
-            </div>
-
-            <!-- SPEED GRAPH -->
-            <div id="w-speed-graph" class="tv-widget col-span-1 md:col-span-6 xl:col-span-4 row-span-2 tv-panel flex flex-col p-4 group">
-                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-purple-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-purple-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                 <span class="cq-text-xs text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none">Curva Velocidad (Km/h)</span>
-                 <canvas id="tv-speed-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
-            </div>
-
-            <!-- CONSISTENCY GRAPH -->
-            <div id="w-consistency-graph" class="tv-widget col-span-1 md:col-span-6 xl:col-span-4 row-span-2 tv-panel flex flex-col p-4 group">
-                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-blue-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-blue-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                 <span class="cq-text-xs text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none">Evolución Consistencia (%)</span>
-                 <canvas id="tv-consistency-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
-            </div>
-
-            <!-- HISTORY -->
-            <div id="w-history" class="tv-widget col-span-1 md:col-span-6 xl:col-span-4 row-span-4 tv-panel flex flex-col p-0 overflow-hidden group">
+            <!-- HISTORY (Fila 4 a 10: Ancho 4) -->
+            <div id="w-history" class="tv-widget col-span-4 row-span-7 tv-panel flex flex-col p-0 overflow-hidden group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <div class="bg-slate-800/50 p-2 border-b border-slate-700/50 shrink-0 text-center pointer-events-none">
-                    <h3 class="text-slate-300 font-rajdhani font-bold uppercase tracking-widest text-xs">Historial Cara a Cara</h3>
+                <div class="bg-slate-800/50 p-2 border-b border-slate-700/50 shrink-0 text-center pointer-events-none flex items-center justify-center">
+                    <h3 class="text-slate-300 font-rajdhani font-bold uppercase tracking-widest cq-text-sm leading-none">Historial Cara a Cara</h3>
                 </div>
-                <div class="flex-1 overflow-y-auto p-2 tv-scrollbar h-full pointer-events-none">
-                    <table class="w-full text-left text-sm">
+                <!-- El scroll interior del historial SÍ se permite, para no desbordar el layout principal -->
+                <div class="flex-1 overflow-y-auto p-2 tv-scrollbar h-full min-h-0">
+                    <table class="w-full text-left cq-text-sm pointer-events-none">
                         <thead class="sticky top-0 bg-slate-800/90 backdrop-blur z-10">
                             <tr>
-                                <th class="py-1 px-1 text-slate-400 font-rajdhani text-[10px]">V</th>
-                                <th class="py-1 px-1 text-yellow-400 font-rajdhani text-[10px]">P1</th>
-                                <th class="py-1 px-1 text-orange-400 font-rajdhani text-[10px]">P2</th>
-                                <th class="py-1 px-1 text-slate-400 font-rajdhani text-[10px] text-right">DIF</th>
+                                <th class="py-1 px-1 text-slate-400 font-rajdhani cq-text-xs">V</th>
+                                <th class="py-1 px-1 text-yellow-400 font-rajdhani cq-text-xs">P1</th>
+                                <th class="py-1 px-1 text-orange-400 font-rajdhani cq-text-xs">P2</th>
+                                <th class="py-1 px-1 text-slate-400 font-rajdhani cq-text-xs text-right">DIF</th>
                             </tr>
                         </thead>
-                        <tbody id="tv-lap-tbody" class="tv-font text-slate-200 text-xs"></tbody>
+                        <tbody id="tv-lap-tbody" class="tv-font text-slate-200"></tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- SPEED GRAPH (Fila 7, 8: Ancho 4) -->
+            <div id="w-speed-graph" class="tv-widget col-span-4 row-span-2 tv-panel flex flex-col p-4 group">
+                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-purple-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
+                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-purple-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <span class="cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none leading-none shrink-0">Curva Velocidad (Km/h)</span>
+                 <canvas id="tv-speed-graph" class="w-full flex-1 min-h-0 mt-2 pointer-events-none"></canvas>
+            </div>
+
+            <!-- CONSISTENCY GRAPH (Fila 7, 8: Ancho 4) -->
+            <div id="w-consistency-graph" class="tv-widget col-span-4 row-span-2 tv-panel flex flex-col p-4 group">
+                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-blue-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
+                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-blue-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <span class="cq-text-sm text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none leading-none shrink-0">Evolución Consistencia (%)</span>
+                 <canvas id="tv-consistency-graph" class="w-full flex-1 min-h-0 mt-2 pointer-events-none"></canvas>
+            </div>
+
+            <!-- GRAPH COMPARATIVA (Fila 9, 10: Ancho 8) -->
+            <div id="w-graph" class="tv-widget col-span-8 row-span-2 tv-panel flex flex-col p-4 group">
+                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
+                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <span class="cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none leading-none shrink-0">Comparativa Barras</span>
+                 <canvas id="tv-lap-graph" class="w-full flex-1 min-h-0 mt-2 pointer-events-none"></canvas>
             </div>
             
         </div>
     </div>
 
     <!-- ================= MODALES GLOBALES ================= -->
-    <div id="tvSetupModal" class="modal-overlay hidden"><div class="modal-content p-6 w-full max-w-md bg-white text-black"><h3 class="text-xl font-bold mb-4">Sincronizar TV (Cloud)</h3><p class="mb-2">Tu Código de Sala: <br><span id="room-code-display" class="font-black text-blue-600 text-3xl tracking-widest bg-blue-100 px-4 py-1 rounded"></span></p><p class="text-sm text-gray-600 mb-4">Abre esta web en una Smart TV e introduce este código, o usa el botón local.</p><input type="text" id="tv-code-input" class="border-2 border-gray-300 rounded p-2 w-full mt-2 font-bold text-center uppercase" placeholder="CÓDIGO DE RECEPCIÓN"><button id="btn-tv-connect" class="bg-blue-600 font-bold text-white rounded w-full p-3 mt-3 hover:bg-blue-700">CONECTAR COMO TV</button><hr class="my-4"><button id="btn-tv-local" class="bg-gray-200 text-black font-bold w-full p-2 mb-2 rounded hover:bg-gray-300">MODO TV (Monitor Extra / PC)</button><button id="close-tv-setup-btn" class="text-red-500 font-bold w-full p-2 hover:bg-red-50 rounded">Cerrar</button></div></div>
+    <div id="tvSetupModal" class="modal-overlay hidden"><div class="modal-content p-6 w-full max-w-md bg-white text-black"><h3 class="text-xl font-bold mb-4">Sincronizar TV (Cloud)</h3><p class="mb-2">Tu Código de Sala: <br><span id="room-code-display" class="font-black text-blue-600 text-3xl tracking-widest bg-blue-100 px-4 py-1 rounded"></span></p><p class="text-sm text-gray-600 mb-4">Abre esta web en una Smart TV e introduce este código, o usa el botón local.</p><input type="text" id="tv-code-input" class="border-2 border-gray-300 rounded p-2 w-full mt-2 font-bold text-center uppercase" placeholder="CÓDIGO DE RECEPCIÓN"><button id="btn-tv-connect" class="bg-blue-600 font-bold text-white rounded w-full p-3 mt-3 hover:bg-blue-700">CONECTAR COMO TV</button><hr class="my-4"><button id="btn-tv-local" class="bg-gray-200 text-black font-bold w-full p-2 mb-2 rounded hover:bg-gray-300">TELEMETRÍA TV (Monitor Extra / PC)</button><button id="close-tv-setup-btn" class="text-red-500 font-bold w-full p-2 hover:bg-red-50 rounded">Cerrar</button></div></div>
     
     <div id="tutorialModal" class="modal-overlay hidden"><div class="modal-content p-8 bg-white text-black text-center max-w-sm"><h3 class="text-2xl font-bold mb-4">¡Bienvenido a KronoDual!</h3><p class="text-sm text-gray-700 mb-6 text-left">1. Enfoca tu cámara a la pista.<br>2. Arrastra las cajas sobre cada carril.<br>3. Deja la pista vacía y pulsa <b>AUTO CALIBRAR</b>.<br>4. ¡Pasa un coche para probar y dale a INICIAR!</p><button id="close-tutorial-btn" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-lg shadow-md">¡ENTENDIDO!</button></div></div>
     
@@ -1047,7 +1063,7 @@
                 const trackLen = parseFloat(trackLengthInput.value) || 15; 
                 p.avgSpeed = (trackLen/(avg/1000))*3.6; 
                 p.consistency = avg > 0 ? (p.bestLap / avg) * 100 : 0;
-                document.getElementById(p.avgSpeedId).textContent = p.avgSpeed.toFixed(1) + " Km/h"; 
+                document.getElementById(p.avgSpeedId).innerHTML = p.avgSpeed.toFixed(1) + ' Km/h <span class="text-[10px] text-amber-800 ml-1 font-bold">(1:32: ' + (p.avgSpeed * 32).toFixed(1) + ' Km/h)</span>'; 
             }
         }
 
@@ -1102,7 +1118,7 @@
             return {
                 timestamp: Date.now(), raceMode: raceMode, activePlayers: activePlayers, trackLength: parseFloat(trackLengthInput.value) || 15, totalLapsTarget: totalLapsTarget, raceDurationTarget: raceDurationTarget, isRaceActive: isRaceActive, isCountdown: isCountdown, isPaused: isPaused, raceAborted: raceAborted, raceStartTime: raceStartTime, currentLang: currentLang,
                 players: players.map(p => ({ 
-                    id: p.id, name: document.getElementById(p.nameId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
+                    id: p.id, name: document.getElementById(p.nameId).value, car: document.getElementById(p.carId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
                     totalTime: p.totalTime, finished: p.finished, lapStartTime: p.lapStartTime, hasCrossedStart: p.hasCrossedStart, gapText: document.getElementById(p.gapId).textContent,
                     avgSpeed: p.avgSpeed, maxSpeed: p.maxSpeed, consistency: p.consistency
                 }))
@@ -1157,14 +1173,19 @@
                             let targetH = startH + (currentY - startY);
                             const grid = document.getElementById('tv-grid-container');
                             const gridStyle = window.getComputedStyle(grid);
-                            const cols = gridStyle.gridTemplateColumns.split(' ').length;
-                            const gap = parseFloat(gridStyle.gap) || 20;
+                            
+                            // Matemáticas precisas de redimensionamiento dinámico
+                            const cols = 12; // Grid estricto de 12
+                            const rows = 10; // Grid estricto de 10
+                            const gap = parseFloat(gridStyle.gap) || 12;
+                            
                             const colW = (grid.clientWidth - (gap * (cols - 1))) / cols;
-                            const rowH = 120; // Hardcoded from css snapping
+                            const rowH = (grid.clientHeight - (gap * (rows - 1))) / rows;
                             
                             let spanCol = Math.max(1, Math.round(targetW / (colW + gap)));
                             let spanRow = Math.max(1, Math.round(targetH / (rowH + gap)));
                             spanCol = Math.min(spanCol, cols); 
+                            spanRow = Math.min(spanRow, rows);
                             
                             widget.style.gridColumn = `span ${spanCol}`;
                             widget.style.gridRow = `span ${spanRow}`;
@@ -1319,25 +1340,25 @@
                 else statusEl.className = "text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-400";
 
                 if (p1) { 
-                    document.getElementById('tv-p1-name').textContent = p1.name; 
+                    document.getElementById('tv-p1-name').innerHTML = `${p1.name} <span class="text-yellow-200/70 cq-text-sm tracking-widest ml-1">${p1.car || ''}</span>`; 
                     document.getElementById('tv-p1-gap').textContent = p1.gapText; 
                     document.getElementById('tv-p1-laps').textContent = p1.laps;
                     document.getElementById('tv-p1-best').textContent = p1.bestLap !== Infinity && p1.bestLap != null ? formatTime(p1.bestLap) : '--.---';
                     document.getElementById('tv-p1-last').textContent = p1.lapHistory && p1.lapHistory.length > 0 ? formatTime(p1.lapHistory[p1.lapHistory.length-1]) : '--.---';
-                    document.getElementById('tv-p1-spd').textContent = (p1.avgSpeed || 0).toFixed(1);
-                    document.getElementById('tv-p1-max').textContent = (p1.maxSpeed || 0).toFixed(1);
+                    document.getElementById('tv-p1-spd').innerHTML = (p1.avgSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p1.avgSpeed || 0) * 32).toFixed(1) + ')</span>';
+                    document.getElementById('tv-p1-max').innerHTML = (p1.maxSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p1.maxSpeed || 0) * 32).toFixed(1) + ')</span>';
                     document.getElementById('tv-p1-cons').textContent = (p1.consistency || 0).toFixed(1) + '%';
                 }
                 if (tvData.activePlayers === 2 && p2) { 
                     document.getElementById('w-p2-main').style.display = 'flex'; 
                     document.getElementById('w-p2-stats').style.display = 'flex';
-                    document.getElementById('tv-p2-name').textContent = p2.name; 
+                    document.getElementById('tv-p2-name').innerHTML = `${p2.name} <span class="text-orange-200/70 cq-text-sm tracking-widest ml-1">${p2.car || ''}</span>`; 
                     document.getElementById('tv-p2-gap').textContent = p2.gapText; 
                     document.getElementById('tv-p2-laps').textContent = p2.laps;
                     document.getElementById('tv-p2-best').textContent = p2.bestLap !== Infinity && p2.bestLap != null ? formatTime(p2.bestLap) : '--.---';
                     document.getElementById('tv-p2-last').textContent = p2.lapHistory && p2.lapHistory.length > 0 ? formatTime(p2.lapHistory[p2.lapHistory.length-1]) : '--.---';
-                    document.getElementById('tv-p2-spd').textContent = (p2.avgSpeed || 0).toFixed(1);
-                    document.getElementById('tv-p2-max').textContent = (p2.maxSpeed || 0).toFixed(1);
+                    document.getElementById('tv-p2-spd').innerHTML = (p2.avgSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p2.avgSpeed || 0) * 32).toFixed(1) + ')</span>';
+                    document.getElementById('tv-p2-max').innerHTML = (p2.maxSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p2.maxSpeed || 0) * 32).toFixed(1) + ')</span>';
                     document.getElementById('tv-p2-cons').textContent = (p2.consistency || 0).toFixed(1) + '%';
                 } else { 
                     document.getElementById('w-p2-main').style.display = 'none'; 
@@ -1469,6 +1490,24 @@
 
         window.onload = () => {
             window.updateThreshold(1); window.updateThreshold(2);
+            
+            const updateTelemetryHeaders = () => {
+                const elP1Name = document.getElementById('p1-telemetry-name'); if(elP1Name) elP1Name.textContent = document.getElementById('p1-name').value || 'P1';
+                const elP1Car = document.getElementById('p1-telemetry-car'); if(elP1Car) elP1Car.textContent = document.getElementById('p1-car').value || '-';
+                const elP2Name = document.getElementById('p2-telemetry-name'); if(elP2Name) elP2Name.textContent = document.getElementById('p2-name').value || 'P2';
+                const elP2Car = document.getElementById('p2-telemetry-car'); if(elP2Car) elP2Car.textContent = document.getElementById('p2-car').value || '-';
+            };
+            ['p1-name', 'p1-car', 'p2-name', 'p2-car'].forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('input', () => {
+                        updateTelemetryHeaders();
+                        if (!isTVMode) { broadcastState(); syncToCloud(); }
+                    });
+                }
+            });
+            updateTelemetryHeaders();
+            
             if (!localStorage.getItem('krono_tutorial_seen')) document.getElementById('tutorialModal').classList.remove('hidden');
             if (urlParams.get('tv') === 'true') window.startTVMode(urlParams.get('room') || window.myRoomCode);
             else { setInterval(() => { const pCode = getPortalRoomCode(); if (pCode && pCode !== window.myRoomCode) { window.myRoomCode = pCode; triggerCloudSync(); } }, 1000); }
