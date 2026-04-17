@@ -138,10 +138,8 @@
         .control-icon { width: 18px; height: 18px; margin-right: 8px; display: inline-block; vertical-align: middle; filter: drop-shadow(0 0 2px currentColor); }
         #lap-graph-canvas { width: 100%; height: 200px; background: rgba(0, 0, 0, 0.4); border-radius: 6px; border: 2px solid #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.2); }
         
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s; }
-        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); z-index: 100; display: flex; align-items: center; justify-content: center; }
         .modal-content { background: linear-gradient(145deg, #fcf6ba 0%, #bf953f 100%); color: #2b2005; border-radius: 1.5rem; border: 4px solid #ffd700; box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); max-width: 95%; max-height: 95%; overflow-y: auto; }
-        .modal-overlay.open .modal-content { transform: scale(1); }
         
         table { width: 100%; text-align: left; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 8px; border-bottom: 1px solid #8b4513; font-size: 0.9rem; color: #2b2005; }
@@ -717,7 +715,8 @@
             localStorage.setItem('krono_lang', lang); triggerCloudSync();
         }
         function speak(textKey, suffix = "") {
-            if (!voiceToggle.checked || isTVMode) return;
+            if (isTVMode && (!tvData || !tvData.voiceEnabled)) return;
+            if (!isTVMode && !voiceToggle.checked) return;
             const t = translations[currentLang] || translations['es'];
             let msgText = (t[textKey] || textKey) + suffix;
             const utter = new SpeechSynthesisUtterance(msgText);
@@ -1139,10 +1138,12 @@
         function getPayload() {
             return {
                 timestamp: Date.now(), raceMode: raceMode, activePlayers: activePlayers, trackLength: parseFloat(trackLengthInput.value) || 15, totalLapsTarget: totalLapsTarget, raceDurationTarget: raceDurationTarget, isRaceActive: isRaceActive, isCountdown: isCountdown, isPaused: isPaused, raceAborted: raceAborted, raceStartTime: raceStartTime, currentLang: currentLang,
+                voiceEnabled: voiceToggle.checked,
+                falseStartName: falseStartPlayerName.textContent,
                 players: players.map(p => ({ 
                     id: p.id, name: document.getElementById(p.nameId).value, car: document.getElementById(p.carId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
                     totalTime: p.totalTime, finished: p.finished, lapStartTime: p.lapStartTime, hasCrossedStart: p.hasCrossedStart, gapText: document.getElementById(p.gapId).textContent,
-                    avgSpeed: p.avgSpeed, maxSpeed: p.maxSpeed, consistency: p.consistency
+                    avgSpeed: p.avgSpeed, maxSpeed: p.maxSpeed, consistency: p.consistency, soundTone: p.soundTone
                 }))
             };
         }
@@ -1150,7 +1151,7 @@
         async function syncToCloud() { if (isTVMode || !window.db || !window.auth || !window.auth.currentUser) return; try { await window.fs.setDoc(window.fs.doc(window.db, 'artifacts', globalAppId, 'public', 'data', 'kronodual_tv_sessions', window.myRoomCode), getPayload()); } catch (e) {} }
         let cloudSyncTimeout; function triggerCloudSync() { clearTimeout(cloudSyncTimeout); cloudSyncTimeout = setTimeout(syncToCloud, 500); broadcastState(); }
 
-        let tvData = {}; let lastReceivedLocalTime = Date.now(); let tvIntervalId = null;
+        let tvData = {}; let previousTvData = null; let lastReceivedLocalTime = Date.now(); let tvIntervalId = null;
         
         window.startTVMode = function(roomCode) {
             console.log("Iniciando MODO TV...", roomCode);
@@ -1427,6 +1428,50 @@
                         if(c) { c.width=c.parentElement.clientWidth-32; c.getContext('2d').clearRect(0,0,c.width, c.height); }
                     });
                 }
+
+                // --- DETECCIÓN DE EVENTOS PARA SONIDOS Y VOCES EN MODO TV ---
+                if (previousTvData) {
+                    // Inicia el semáforo
+                    if (!previousTvData.isCountdown && tvData.isCountdown) speak('voice_ready');
+                    
+                    // Empieza la carrera (semáforo verde)
+                    if (!previousTvData.isRaceActive && tvData.isRaceActive && !tvData.raceAborted && previousTvData.isCountdown) {
+                        polySynth.triggerAttackRelease(["C5","G5"],"0.5");
+                    }
+                    
+                    // Salida nula
+                    if (!previousTvData.raceAborted && tvData.raceAborted) {
+                        polySynth.triggerAttackRelease(["C2", "F#2", "C3"], "1");
+                        speak('voice_false_start', " " + (tvData.falseStartName || ""));
+                    }
+
+                    // Tiempos y vueltas de los jugadores
+                    tvData.players.forEach((p) => {
+                        const prevP = previousTvData.players.find(oldP => oldP.id === p.id);
+                        if (prevP) {
+                            // Nueva vuelta completada
+                            if (p.laps > prevP.laps) {
+                                synth.triggerAttackRelease(p.soundTone || "C5", "0.1");
+                                // ¿Récord personal?
+                                if (p.bestLap < prevP.bestLap || (prevP.bestLap === Infinity && p.bestLap !== Infinity)) {
+                                    const lapTimeSec = (p.lapHistory[p.lapHistory.length-1]/1000).toFixed(2);
+                                    speak('voice_record', p.name + "! " + lapTimeSec);
+                                }
+                            }
+                            // Cruza la meta final
+                            if (!prevP.finished && p.finished) {
+                                polySynth.triggerAttackRelease(["E6"], "0.2");
+                            }
+                        }
+                    });
+
+                    // Finaliza toda la carrera
+                    if (previousTvData.isRaceActive && !tvData.isRaceActive && !tvData.isPaused && !tvData.raceAborted && !tvData.isCountdown) {
+                        speak('voice_completed');
+                    }
+                }
+                // Guardar estado actual para comparar en el siguiente tick
+                previousTvData = JSON.parse(JSON.stringify(tvData));
             }
 
             if (cloudRoomCode) {
@@ -1495,13 +1540,16 @@
         
         document.getElementById('open-tv-btn').addEventListener('click', () => { document.getElementById('room-code-display').textContent = window.myRoomCode; document.getElementById('tvSetupModal').classList.remove('hidden'); });
         document.getElementById('close-tv-setup-btn').addEventListener('click', () => document.getElementById('tvSetupModal').classList.add('hidden'));
-        document.getElementById('btn-tv-local').addEventListener('click', () => { window.open(window.location.href.split('?')[0] + '?tv=true', '_blank'); document.getElementById('tvSetupModal').classList.add('hidden'); });
-        document.getElementById('btn-tv-connect').addEventListener('click', () => { const code = document.getElementById('tv-code-input').value.trim().toUpperCase(); if(code) { document.getElementById('tvSetupModal').classList.add('hidden'); window.startTVMode(code); } });
-        document.getElementById('direct-tv-btn').addEventListener('click', () => window.startTVMode(window.myRoomCode));
+        document.getElementById('btn-tv-local').addEventListener('click', async () => { await Tone.start(); window.open(window.location.href.split('?')[0] + '?tv=true', '_blank'); document.getElementById('tvSetupModal').classList.add('hidden'); });
+        document.getElementById('btn-tv-connect').addEventListener('click', async () => { await Tone.start(); const code = document.getElementById('tv-code-input').value.trim().toUpperCase(); if(code) { document.getElementById('tvSetupModal').classList.add('hidden'); window.startTVMode(code); } });
+        document.getElementById('direct-tv-btn').addEventListener('click', async () => { await Tone.start(); window.startTVMode(window.myRoomCode); });
         document.getElementById('close-tutorial-btn').addEventListener('click', () => { document.getElementById('tutorialModal').classList.add('hidden'); localStorage.setItem('krono_tutorial_seen', 'true'); });
         document.getElementById('close-history-btn').addEventListener('click', () => document.getElementById('historyModal').classList.add('hidden'));
         document.getElementById('history-btn').addEventListener('click', () => document.getElementById('historyModal').classList.remove('hidden'));
         document.getElementById('fullscreen-btn').addEventListener('click', () => !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen());
+
+        // Asegurar que el audio se desbloquea en Modo TV si la URL se carga directamente
+        document.body.addEventListener('click', async () => { if (isTVMode) await Tone.start(); }, { once: true });
 
         let actRoi=null, isDrag=false, isResize=false, resizeHandle=null, startX=0, startY=0, startLeft=0, startTop=0, startWidth=0, startHeight=0;
         function getEventPos(e) { return e.touches ? e.touches[0] : e; }
