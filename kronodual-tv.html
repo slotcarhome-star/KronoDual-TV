@@ -449,11 +449,33 @@
         <div id="tv-grid-container" class="flex-1 grid gap-3 lg:gap-4 overflow-hidden pb-2 tv-grid-perfect">
             
             <!-- TIEMPO GLOBAL (Fila 1: Ancho Completo) -->
-            <div id="w-time" class="tv-widget col-span-12 row-span-1 tv-panel flex flex-col justify-center items-center border-b-2 border-slate-600/50 group p-1">
+            <div id="w-time" class="tv-widget col-span-12 row-span-1 tv-panel grid grid-cols-3 items-center border-b-2 border-slate-600/50 group px-4 lg:px-8">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span class="text-slate-400 font-rajdhani font-semibold cq-text-sm mb-1 pointer-events-none tracking-widest leading-none">TIEMPO GLOBAL</span>
-                <span id="tv-race-time" class="tv-font cq-text-giant font-black text-white pointer-events-none leading-none">00:00.0</span>
+                
+                <!-- P1 Header -->
+                <div class="flex flex-col items-start justify-center overflow-hidden pointer-events-none h-full w-full">
+                    <div class="flex items-center gap-2 max-w-full">
+                        <div class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_8px_#facc15] shrink-0"></div>
+                        <span id="tv-header-p1-name" class="font-rajdhani font-black text-yellow-400 cq-text-xl uppercase tracking-widest truncate leading-none">PILOTO 1</span>
+                    </div>
+                    <span id="tv-header-p1-car" class="font-rajdhani font-bold text-slate-400 cq-text-sm uppercase tracking-[0.2em] truncate ml-4 mt-1 leading-none">PORSCHE 911</span>
+                </div>
+
+                <!-- CENTER TIME -->
+                <div class="flex flex-col justify-center items-center pointer-events-none h-full">
+                    <span id="tv-header-mode" class="text-cyan-400 font-rajdhani font-bold cq-text-xs mb-1 tracking-[0.3em] leading-none uppercase">MODO DUELO</span>
+                    <span id="tv-race-time" class="tv-font cq-text-5xl font-black text-white leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">00:00.0</span>
+                </div>
+
+                <!-- P2 Header -->
+                <div id="tv-header-p2-container" class="flex flex-col items-end justify-center overflow-hidden pointer-events-none h-full w-full">
+                    <div class="flex items-center gap-2 max-w-full">
+                        <span id="tv-header-p2-name" class="font-rajdhani font-black text-orange-400 cq-text-xl uppercase tracking-widest truncate leading-none text-right">PILOTO 2</span>
+                        <div class="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_#f97316] shrink-0"></div>
+                    </div>
+                    <span id="tv-header-p2-car" class="font-rajdhani font-bold text-slate-400 cq-text-sm uppercase tracking-[0.2em] truncate mr-4 mt-1 leading-none text-right">AUDI R8</span>
+                </div>
             </div>
 
             <!-- P1 MAIN (Fila 2, 3: Ancho 3) -->
@@ -1339,7 +1361,12 @@
                 if (tvData.isRaceActive) statusEl.className = "text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-green-900 border border-green-500 text-green-400";
                 else statusEl.className = "text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-400";
 
+                const headerMode = document.getElementById('tv-header-mode');
+                if (headerMode) headerMode.textContent = tvData.activePlayers === 1 ? "CONTRARRELOJ" : "MODO DUELO";
+
                 if (p1) { 
+                    const hp1Name = document.getElementById('tv-header-p1-name'); if (hp1Name) hp1Name.textContent = p1.name;
+                    const hp1Car = document.getElementById('tv-header-p1-car'); if (hp1Car) hp1Car.textContent = p1.car || '-';
                     document.getElementById('tv-p1-name').innerHTML = `${p1.name} <span class="text-yellow-200/70 cq-text-sm tracking-widest ml-1">${p1.car || ''}</span>`; 
                     document.getElementById('tv-p1-gap').textContent = p1.gapText; 
                     document.getElementById('tv-p1-laps').textContent = p1.laps;
@@ -1350,6 +1377,9 @@
                     document.getElementById('tv-p1-cons').textContent = (p1.consistency || 0).toFixed(1) + '%';
                 }
                 if (tvData.activePlayers === 2 && p2) { 
+                    const hp2C = document.getElementById('tv-header-p2-container'); if (hp2C) hp2C.style.display = 'flex';
+                    const hp2Name = document.getElementById('tv-header-p2-name'); if (hp2Name) hp2Name.textContent = p2.name;
+                    const hp2Car = document.getElementById('tv-header-p2-car'); if (hp2Car) hp2Car.textContent = p2.car || '-';
                     document.getElementById('w-p2-main').style.display = 'flex'; 
                     document.getElementById('w-p2-stats').style.display = 'flex';
                     document.getElementById('tv-p2-name').innerHTML = `${p2.name} <span class="text-orange-200/70 cq-text-sm tracking-widest ml-1">${p2.car || ''}</span>`; 
@@ -1361,6 +1391,7 @@
                     document.getElementById('tv-p2-max').innerHTML = (p2.maxSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p2.maxSpeed || 0) * 32).toFixed(1) + ')</span>';
                     document.getElementById('tv-p2-cons').textContent = (p2.consistency || 0).toFixed(1) + '%';
                 } else { 
+                    const hp2C = document.getElementById('tv-header-p2-container'); if (hp2C) hp2C.style.display = 'none';
                     document.getElementById('w-p2-main').style.display = 'none'; 
                     document.getElementById('w-p2-stats').style.display = 'none';
                 }
