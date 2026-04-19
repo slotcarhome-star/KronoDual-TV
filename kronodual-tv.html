@@ -114,9 +114,10 @@
         .detection-val { position: absolute; bottom: -22px; right: -2px; background-color: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 3px 6px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); pointer-events: none; font-weight: bold; white-space: nowrap; }
         .test-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00ff00; font-weight: 900; font-size: 20px; text-transform: uppercase; text-shadow: 0 0 10px #000, 0 0 20px #00ff00; pointer-events: none; display: none; white-space: nowrap; z-index: 20; }
 
-        .resize-handle { position: absolute; width: 14px; height: 14px; background-color: #ffd700; border: 2px solid #fff; z-index: 20; box-shadow: 0 0 6px rgba(0,0,0,0.8); touch-action: none; transition: transform 0.1s ease; }
-        .resize-handle:hover { transform: scale(1.2); } .resize-handle:active { background-color: #fff; }
-        .handle-tl { top: -7px; left: -7px; cursor: nwse-resize; border-radius: 2px; } .handle-br { bottom: -7px; right: -7px; cursor: nwse-resize; border-radius: 2px; } 
+        .resize-handle { position: absolute; width: 24px; height: 24px; background-color: #ffd700; border: 2px solid #fff; z-index: 20; box-shadow: 0 0 6px rgba(0,0,0,0.8); touch-action: none; transition: transform 0.1s ease; border-radius: 4px; }
+        .resize-handle:hover { transform: scale(1.1); } .resize-handle:active { background-color: #fff; }
+        .handle-tl { top: -12px; left: -12px; cursor: nwse-resize; } .handle-tr { top: -12px; right: -12px; cursor: nesw-resize; }
+        .handle-bl { bottom: -12px; left: -12px; cursor: nesw-resize; } .handle-br { bottom: -12px; right: -12px; cursor: nwse-resize; } 
 
         #config-panel { transition: all 0.3s ease-in-out; max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-10px); }
         #config-panel.open { max-height: 1500px; opacity: 1; transform: translateY(0); padding: 16px; margin-top: 10px; margin-bottom: 10px; }
@@ -197,11 +198,20 @@
         <video id="webcam-feed" autoplay playsinline></video>
         
         <div id="calib-overlay" class="calib-overlay"><div class="spinner"></div><h3 data-lang-key="calibrating_title">Calibrando Sensores...</h3></div>
-        <div id="yellow-flag-overlay" class="absolute top-0 left-0 w-full h-full bg-yellow-900/60 z-50 hidden backdrop-blur-sm flex flex-col items-center justify-center"><h2 class="text-5xl font-black text-yellow-400 drop-shadow-md" data-lang-key="flag_yellow">PAUSA</h2></div>
+        <div id="yellow-flag-overlay" class="absolute inset-0 bg-black/70 z-50 hidden backdrop-blur-md flex flex-col items-center justify-center border-y-8 border-yellow-400">
+            <div class="animate-pulse flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="#facc15" stroke="#a16207" stroke-width="1" class="mb-4 drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                    <line x1="4" y1="22" x2="4" y2="15" stroke-width="3" stroke="#cbd5e1" stroke-linecap="round"></line>
+                </svg>
+                <h2 class="text-6xl md:text-8xl font-black text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.8)] tracking-widest" data-lang-key="flag_yellow">PAUSA</h2>
+                <p class="text-yellow-200 mt-3 text-lg md:text-2xl font-bold tracking-widest uppercase bg-black/50 px-6 py-2 rounded-full border border-yellow-500/50 shadow-[0_0_10px_rgba(250,204,21,0.3)]">Bandera Amarilla</p>
+            </div>
+        </div>
         <div id="false-start-alert"><h2 data-lang-key="false_start">¡SALIDA NULA!</h2><p id="false-start-player" class="text-xl font-bold mt-2 text-yellow-300"></p></div>
         
-        <div id="roi-p1" class="movable-rectangle" style="top: 25%; left: 10%;"><div class="roi-label">P1</div><div id="msg-p1" class="test-msg"></div><div id="val-p1" class="detection-val">Dif: 0% | Umbral: 20</div><div class="resize-handle handle-tl"></div><div class="resize-handle handle-br"></div></div>
-        <div id="roi-p2" class="movable-rectangle" style="top: 25%; left: 60%;"><div class="roi-label">P2</div><div id="msg-p2" class="test-msg"></div><div id="val-p2" class="detection-val">Dif: 0% | Umbral: 20</div><div class="resize-handle handle-tl"></div><div class="resize-handle handle-br"></div></div>
+        <div id="roi-p1" class="movable-rectangle" style="top: 25%; left: 10%;"><div class="roi-label">P1</div><div id="msg-p1" class="test-msg"></div><div id="val-p1" class="detection-val">Dif: 0% | Umbral: 20</div><div class="resize-handle handle-tl"></div><div class="resize-handle handle-tr"></div><div class="resize-handle handle-bl"></div><div class="resize-handle handle-br"></div></div>
+        <div id="roi-p2" class="movable-rectangle" style="top: 25%; left: 60%;"><div class="roi-label">P2</div><div id="msg-p2" class="test-msg"></div><div id="val-p2" class="detection-val">Dif: 0% | Umbral: 20</div><div class="resize-handle handle-tl"></div><div class="resize-handle handle-tr"></div><div class="resize-handle handle-bl"></div><div class="resize-handle handle-br"></div></div>
         
         <div id="record-notification" class="hidden">¡RÉCORD!</div>
     </div>
@@ -220,7 +230,7 @@
                     <h1 class="text-xl sm:text-2xl md:text-3xl font-black font-rajdhani tracking-widest leading-none text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                         KRONODUAL V.4.1
                     </h1>
-                    <span class="text-[10px] font-bold text-gray-300 tracking-widest mt-1 uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">By Albert Closa</span>
+                    <span class="text-[10px] font-bold text-gray-300 tracking-widest mt-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">by Albert Closa</span>
                 </div>
                 
                 <!-- Botones Utilidades -->
@@ -329,42 +339,6 @@
                 </div>
             </div>
             
-            <!-- TELEMETRÍA (Visible si se scrollea) -->
-            <div class="w-full bg-black/40 backdrop-blur-md border border-white/20 rounded-xl p-4 shadow-lg text-white pointer-events-auto hidden" id="telemetry-panel-wrapper">
-                <div class="flex justify-between items-center mb-3 border-b border-white/20 pb-2">
-                    <h2 class="text-sm font-bold text-blue-400 uppercase tracking-widest" data-lang-key="telemetry_title">TELEMETRÍA EN VIVO</h2>
-                </div>
-                <div id="telemetry-grid" class="grid grid-cols-2 gap-4 w-full">
-                    <!-- P1 Telemetria -->
-                    <div class="flex flex-col gap-2">
-                        <div class="flex flex-col items-center justify-center bg-yellow-900/30 border border-yellow-500/50 rounded-lg p-1.5 shadow-sm">
-                            <span id="p1-telemetry-name" class="text-xs font-black text-yellow-400 uppercase tracking-wide truncate w-full text-center">PILOTO 1</span>
-                            <span id="p1-telemetry-car" class="text-[9px] font-bold text-gray-400 uppercase tracking-widest truncate w-full text-center">PORSCHE 911</span>
-                        </div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase" data-lang-key="best_lap">MEJOR VUELTA</p><p id="p1-best-lap" class="font-arial text-lg font-bold text-green-400">--.---</p></div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase" data-lang-key="last_lap">ÚLTIMA</p><p id="p1-last-lap" class="font-arial font-bold">--.---</p></div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase" data-lang-key="speed">VELOCIDAD</p><p id="p1-avg-speed" class="font-arial font-bold">--.- Km/h</p></div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase">GAP</p><p id="p1-gap" class="font-arial font-bold">--</p></div>
-                    </div>
-                    <!-- P2 Telemetria -->
-                    <div id="p2-telemetry-col" class="flex flex-col gap-2">
-                        <div class="flex flex-col items-center justify-center bg-orange-900/30 border border-orange-500/50 rounded-lg p-1.5 shadow-sm">
-                            <span id="p2-telemetry-name" class="text-xs font-black text-orange-400 uppercase tracking-wide truncate w-full text-center">PILOTO 2</span>
-                            <span id="p2-telemetry-car" class="text-[9px] font-bold text-gray-400 uppercase tracking-widest truncate w-full text-center">AUDI R8</span>
-                        </div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase" data-lang-key="best_lap">MEJOR VUELTA</p><p id="p2-best-lap" class="font-arial text-lg font-bold text-green-400">--.---</p></div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase" data-lang-key="last_lap">ÚLTIMA</p><p id="p2-last-lap" class="font-arial font-bold">--.---</p></div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase" data-lang-key="speed">VELOCIDAD</p><p id="p2-avg-speed" class="font-arial font-bold">--.- Km/h</p></div>
-                        <div class="flex flex-col p-2 rounded bg-white/10 border border-white/20"><p class="text-[9px] font-bold text-gray-400 uppercase">GAP</p><p id="p2-gap" class="font-arial font-bold">--</p></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- GRAFICA -->
-            <div class="w-full bg-black/40 backdrop-blur-md border border-white/20 rounded-xl p-4 shadow-lg pointer-events-auto hidden" id="graph-panel-wrapper">
-                <h2 class="text-xs font-bold mb-3 border-b border-white/20 pb-2 uppercase tracking-widest text-left text-blue-400" data-lang-key="graph_title">Tiempos de Carrera</h2>
-                <canvas id="lap-graph-canvas" class="w-full h-[200px] bg-black/50 rounded-lg border border-white/20"></canvas>
-            </div>
         </div>
         
         <!-- ================= GRUPO INFERIOR (Abajo de todo) ================= -->
@@ -450,7 +424,7 @@
             <div class="flex items-center space-x-5">
                 <div class="flex flex-col">
                     <h1 class="text-3xl lg:text-5xl font-black font-rajdhani tracking-[0.1em] text-yellow-400 drop-shadow-lg leading-none">KRONODUAL TV</h1>
-                    <span class="text-[10px] sm:text-xs text-slate-400 font-bold tracking-[0.3em] uppercase mt-1 pl-1">By Albert Closa</span>
+                    <span class="text-[11px] sm:text-sm text-slate-300 font-bold tracking-[0.2em] mt-1 pl-1">by Albert Closa</span>
                 </div>
                 <div id="tv-cloud-code-display" class="hidden flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.2em]">
                     <div class="text-slate-700 mx-2">||</div>
@@ -965,14 +939,19 @@
                 pauseText.textContent = translations[currentLang] ? translations[currentLang].resume : "RESUME"; yellowFlagOverlay.classList.remove('hidden');
             } else {
                 const pd = Date.now() - pauseStartTimestamp; raceStartTime += pd;
-                players.forEach(p => { if (p.hasCrossedStart) { p.lapStartTime += pd; p.lastRecordTime += pd; } });
+                players.forEach(p => { 
+                    if (p.hasCrossedStart) { p.lapStartTime += pd; p.lastRecordTime += pd; } 
+                    p.referencePixels = null;
+                });
                 isRaceActive = true; pauseText.textContent = translations[currentLang] ? translations[currentLang].pause : "PAUSA"; yellowFlagOverlay.classList.add('hidden'); startTimers(); 
             }
             broadcastState(); syncToCloud();
         }
 
         function startRace() {
-            configPanel.classList.remove('open'); document.getElementById('telemetry-panel-wrapper').classList.add('hidden'); document.getElementById('graph-panel-wrapper').classList.add('hidden');
+            configPanel.classList.remove('open'); 
+            const telPanel = document.getElementById('telemetry-panel-wrapper'); if(telPanel) telPanel.classList.add('hidden'); 
+            const grpPanel = document.getElementById('graph-panel-wrapper'); if(grpPanel) grpPanel.classList.add('hidden');
             startRaceBtn.disabled = true; resetRaceBtn.disabled = true; pauseRaceBtn.disabled = true; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden');
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
             isPaused = false; pauseText.textContent = "PAUSA";
@@ -983,7 +962,10 @@
             players.forEach(p => {
                 p.soundTone = document.getElementById(p.soundId).value; p.laps=0; p.lapHistory=[]; p.bestLap=Infinity; p.totalTime=0; p.lastRecordTime=0; p.finished=false; p.hasCrossedStart=false; 
                 p.isLineBlocked=false; p.stuckFrameCount=0; p.referencePixels=null; 
-                updatePlayerUI(p); document.getElementById(p.currentLapId).textContent = "ESPERANDO..."; document.getElementById(p.gapId).textContent = "--"; document.getElementById(p.roiId).classList.remove('roi-locked');
+                updatePlayerUI(p); 
+                const curLapEl = document.getElementById(p.currentLapId); if(curLapEl) curLapEl.textContent = "ESPERANDO..."; 
+                const gapEl = document.getElementById(p.gapId); if(gapEl) gapEl.textContent = "--"; 
+                const roiEl = document.getElementById(p.roiId); if(roiEl) roiEl.classList.remove('roi-locked');
             });
             
             document.getElementById('race-time').textContent = raceMode === 'time' ? formatTime(raceDurationTarget) : "00:00.000"; 
@@ -998,7 +980,8 @@
                 
                 isRaceActive=true; isDetectionReady=true; resetRaceBtn.disabled=false; pauseRaceBtn.disabled=false; 
                 document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden');
-                document.getElementById('telemetry-panel-wrapper').classList.remove('hidden'); document.getElementById('graph-panel-wrapper').classList.remove('hidden');
+                const telPanel2 = document.getElementById('telemetry-panel-wrapper'); if(telPanel2) telPanel2.classList.remove('hidden'); 
+                const grpPanel2 = document.getElementById('graph-panel-wrapper'); if(grpPanel2) grpPanel2.classList.remove('hidden');
                 
                 raceStartTime=Date.now(); players.forEach(p=>{p.lapStartTime=raceStartTime; p.lastRecordTime=Date.now()-blindTimeMs;}); startTimers();
                 broadcastState(); syncToCloud();
@@ -1048,12 +1031,13 @@
         }
 
         function updatePlayerUI(p) {
-            document.getElementById(p.lapCountId).textContent = raceMode === 'time' ? `V: ${p.laps}` : `V: ${p.laps} / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
-            document.getElementById(p.bestLapId).textContent = formatTime(p.bestLap); document.getElementById(p.lastLapId).textContent = p.lapHistory.length>0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : "--.---";
+            const elLapCount = document.getElementById(p.lapCountId); if (elLapCount) elLapCount.textContent = raceMode === 'time' ? `V: ${p.laps}` : `V: ${p.laps} / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
+            const elBestLap = document.getElementById(p.bestLapId); if (elBestLap) elBestLap.textContent = formatTime(p.bestLap); 
+            const elLastLap = document.getElementById(p.lastLapId); if (elLastLap) elLastLap.textContent = p.lapHistory.length>0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : "--.---";
             if(p.laps>0) { 
                 const avg = p.lapHistory.reduce((a,b)=>a+b,0)/p.laps; const trackLen = parseFloat(trackLengthInput.value) || 15; 
                 p.avgSpeed = (trackLen/(avg/1000))*3.6; p.consistency = avg > 0 ? (p.bestLap / avg) * 100 : 0;
-                document.getElementById(p.avgSpeedId).textContent = p.avgSpeed.toFixed(1) + ' Km/h'; 
+                const elAvgSpeed = document.getElementById(p.avgSpeedId); if (elAvgSpeed) elAvgSpeed.textContent = p.avgSpeed.toFixed(1) + ' Km/h'; 
             }
         }
 
@@ -1065,10 +1049,12 @@
                  const diff = t1 - t2; const diffSec = (Math.abs(diff)/1000).toFixed(1);
                  if (raceMode === 'time' && players[0].laps !== players[1].laps) {
                      const ldr = players[0].laps > players[1].laps ? 0 : 1; const trl = ldr === 0 ? 1 : 0;
-                     document.getElementById(players[ldr].gapId).textContent = "LIDER"; document.getElementById(players[ldr].gapId).style.color = "#4ade80"; document.getElementById(players[trl].gapId).textContent = `-${Math.abs(players[0].laps - players[1].laps)}L`; document.getElementById(players[trl].gapId).style.color = "#f87171";
+                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = "LIDER"; ldrGap.style.color = "#4ade80"; }
+                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = `-${Math.abs(players[0].laps - players[1].laps)}L`; trlGap.style.color = "#f87171"; }
                  } else {
                      const ldr = diff < 0 ? 0 : 1; const trl = ldr === 0 ? 1 : 0;
-                     document.getElementById(players[ldr].gapId).textContent = "LIDER"; document.getElementById(players[ldr].gapId).style.color = "#4ade80"; document.getElementById(players[trl].gapId).textContent = `+${diffSec}s`; document.getElementById(players[trl].gapId).style.color = "#f87171";
+                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = "LIDER"; ldrGap.style.color = "#4ade80"; }
+                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = `+${diffSec}s`; trlGap.style.color = "#f87171"; }
                  }
              }
         }
@@ -1093,7 +1079,8 @@
 
         function drawGraph() {
             if (isTVMode) return;
-            const ctx = document.getElementById('lap-graph-canvas').getContext('2d'); const w = ctx.canvas.parentElement.offsetWidth; ctx.canvas.width = w; ctx.canvas.height = 200;
+            const canvasEl = document.getElementById('lap-graph-canvas'); if (!canvasEl) return;
+            const ctx = canvasEl.getContext('2d'); const w = ctx.canvas.parentElement.offsetWidth; ctx.canvas.width = w; ctx.canvas.height = 200;
             const p1d = players[0].lapHistory; const p2d = players[1].lapHistory; const maxL = Math.max(p1d.length, p2d.length);
             ctx.clearRect(0,0,w,200); if(maxL===0) return;
             const maxT = Math.max(...p1d, ...(activePlayers===2 ? p2d : [])); const gw = w - 60; const bw = (gw / maxL) * 0.4;
@@ -1109,11 +1096,14 @@
             return {
                 timestamp: Date.now(), raceMode: raceMode, activePlayers: activePlayers, trackLength: parseFloat(trackLengthInput.value) || 15, totalLapsTarget: totalLapsTarget, raceDurationTarget: raceDurationTarget, isRaceActive: isRaceActive, isCountdown: isCountdown, isPaused: isPaused, raceAborted: raceAborted, raceStartTime: raceStartTime, currentLang: currentLang,
                 voiceEnabled: voiceToggle.checked, falseStartName: falseStartPlayerName.textContent,
-                players: players.map(p => ({ 
-                    id: p.id, name: document.getElementById(p.nameId).value, car: document.getElementById(p.carId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
-                    totalTime: p.totalTime, finished: p.finished, lapStartTime: p.lapStartTime, hasCrossedStart: p.hasCrossedStart, gapText: document.getElementById(p.gapId).textContent,
-                    avgSpeed: p.avgSpeed, maxSpeed: p.maxSpeed, consistency: p.consistency, soundTone: p.soundTone
-                }))
+                players: players.map(p => {
+                    const gapEl = document.getElementById(p.gapId);
+                    return { 
+                        id: p.id, name: document.getElementById(p.nameId).value, car: document.getElementById(p.carId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
+                        totalTime: p.totalTime, finished: p.finished, lapStartTime: p.lapStartTime, hasCrossedStart: p.hasCrossedStart, gapText: gapEl ? gapEl.textContent : "--",
+                        avgSpeed: p.avgSpeed, maxSpeed: p.maxSpeed, consistency: p.consistency, soundTone: p.soundTone
+                    };
+                })
             };
         }
         function broadcastState() { if(isTVMode) return; const payload = getPayload(); kronoChannel.postMessage({ type: 'STATE_UPDATE', payload: payload }); localStorage.setItem('kronodual_tv_state', JSON.stringify(payload)); }
@@ -1407,14 +1397,38 @@
             const h = e.target.closest('.resize-handle'); const r = e.target.closest('.movable-rectangle'); if (!r) return;
             if (e.cancelable && !e.target.closest('input')) e.preventDefault();
             const pos = getEventPos(e); startX = pos.clientX; startY = pos.clientY; startLeft = r.offsetLeft; startTop = r.offsetTop; startWidth = r.offsetWidth; startHeight = r.offsetHeight; actRoi = r;
-            if (h) { isResize = true; resizeHandle = h.classList.contains('handle-tl') ? 'tl' : 'br'; e.stopPropagation(); } else isDrag = true;
+            if (h) { 
+                isResize = true; 
+                if(h.classList.contains('handle-tl')) resizeHandle = 'tl';
+                else if(h.classList.contains('handle-tr')) resizeHandle = 'tr';
+                else if(h.classList.contains('handle-bl')) resizeHandle = 'bl';
+                else resizeHandle = 'br';
+                e.stopPropagation(); 
+            } else isDrag = true;
         }
         function dragMove(e) {
-            if (!isDrag && !isResize) return; e.preventDefault(); const pos = getEventPos(e); const dx = pos.clientX - startX; const dy = pos.clientY - startY; const pR = videoContainer.getBoundingClientRect();
+            if (!isDrag && !isResize) return; e.preventDefault(); const pos = getEventPos(e); if(!pos) return; const dx = pos.clientX - startX; const dy = pos.clientY - startY; const pR = videoContainer.getBoundingClientRect();
             if (isDrag) { actRoi.style.left = ((startLeft + dx) / pR.width) * 100 + '%'; actRoi.style.top = ((startTop + dy) / pR.height) * 100 + '%'; } 
-            else if (isResize) { if (resizeHandle === 'br') { actRoi.style.width = (Math.max(20, startWidth + dx) / pR.width) * 100 + '%'; actRoi.style.height = (Math.max(20, startHeight + dy) / pR.height) * 100 + '%'; } else if (resizeHandle === 'tl') { let nW = startWidth - dx; let nH = startHeight - dy; if (nW > 20) { actRoi.style.width = (nW/pR.width)*100+'%'; actRoi.style.left = ((startLeft + dx)/pR.width)*100+'%'; } if (nH > 20) { actRoi.style.height = (nH/pR.height)*100+'%'; actRoi.style.top = ((startTop + dy)/pR.height)*100+'%'; } } }
+            else if (isResize) { 
+                let nW = startWidth, nH = startHeight, nL = startLeft, nT = startTop;
+                if (resizeHandle.includes('r')) nW = startWidth + dx;
+                if (resizeHandle.includes('l')) { nW = startWidth - dx; nL = startLeft + dx; }
+                if (resizeHandle.includes('b')) nH = startHeight + dy;
+                if (resizeHandle.includes('t')) { nH = startHeight - dy; nT = startTop + dy; }
+                
+                if (nW >= 40) { actRoi.style.width = (nW/pR.width)*100+'%'; actRoi.style.left = (nL/pR.width)*100+'%'; } 
+                if (nH >= 40) { actRoi.style.height = (nH/pR.height)*100+'%'; actRoi.style.top = (nT/pR.height)*100+'%'; } 
+            }
         }
-        function dragEnd() { isDrag = false; isResize = false; actRoi = null; players.forEach(p => p.referencePixels = null); }
+        function dragEnd() { 
+            if (isDrag || isResize) {
+                if (actRoi) {
+                    const pId = actRoi.id === 'roi-p1' ? 1 : 2;
+                    players[pId - 1].referencePixels = null;
+                }
+            }
+            isDrag = false; isResize = false; actRoi = null; 
+        }
         videoContainer.addEventListener('mousedown', dragStart); videoContainer.addEventListener('touchstart', dragStart, {passive: false}); document.addEventListener('mousemove', dragMove); document.addEventListener('touchmove', dragMove, {passive: false}); document.addEventListener('mouseup', dragEnd); document.addEventListener('touchend', dragEnd);
 
         window.onload = () => {
