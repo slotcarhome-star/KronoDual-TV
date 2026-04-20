@@ -157,7 +157,7 @@
         .tv-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
         .tv-scrollbar::-webkit-scrollbar-thumb { background: rgba(250, 204, 21, 0.3); border-radius: 4px; }
         
-        .tv-grid-perfect { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(12, minmax(0, 1fr)); }
+        .tv-grid-perfect { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(10, minmax(0, 1fr)); }
         .tv-widget { transition: box-shadow 0.2s ease, border-color 0.2s ease; container-type: size; height: 100%; min-height: 0; min-width: 0; }
         .tv-widget:hover { border-color: rgba(250, 204, 21, 0.3); }
         
@@ -541,8 +541,7 @@
                     </button>
 
                     <!-- BOTÓN IA LAYOUT -->
-                    <button id="tv-ai-theme-btn" class="flex items-center space-x-2 p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="Cambiar Color/Tema IA">
-                        <span class="font-black font-rajdhani tracking-widest text-lg">IA</span>
+                    <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="IA Auto-Configuración Visual">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                     </button>
 
@@ -589,31 +588,6 @@
                         <div class="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_#f97316] shrink-0"></div>
                     </div>
                     <span id="tv-header-p2-car" class="font-rajdhani font-bold text-slate-400 cq-text-sm uppercase tracking-[0.2em] truncate mr-4 mt-1 leading-none text-right">AUDI R8</span>
-                </div>
-            </div>
-
-            <!-- CUADRO DE CARRERA (LEADERBOARD) -->
-            <div id="w-leaderboard" class="tv-widget col-span-12 row-span-2 tv-panel flex flex-col p-0 overflow-hidden group">
-                <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-green-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-green-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <div class="bg-slate-800/50 p-1 border-b border-slate-700/50 shrink-0 text-center pointer-events-none flex items-center justify-center">
-                    <h3 class="text-slate-300 font-rajdhani font-bold uppercase tracking-widest cq-text-sm leading-none">CUADRO DE CARRERA</h3>
-                </div>
-                <div class="flex-1 overflow-hidden pointer-events-none p-1 sm:p-2">
-                    <table class="w-full text-left h-full">
-                        <thead class="text-slate-400 border-b border-slate-700 cq-text-xs">
-                            <tr>
-                                <th class="p-1 text-center w-10">POS</th>
-                                <th class="p-1">PILOTO</th>
-                                <th class="p-1 text-center">VUELTAS</th>
-                                <th class="p-1 text-right">TIEMPO / GAP</th>
-                                <th class="p-1 text-right hidden sm:table-cell">MEJOR</th>
-                                <th class="p-1 text-right hidden sm:table-cell">ÚLTIMA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tv-leaderboard-body" class="tv-font cq-text-sm text-slate-200">
-                        </tbody>
-                    </table>
                 </div>
             </div>
 
@@ -1647,39 +1621,6 @@
                     const hp2C = document.getElementById('tv-header-p2-container'); if (hp2C) hp2C.style.display = 'none';
                     document.getElementById('w-p2-main').style.display = 'none'; document.getElementById('w-p2-stats').style.display = 'none';
                 }
-
-                // NUEVO: Lógica del Cuadro de Carrera (Leaderboard)
-                const leaderboardBody = document.getElementById('tv-leaderboard-body');
-                if (leaderboardBody) {
-                    let sortedPlayers = [];
-                    if (p1) sortedPlayers.push(p1);
-                    if (tvData.activePlayers === 2 && p2) sortedPlayers.push(p2);
-                    
-                    sortedPlayers.sort((a, b) => {
-                        if (a.laps !== b.laps) return b.laps - a.laps;
-                        return a.totalTime - b.totalTime;
-                    });
-
-                    leaderboardBody.innerHTML = '';
-                    sortedPlayers.forEach((p, idx) => {
-                        const tr = document.createElement('tr');
-                        tr.className = 'border-b border-slate-700/30';
-                        const posColor = idx === 0 ? 'text-yellow-400' : 'text-slate-300';
-                        const best = p.bestLap !== Infinity && p.bestLap != null ? formatTime(p.bestLap) : '--.---';
-                        const last = p.lapHistory && p.lapHistory.length > 0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : '--.---';
-                        const carName = p.car ? `<span class="text-slate-500 text-[10px] ml-2 block sm:inline">${p.car}</span>` : '';
-                        
-                        tr.innerHTML = `
-                            <td class="p-1 text-center font-black ${posColor}">${idx + 1}</td>
-                            <td class="p-1 font-bold ${posColor}">${p.name} ${carName}</td>
-                            <td class="p-1 text-center font-bold text-white">${p.laps}</td>
-                            <td class="p-1 text-right text-red-400 font-bold">${p.gapText || '--'}</td>
-                            <td class="p-1 text-right text-green-400 font-bold hidden sm:table-cell">${best}</td>
-                            <td class="p-1 text-right text-white font-bold hidden sm:table-cell">${last}</td>
-                        `;
-                        leaderboardBody.appendChild(tr);
-                    });
-                }
                 
                 const p1Laps = p1 ? p1.lapHistory || [] : []; const p2Laps = (tvData.activePlayers===2 && p2) ? p2.lapHistory || [] : null;
                 if(p1Laps.length > 0 || (p2Laps && p2Laps.length > 0)) {
@@ -1759,9 +1700,10 @@
                                 lastReceivedLocalTime = Date.now(); 
                                 updateTVUI(); 
                             } else {
-                                // En lugar de dar error rojo, simplemente limpiamos datos y dejamos que updateTVUI muestre "ESPERANDO COCHES"
-                                tvData = {};
-                                updateTVUI();
+                                const tvStatus = document.getElementById('tv-status');
+                                const trans = translations[currentLang] || translations['es'];
+                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${trans.tv_status_inactive}</span>`;
+                                tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                             }
                         }, (err) => {
                             const tvStatus = document.getElementById('tv-status');
