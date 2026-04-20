@@ -366,32 +366,6 @@
                 </div>
             </div>
             
-            <!-- EL CUADRO DE CARRERA / RACE DASHBOARD (Oculto por defecto, aparece durante la carrera) -->
-            <div id="app-race-dashboard" class="hidden bg-black/60 backdrop-blur-xl border border-white/20 rounded-xl shadow-xl w-full p-4 pointer-events-auto text-white flex-col gap-3">
-                <h2 class="text-sm font-bold text-cyan-400 border-b-2 border-white/10 pb-2 uppercase tracking-widest text-center" data-lang-key="race_telemetry">Telemetría en Vivo</h2>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- P1 Telemetry -->
-                    <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-2 flex flex-col gap-1">
-                        <span class="text-[10px] text-yellow-400 font-bold uppercase tracking-widest mb-1">P1 (Oro)</span>
-                        <div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-[10px] text-gray-400" data-lang-key="tv_best">Mejor:</span> <span id="dash-p1-best" class="text-xs font-mono font-bold text-green-400">--.---</span></div>
-                        <div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-[10px] text-gray-400" data-lang-key="tv_last">Última:</span> <span id="dash-p1-last" class="text-xs font-mono font-bold text-white">--.---</span></div>
-                        <div class="flex justify-between items-center"><span class="text-[10px] text-gray-400" data-lang-key="tv_avg_spd">Vel. Med:</span> <span id="dash-p1-spd" class="text-xs font-mono font-bold text-white">-- km/h</span></div>
-                    </div>
-                    <!-- P2 Telemetry -->
-                    <div id="dash-p2-container" class="bg-orange-900/20 border border-orange-500/30 rounded-lg p-2 flex flex-col gap-1">
-                        <span class="text-[10px] text-orange-400 font-bold uppercase tracking-widest mb-1">P2 (Cobre)</span>
-                        <div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-[10px] text-gray-400" data-lang-key="tv_best">Mejor:</span> <span id="dash-p2-best" class="text-xs font-mono font-bold text-green-400">--.---</span></div>
-                        <div class="flex justify-between items-center border-b border-white/5 pb-1"><span class="text-[10px] text-gray-400" data-lang-key="tv_last">Última:</span> <span id="dash-p2-last" class="text-xs font-mono font-bold text-white">--.---</span></div>
-                        <div class="flex justify-between items-center"><span class="text-[10px] text-gray-400" data-lang-key="tv_avg_spd">Vel. Med:</span> <span id="dash-p2-spd" class="text-xs font-mono font-bold text-white">-- km/h</span></div>
-                    </div>
-                </div>
-
-                <div class="w-full h-[150px] bg-black/40 border border-white/10 rounded-lg relative overflow-hidden mt-2 p-2">
-                    <canvas id="lap-graph-canvas" class="w-full h-full"></canvas>
-                </div>
-            </div>
-
         </div>
         
         <!-- ================= GRUPO INFERIOR (Abajo de todo) ================= -->
@@ -571,8 +545,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                     </button>
 
-                    <!-- TV STATUS -->
-                    <div id="tv-status" class="text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 shadow-lg">
+                    <!-- TV STATUS (Blindado estructuralmente para no desaparecer jamás) -->
+                    <div id="tv-status" class="flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 shadow-lg transition-all duration-300">
                         ESPERANDO...
                     </div>
 
@@ -964,19 +938,16 @@
             const p2TopStats = document.getElementById('p2-top-stats');
             const p2Roi = document.getElementById('roi-p2');
             const p2CamControls = document.getElementById('p2-cam-controls');
-            const p2Dash = document.getElementById('dash-p2-container');
             
             if (activePlayers === 1) {
                 if(p2Config) p2Config.style.display = 'none'; 
                 if(p2TopStats) p2TopStats.style.display = 'none'; 
                 if(p2Roi) p2Roi.style.display = 'none'; 
-                if(p2Dash) p2Dash.style.display = 'none';
                 if(p2CamControls) p2CamControls.style.display = 'none';
             } else {
                 if(p2Config) p2Config.style.display = 'block'; 
                 if(p2TopStats) p2TopStats.style.display = 'block';
                 if(isProcessing && p2Roi) p2Roi.style.display = 'block';
-                if(p2Dash) p2Dash.style.display = 'flex';
                 if(p2CamControls) p2CamControls.style.display = 'flex';
             }
             triggerCloudSync();
@@ -1220,9 +1191,6 @@
             const timesPanel = document.getElementById('times-traffic-panel');
             if(timesPanel) { timesPanel.classList.remove('hidden'); timesPanel.classList.add('flex'); }
             
-            document.getElementById('app-race-dashboard').classList.remove('hidden');
-            document.getElementById('app-race-dashboard').classList.add('flex');
-            
             startRaceBtn.disabled = true; resetRaceBtn.disabled = true; pauseRaceBtn.disabled = true; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden');
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
             isPaused = false; pauseText.textContent = "PAUSA";
@@ -1301,7 +1269,7 @@
                     if (activePlayers === 1 && players[0].finished) endRace(); else if (activePlayers === 2 && players.every(pl=>pl.finished)) endRace();
                 }
             }
-            drawGraph(); broadcastState(); syncToCloud();
+            broadcastState(); syncToCloud();
         }
 
         function updatePlayerUI(p) {
@@ -1313,11 +1281,6 @@
                 p.avgSpeed = (trackLen/(avg/1000))*3.6; p.consistency = avg > 0 ? (p.bestLap / avg) * 100 : 0;
                 const elAvgSpeed = document.getElementById(p.avgSpeedId); if (elAvgSpeed) elAvgSpeed.textContent = p.avgSpeed.toFixed(1) + ' Km/h'; 
             }
-            
-            // Actualizar datos en el Cuadro de Carrera (Dashboard central)
-            const dashBest = document.getElementById(`dash-p${p.id}-best`); if(dashBest) dashBest.textContent = p.bestLap !== Infinity ? formatTime(p.bestLap) : "--.---";
-            const dashLast = document.getElementById(`dash-p${p.id}-last`); if(dashLast) dashLast.textContent = p.lapHistory.length>0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : "--.---";
-            const dashSpd = document.getElementById(`dash-p${p.id}-spd`); if(dashSpd) dashSpd.textContent = (p.avgSpeed || 0).toFixed(1) + ' km/h';
         }
 
         function updateGaps() {
@@ -1340,11 +1303,13 @@
 
         function endRace() {
             isRaceActive = false; clearInterval(raceIntervalId); pauseRaceBtn.disabled = true; 
-            document.getElementById('app-race-dashboard').classList.add('hidden');
-            document.getElementById('app-race-dashboard').classList.remove('flex');
             
             players.forEach(p => { p.referencePixels = null; }); 
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
+            
+            // Vuelve a mostrar la cabecera ("lo de arriba") al terminar la carrera
+            const headerPanel = document.getElementById('app-header-panel');
+            if (headerPanel) { headerPanel.classList.remove('hidden'); headerPanel.classList.add('flex'); }
             
             let winner = players[0]; 
             if (activePlayers === 2) { 
@@ -1411,35 +1376,6 @@
             setTimeout(() => resModal.classList.add('open'), 50); // Tiempo para que aplique el display:block antes de transicionar
             
             speak('voice_completed'); broadcastState(); syncToCloud();
-        }
-
-        function drawGraph() {
-            if (isTVMode) return;
-            const canvasEl = document.getElementById('lap-graph-canvas'); if (!canvasEl) return;
-            const ctx = canvasEl.getContext('2d'); 
-            const parent = canvasEl.parentElement;
-            if(!parent) return;
-            const w = parent.clientWidth; const h = parent.clientHeight;
-            canvasEl.width = w; canvasEl.height = h; 
-            
-            const p1d = players[0].lapHistory; const p2d = players[1].lapHistory; const maxL = Math.max(p1d.length, p2d.length);
-            ctx.clearRect(0,0,w,h); if(maxL===0) return;
-            const maxT = Math.max(...p1d, ...(activePlayers===2 ? p2d : [])); 
-            const gw = w - 40; const bw = (gw / maxL) * 0.4;
-            const paddingBottom = 20;
-            
-            for(let i=0; i<maxL; i++) {
-                const x = 20 + i * (gw/maxL) + 10;
-                if(p1d[i]) { 
-                    const h1 = (p1d[i]/maxT)*(h - 30);
-                    ctx.fillStyle = '#facc15'; ctx.fillRect(x, h - paddingBottom - h1, bw, h1); 
-                }
-                if(activePlayers === 2 && p2d[i]) { 
-                    const h2 = (p2d[i]/maxT)*(h - 30);
-                    ctx.fillStyle = '#f97316'; ctx.fillRect(x+bw, h - paddingBottom - h2, bw, h2); 
-                }
-                ctx.fillStyle = '#cbd5e1'; ctx.font = '10px Arial'; ctx.textAlign = 'center'; ctx.fillText(i+1, x + bw, h - 5);
-            }
         }
 
         // 6. CLOUD Y MODO TV
@@ -1618,17 +1554,19 @@
                 const p1 = tvData.players.find(p=>p.id===1); const p2 = tvData.players.find(p=>p.id===2);
                 
                 const tvStatus = document.getElementById('tv-status');
-                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-colors duration-300 ";
+                
+                // Base estructural inamovible (Garantiza que nunca desaparezca)
+                const baseStatusClass = "flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-all duration-300 ";
                 
                 if (tvData.isPaused) {
                     tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-yellow-400 animate-pulse mr-2"></span><span>${t.tv_status_pause}</span></div>`;
-                    tvStatus.className += "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
+                    tvStatus.className = baseStatusClass + "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
                 } else if (tvData.raceAborted) {
                     tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-red-500 animate-ping mr-2"></span><span>${t.tv_status_false_start}</span></div>`;
-                    tvStatus.className += "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
+                    tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
                 } else if (tvData.isCountdown) {
                     tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-orange-400 animate-pulse mr-2"></span><span>${t.tv_status_ready}</span></div>`;
-                    tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400";
+                    tvStatus.className = baseStatusClass + "bg-orange-900/40 border-orange-500/50 text-orange-400";
                 } else if (tvData.isRaceActive) {
                     tvStatus.innerHTML = `
                         <div class="flex items-center space-x-2">
@@ -1638,10 +1576,10 @@
                             </span>
                             <span>${t.tv_status_racing}</span>
                         </div>`;
-                    tvStatus.className += "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
+                    tvStatus.className = baseStatusClass + "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
                 } else if ((p1 && p1.finished) || (p2 && p2.finished) || (tvData.lapHistory && tvData.lapHistory.length > 0)) {
                     tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-400 mr-2"></span><span>${t.tv_status_finished}</span></div>`;
-                    tvStatus.className += "bg-blue-900/30 border-blue-500/30 text-blue-400";
+                    tvStatus.className = baseStatusClass + "bg-blue-900/30 border-blue-500/30 text-blue-400";
                 } else {
                     if (cloudRoomCode) {
                         tvStatus.innerHTML = `
@@ -1652,10 +1590,10 @@
                                 </span>
                                 <span>${t.tv_status_link}</span>
                             </div>`;
-                        tvStatus.className += "bg-slate-800/90 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.15)]";
+                        tvStatus.className = baseStatusClass + "bg-slate-800/90 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.15)]";
                     } else {
                         tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-slate-500 mr-2"></span><span>${t.tv_status_waiting}</span></div>`;
-                        tvStatus.className += "bg-slate-800/80 border-slate-600 text-slate-400";
+                        tvStatus.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
                     }
                 }
 
@@ -1735,8 +1673,9 @@
                 
                 const tvStatus = document.getElementById('tv-status');
                 const t = translations[currentLang] || translations['es'];
+                const baseStatusClass = "flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-all duration-300 ";
                 
-                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-colors duration-300 bg-slate-800/90 border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]";
+                tvStatus.className = baseStatusClass + "bg-slate-800/90 border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]";
                 tvStatus.innerHTML = `
                     <div class="flex items-center space-x-3">
                         <svg class="animate-spin h-6 w-6 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1764,13 +1703,13 @@
                                 const tvStatus = document.getElementById('tv-status');
                                 const trans = translations[currentLang] || translations['es'];
                                 tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${trans.tv_status_inactive}</span>`;
-                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
+                                tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                             }
                         }, (err) => {
                             const tvStatus = document.getElementById('tv-status');
                             const trans = translations[currentLang] || translations['es'];
                             tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> ${trans.tv_status_error}</span>`;
-                            tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
+                            tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                         });
                     }
                 }, 500);
@@ -1834,11 +1773,12 @@
         document.getElementById('start-race-btn').onclick = startRace;
         document.getElementById('reset-race-btn').onclick = () => { 
             isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden'); document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
-            document.getElementById('app-race-dashboard').classList.add('hidden'); document.getElementById('app-race-dashboard').classList.remove('flex');
             
-            // Si la cámara sigue encendida, ocultar los tiempos de nuevo
+            // Si la cámara sigue encendida, ocultar TODO lo de arriba de nuevo
             if (cameraStream) {
+                const headerPanel = document.getElementById('app-header-panel');
                 const timesPanel = document.getElementById('times-traffic-panel');
+                if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
                 if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
             }
             broadcastState(); syncToCloud(); 
@@ -1857,11 +1797,12 @@
                 document.getElementById('race-time').textContent = "00:00.000"; 
                 isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; pauseRaceBtn.disabled = true; isPaused = false; 
                 document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden'); 
-                document.getElementById('app-race-dashboard').classList.add('hidden'); document.getElementById('app-race-dashboard').classList.remove('flex');
                 
-                // Si la cámara sigue encendida, ocultar los tiempos de nuevo
+                // Si la cámara sigue encendida, ocultar TODO lo de arriba de nuevo para la vista previa
                 if (cameraStream) {
+                    const headerPanel = document.getElementById('app-header-panel');
                     const timesPanel = document.getElementById('times-traffic-panel');
+                    if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
                     if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
                 }
                 broadcastState(); syncToCloud(); 
