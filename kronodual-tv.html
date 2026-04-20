@@ -58,15 +58,15 @@
     </script>
     
     <style>
-        /* --- ESTILOS PRINCIPALES (NUEVO LAYOUT APP) --- */
+        /* --- ESTILOS PRINCIPALES --- */
         body {
             font-family: 'Inter', Arial, sans-serif !important;
             background: transparent;
             margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-            height: 100dvh; /* Forzar alto estricto */
+            height: 100dvh;
             width: 100vw;
-            overflow: hidden; /* Sin scroll nativo */
+            overflow: hidden;
             color: #ffffff; 
             overscroll-behavior: none;
             user-select: none; -webkit-user-select: none;
@@ -74,7 +74,6 @@
         }
         
         input, select { user-select: text; -webkit-user-select: text; }
-
         .font-arial { font-family: Arial, sans-serif !important; }
 
         /* --- FONDOS DE CÁMARA Y RECUADROS --- */
@@ -97,7 +96,7 @@
 
         .traffic-hidden { opacity: 0 !important; max-height: 0 !important; pointer-events: none !important; }
 
-        /* --- ROI DUAL (HITBOX) - CORRECCIÓN DE Z-INDEX PARA EVITAR BLOQUEO --- */
+        /* --- ROI DUAL (HITBOX) --- */
         .movable-rectangle { position: absolute; width: 30%; height: 30%; cursor: move; background-color: rgba(255, 215, 0, 0.1); box-shadow: 0 0 15px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.1); transition: background-color 0.1s ease, border-color 0.2s ease, opacity 0.2s ease; z-index: 40 !important; box-sizing: border-box; touch-action: none; display: none; }
         #roi-p1 { border: 3px solid #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
         #roi-p1 .roi-label { background: linear-gradient(45deg, #ffd700, #ffb300); color: #3e2723; text-shadow: none; border-color: #fff; }
@@ -114,14 +113,11 @@
         .detection-val { position: absolute; bottom: -22px; right: -2px; background-color: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 3px 6px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); pointer-events: none; font-weight: bold; white-space: nowrap; }
         .test-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00ff00; font-weight: 900; font-size: 20px; text-transform: uppercase; text-shadow: 0 0 10px #000, 0 0 20px #00ff00; pointer-events: none; display: none; white-space: nowrap; z-index: 50; }
 
-        /* Tiradores (Asideros) más grandes, CUADRADOS y fáciles de tocar */
+        /* Tiradores CUADRADOS */
         .resize-handle { position: absolute; width: 36px; height: 36px; background-color: #ffd700; border: 3px solid #fff; z-index: 50 !important; box-shadow: 0 0 10px rgba(0,0,0,0.8); touch-action: none; transition: transform 0.1s ease; border-radius: 4px; }
-        .resize-handle:hover { transform: scale(1.15); } 
-        .resize-handle:active { filter: brightness(1.3); transform: scale(0.9); }
+        .resize-handle:hover { transform: scale(1.15); } .resize-handle:active { filter: brightness(1.3); transform: scale(0.9); }
         .handle-tl { top: -18px; left: -18px; cursor: nwse-resize; } 
         .handle-br { bottom: -18px; right: -18px; cursor: nwse-resize; }
-        
-        /* Colores de tiradores por equipo */
         #roi-p1 .resize-handle { background-color: #facc15; }
         #roi-p2 .resize-handle { background-color: #f97316; }
 
@@ -177,9 +173,6 @@
         .sortable-ghost { opacity: 0.3; background: rgba(250, 204, 21, 0.1); border: 2px dashed rgba(250, 204, 21, 0.8) !important; transform: scale(0.98); }
         .sortable-drag { opacity: 1 !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(250, 204, 21, 0.4) !important; border-color: rgba(250, 204, 21, 1) !important; z-index: 100; cursor: grabbing !important; }
 
-        /* ========================================================
-           SISTEMA DE TEMAS IA (VARIANTES VISUALES)
-           ======================================================== */
         [data-theme="matrix"] { background-color: #050505 !important; background-image: radial-gradient(circle at 50% 0%, #002200 0%, #000000 100%) !important; }
         [data-theme="matrix"] .tv-panel { border-color: rgba(0, 255, 0, 0.2) !important; background: rgba(0, 15, 0, 0.7) !important; box-shadow: 0 0 15px rgba(0,255,0,0.05) !important; }
         [data-theme="matrix"] .text-cyan-400, [data-theme="matrix"] .text-yellow-400, [data-theme="matrix"] .text-orange-400, [data-theme="matrix"] .text-blue-400, [data-theme="matrix"] .text-purple-400 { color: #22c55e !important; text-shadow: 0 0 10px rgba(34,197,94,0.5) !important; }
@@ -314,7 +307,7 @@
             </div>
         </div>
 
-        <!-- ZONA CENTRAL PARA EL CONFIG PANEL & TELEMETRY -->
+        <!-- ZONA CENTRAL PARA EL CONFIG PANEL -->
         <div class="my-auto w-full flex flex-col shrink-0 py-2 sm:py-4 pointer-events-auto gap-3">
             <!-- CONFIG PANEL -->
             <div id="config-panel" class="bg-black/60 backdrop-blur-xl border border-white/20 rounded-xl shadow-xl w-full p-4 pointer-events-auto text-white">
@@ -365,7 +358,6 @@
                     <select id="safety-time-select" class="p-1.5 rounded-lg text-xs bg-black text-white border border-red-500/50"><option value="1000">1s</option><option value="3000" selected>3s</option><option value="5000">5s</option></select>
                 </div>
             </div>
-            
         </div>
         
         <!-- ================= GRUPO INFERIOR (Abajo de todo) ================= -->
@@ -394,17 +386,17 @@
                      <div class="flex flex-1 w-full items-center justify-between space-x-1 sm:space-x-2 bg-yellow-900/30 border border-yellow-500/50 p-1.5 rounded-lg">
                          <button id="calib-p1-btn" onclick="window.runAutoCalibration(1)" class="px-2 py-1 bg-yellow-500/80 text-black text-[9px] font-bold rounded shrink-0">AUTO P1</button>
                          <button class="btn-adjust" onclick="window.adjT(1, -1)">-</button>
-                         <input type="range" id="p1-threshold" min="5" max="80" value="20" class="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-yellow-400 min-w-[30px]" oninput="window.updateThreshold(1)">
+                         <input type="range" id="p1-threshold" min="5" max="80" value="25" class="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-yellow-400 min-w-[30px]" oninput="window.updateThreshold(1)">
                          <button class="btn-adjust" onclick="window.adjT(1, 1)">+</button>
-                         <span id="p1-threshold-disp" class="text-[10px] text-yellow-400 font-bold shrink-0 w-4 text-center">20</span>
+                         <span id="p1-threshold-disp" class="text-[10px] text-yellow-400 font-bold shrink-0 w-4 text-center">25</span>
                      </div>
                      <!-- P2 Slider -->
                      <div id="p2-cam-controls" class="flex flex-1 w-full items-center justify-between space-x-1 sm:space-x-2 bg-orange-900/30 border border-orange-500/50 p-1.5 rounded-lg">
                          <button id="calib-p2-btn" onclick="window.runAutoCalibration(2)" class="px-2 py-1 bg-orange-500/80 text-black text-[9px] font-bold rounded shrink-0">AUTO P2</button>
                          <button class="btn-adjust" onclick="window.adjT(2, -1)">-</button>
-                         <input type="range" id="p2-threshold" min="5" max="80" value="20" class="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-orange-400 min-w-[30px]" oninput="window.updateThreshold(2)">
+                         <input type="range" id="p2-threshold" min="5" max="80" value="25" class="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-orange-400 min-w-[30px]" oninput="window.updateThreshold(2)">
                          <button class="btn-adjust" onclick="window.adjT(2, 1)">+</button>
-                         <span id="p2-threshold-disp" class="text-[10px] text-orange-400 font-bold shrink-0 w-4 text-center">20</span>
+                         <span id="p2-threshold-disp" class="text-[10px] text-orange-400 font-bold shrink-0 w-4 text-center">25</span>
                      </div>
                 </div>
             </div>
@@ -713,7 +705,7 @@
             <div class="flex flex-col sm:flex-row justify-around gap-4 mb-4 shrink-0">
                 <!-- Tarjeta P1 -->
                 <div id="p1-summary-card" class="bg-yellow-900/30 p-3 sm:p-4 rounded-xl border border-yellow-500/50 w-full sm:w-1/2 shadow-inner">
-                    <h4 id="modal-p1-name" class="font-black text-yellow-400 border-b border-yellow-500/50 pb-1 mb-2 text-base sm:text-lg">P1</h4>
+                    <h4 id="modal-p1-name" class="font-black text-yellow-400 border-b border-yellow-500/30 pb-1 mb-2 text-base sm:text-lg">P1</h4>
                     <div class="grid grid-cols-2 gap-1 sm:gap-2 text-left text-xs sm:text-sm">
                         <span class="text-gray-400 font-bold">Tiempo Total:</span> <span id="modal-p1-total" class="text-yellow-200 font-mono font-bold text-right">--</span>
                         <span class="text-gray-400 font-bold">Vueltas:</span> <span id="modal-p1-laps" class="text-white font-mono font-bold text-right">--</span>
@@ -789,10 +781,10 @@
 
     <!-- ================= JAVASCRIPT GLOBAL ================= -->
     <script>
-        // 1. CONSTANTES TRUECOLOR (Endurecidas para evitar falsos positivos)
+        // 1. CONSTANTES TRUECOLOR
         const OBSTRUCTION_THRESHOLD = 85; 
-        const PIXEL_DIFF_TOLERANCE = 50;  // Subido de 30 a 50 para ignorar ruido de cámara web
-        const CHROMA_TOLERANCE = 0.25;    // Subido de 0.15 a 0.25 para tolerar mejor las sombras
+        const PIXEL_DIFF_TOLERANCE = 50;  // Ignorar ruido de cámara
+        const CHROMA_TOLERANCE = 0.25;    // Tolerar sombras
         const SHADOW_DARKNESS_LIMIT = 0.35; 
         let lastVideoProcessTime = 0;
 
@@ -814,21 +806,21 @@
                 history_btn: "Historial", config_title: "Configuración", language_label: "Idioma", game_mode_label: "Modo", mode_2p: "🏁 2 JUGADORES (Duelo)", mode_1p: "⏱️ 1 JUGADOR (Contrarreloj)", player_1: "JUGADOR 1 (ORO)", player_2: "JUGADOR 2 (COBRE)", name_label: "Nombre", car_label: "Coche", sound_p1: "Sonido", sound_p2: "Sonido", track_length_label: "Pista (m)", race_condition_label: "Carrera", voice_comments: "Voz:", safety_time_label: "Anti-Rebotes:", global_time: "GLOBAL", calibrating_title: "Calibrando Sensores...", flag_yellow: "PAUSA", false_start: "¡SALIDA NULA!",
                 tv_stats_gold: "Estadísticas Oro", tv_stats_copper: "Estadísticas Cobre", tv_laps: "VUELTAS", tv_consistency: "CONSISTENCIA", tv_best: "MEJOR", tv_last: "ÚLTIMA", tv_avg_spd: "VEL. MED", tv_max_spd: "VEL. MÁX", tv_evol_time: "Evolución Tiempos & Delta (S)", tv_history: "Historial Cara a Cara", tv_speed_curve: "Curva Velocidad (Km/h)", tv_evol_cons: "Evolución Consistencia (%)", tv_bar_comp: "Comparativa Barras", tv_diff: "DIF",
                 tv_mode_duel: "MODO DUELO", tv_mode_time: "CONTRARRELOJ", tv_status_pause: "BANDERA AMARILLA (PAUSA)", tv_status_false_start: "SALIDA NULA", tv_status_ready: "PREPARADOS...", tv_status_racing: "CARRERA EN CURSO", tv_status_finished: "CARRERA FINALIZADA", tv_status_waiting: "ESPERANDO...", tv_status_link: "ENLACE ACTIVO. ESPERANDO COCHES...", tv_status_uplink: "ESTABLECIENDO UPLINK...", tv_status_searching: "BUSCANDO SEÑAL DE TELEMETRÍA", tv_status_inactive: "SALA INACTIVA O CERRADA", tv_status_error: "ERROR DE CONEXIÓN",
-                lap_breakdown: "Desglose de Vueltas por Piloto", csv_header: "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n", default_p1: "Piloto 1", default_p2: "Piloto 2", race_telemetry: "Telemetría en Vivo"
+                lap_breakdown: "Desglose de Vueltas por Piloto", csv_header: "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n", default_p1: "Piloto 1", default_p2: "Piloto 2"
             },
             en: { 
                 start_race: "START", config: "CONFIG", reset_race: "RESET", pause: "PAUSE", resume: "RESUME", video_status_init: "Start camera for 30FPS AI", video_status_ready: "AI CAMERA READY", video_status_off: "Camera Off", completed: "Completed", winner: "Winner:", voice_completed: "Race finished", voice_winner: "Winner ", voice_record: "Fastest lap for ", voice_calibrated: "Sensors calibrated", voice_ready: "Ready", voice_false_start: "False start for",
                 history_btn: "History", config_title: "Configuration", language_label: "Language", game_mode_label: "Mode", mode_2p: "🏁 2 PLAYERS (Duel)", mode_1p: "⏱️ 1 PLAYER (Time Trial)", player_1: "PLAYER 1 (GOLD)", player_2: "PLAYER 2 (COPPER)", name_label: "Name", car_label: "Car", sound_p1: "Sound", sound_p2: "Sound", track_length_label: "Track (m)", race_condition_label: "Race", voice_comments: "Voice:", safety_time_label: "Anti-Bounce:", global_time: "GLOBAL", calibrating_title: "Calibrating Sensors...", flag_yellow: "PAUSE", false_start: "FALSE START!",
                 tv_stats_gold: "Gold Stats", tv_stats_copper: "Copper Stats", tv_laps: "LAPS", tv_consistency: "CONSISTENCY", tv_best: "BEST", tv_last: "LAST", tv_avg_spd: "AVG SPD", tv_max_spd: "MAX SPD", tv_evol_time: "Time Evolution & Delta (S)", tv_history: "Head-to-Head History", tv_speed_curve: "Speed Curve (Km/h)", tv_evol_cons: "Consistency Evolution (%)", tv_bar_comp: "Bar Comparison", tv_diff: "DIFF",
                 tv_mode_duel: "DUEL MODE", tv_mode_time: "TIME TRIAL", tv_status_pause: "YELLOW FLAG (PAUSED)", tv_status_false_start: "FALSE START", tv_status_ready: "GET READY...", tv_status_racing: "RACE IN PROGRESS", tv_status_finished: "RACE FINISHED", tv_status_waiting: "WAITING...", tv_status_link: "LINK ACTIVE. WAITING FOR CARS...", tv_status_uplink: "ESTABLISHING UPLINK...", tv_status_searching: "SEARCHING TELEMETRY SIGNAL", tv_status_inactive: "INACTIVE OR CLOSED ROOM", tv_status_error: "CONNECTION ERROR",
-                lap_breakdown: "Lap Breakdown by Driver", csv_header: "Driver,Lap,Time(ms),Formatted Time,Avg Speed(km/h)\n", default_p1: "Driver 1", default_p2: "Driver 2", race_telemetry: "Live Telemetry"
+                lap_breakdown: "Lap Breakdown by Driver", csv_header: "Driver,Lap,Time(ms),Formatted Time,Avg Speed(km/h)\n", default_p1: "Driver 1", default_p2: "Driver 2"
             },
             fr: {
                 start_race: "DÉMARRER", config: "CONFIG", reset_race: "RÉINITIALISER", pause: "PAUSE", resume: "REPRENDRE", video_status_init: "Démarrer caméra pour 30FPS IA", video_status_ready: "CAMÉRA IA PRÊTE", video_status_off: "Caméra Désactivée", completed: "Terminé", winner: "Gagnant:", voice_completed: "Course terminée", voice_winner: "Victoire pour ", voice_record: "Meilleur tour pour ", voice_calibrated: "Capteurs calibrés", voice_ready: "Prêts", voice_false_start: "Faux départ de",
                 history_btn: "Historique", config_title: "Configuration", language_label: "Langue", game_mode_label: "Mode", mode_2p: "🏁 2 JOUEURS (Duel)", mode_1p: "⏱️ 1 JOUEUR (Contre-la-montre)", player_1: "JOUEUR 1 (OR)", player_2: "JOUEUR 2 (CUIVRE)", name_label: "Nom", car_label: "Voiture", sound_p1: "Son", sound_p2: "Son", track_length_label: "Piste (m)", race_condition_label: "Course", voice_comments: "Voix:", safety_time_label: "Anti-Rebond:", global_time: "GLOBAL", calibrating_title: "Calibrage Capteurs...", flag_yellow: "PAUSE", false_start: "FAUX DÉPART!",
                 tv_stats_gold: "Stats Or", tv_stats_copper: "Stats Cuivre", tv_laps: "TOURS", tv_consistency: "CONSISTANCE", tv_best: "MEILLEUR", tv_last: "DERNIER", tv_avg_spd: "VIT MOY", tv_max_spd: "VIT MAX", tv_evol_time: "Évolution Temps & Delta (S)", tv_history: "Historique Face à Face", tv_speed_curve: "Courbe de Vitesse (Km/h)", tv_evol_cons: "Évolution Consistance (%)", tv_bar_comp: "Comparaison Barres", tv_diff: "DIFF",
                 tv_mode_duel: "MODE DUEL", tv_mode_time: "CONTRE-LA-MONTRE", tv_status_pause: "DRAPEAU JAUNE (PAUSE)", tv_status_false_start: "FAUX DÉPART", tv_status_ready: "PRÊTS...", tv_status_racing: "COURSE EN COURS", tv_status_finished: "COURSE TERMINÉE", tv_status_waiting: "EN ATTENTE...", tv_status_link: "LIEN ACTIF. EN ATTENTE DE VOITURES...", tv_status_uplink: "ÉTABLISSEMENT LIAISON...", tv_status_searching: "RECHERCHE SIGNAL TÉLÉMÉTRIE", tv_status_inactive: "SALLE INACTIVE OU FERMÉE", tv_status_error: "ERREUR DE CONNEXION",
-                lap_breakdown: "Détail des Tours par Pilote", csv_header: "Pilote,Tour,Temps(ms),Temps Formaté,Vitesse Moyenne(km/h)\n", default_p1: "Pilote 1", default_p2: "Pilote 2", race_telemetry: "Télémétrie en Direct"
+                lap_breakdown: "Détail des Tours par Pilote", csv_header: "Pilote,Tour,Temps(ms),Temps Formaté,Vitesse Moyenne(km/h)\n", default_p1: "Pilote 1", default_p2: "Pilote 2"
             }
         };
 
@@ -855,7 +847,6 @@
         const videoStatus = document.getElementById('video-status');
         const falseStartAlert = document.getElementById('false-start-alert');
         const falseStartPlayerName = document.getElementById('false-start-player');
-        const exportExcelBtn = document.getElementById('export-excel-btn');
         
         const gameModeSelect = document.getElementById('game-mode-select'); 
         const languageSelect = document.getElementById('language-select');
@@ -892,14 +883,14 @@
                 lapCountId: 'p1-lap-count', currentLapId: 'p1-current-lap', bestLapId: 'p1-best-lap', lastLapId: 'p1-last-lap', avgSpeedId: 'p1-avg-speed', gapId: 'p1-gap', thresholdId: 'p1-threshold', thresholdDispId: 'p1-threshold-disp', soundId: 'p1-sound',
                 laps: 0, lapHistory: [], bestLap: Infinity, lapStartTime: 0, lastRecordTime: 0, totalTime: 0, finished: false, hasCrossedStart: false,
                 soundTone: "C5", avgSpeed: 0, maxSpeed: 0, consistency: 0,
-                sensitivity: 20, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false
+                sensitivity: 25, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false
             },
             {
                 id: 2, nameId: 'p2-name', carId: 'p2-car', roiId: 'roi-p2', valId: 'val-p2', msgId: 'msg-p2',
                 lapCountId: 'p2-lap-count', currentLapId: 'p2-current-lap', bestLapId: 'p2-best-lap', lastLapId: 'p2-last-lap', avgSpeedId: 'p2-avg-speed', gapId: 'p2-gap', thresholdId: 'p2-threshold', thresholdDispId: 'p2-threshold-disp', soundId: 'p2-sound',
                 laps: 0, lapHistory: [], bestLap: Infinity, lapStartTime: 0, lastRecordTime: 0, totalTime: 0, finished: false, hasCrossedStart: false,
                 soundTone: "G5", avgSpeed: 0, maxSpeed: 0, consistency: 0,
-                sensitivity: 20, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false
+                sensitivity: 25, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false
             }
         ];
         
@@ -915,7 +906,6 @@
                     if (t[key]) el.textContent = t[key];
                 });
                 
-                // Actualizar nombres por defecto si no han sido modificados por el usuario
                 const p1Input = document.getElementById('p1-name');
                 if (p1Input && ["Piloto 1", "Driver 1", "Pilote 1"].includes(p1Input.value)) p1Input.value = t.default_p1;
                 const p2Input = document.getElementById('p2-name');
@@ -923,15 +913,17 @@
             }
             localStorage.setItem('krono_lang', lang); triggerCloudSync();
         }
+
         function speak(textKey, suffix = "") {
             if (isTVMode && (!tvData || !tvData.voiceEnabled)) return;
             if (!isTVMode && !voiceToggle.checked) return;
             const t = translations[currentLang] || translations['es'];
             let msgText = (t[textKey] || textKey) + suffix;
             const utter = new SpeechSynthesisUtterance(msgText);
-            utter.lang = currentLang === 'es' ? 'es-ES' : 'en-US';
+            utter.lang = currentLang === 'es' ? 'es-ES' : (currentLang === 'fr' ? 'fr-FR' : 'en-US');
             window.speechSynthesis.speak(utter);
         }
+
         function setGameMode(mode) {
             activePlayers = parseInt(mode);
             const p2Config = document.getElementById('p2-config-block');
@@ -952,13 +944,29 @@
             }
             triggerCloudSync();
         }
+
         window.adjT = function(pId, delta) {
             const p = players[pId-1]; let val = parseInt(document.getElementById(p.thresholdId).value);
             val = Math.max(5, Math.min(80, val + delta)); document.getElementById(p.thresholdId).value = val; window.updateThreshold(pId);
         }
+
         window.updateThreshold = function(pId) {
             const p = players[pId-1]; const val = document.getElementById(p.thresholdId).value;
             p.sensitivity = parseInt(val); document.getElementById(p.thresholdDispId).textContent = val;
+        }
+
+        // Lógica para ocultar/mostrar elementos de la cabecera
+        function updateMainPagePanels(show) {
+            if (isTVMode) return;
+            const hP = document.getElementById('app-header-panel');
+            const tP = document.getElementById('times-traffic-panel');
+            if (show) {
+                hP?.classList.remove('hidden'); hP?.classList.add('flex');
+                tP?.classList.remove('hidden'); tP?.classList.add('flex');
+            } else {
+                hP?.classList.add('hidden'); hP?.classList.remove('flex');
+                tP?.classList.add('hidden'); tP?.classList.remove('flex');
+            }
         }
 
         // 4. CAMARA Y VISION IA
@@ -975,15 +983,12 @@
                     processVideo();
                     document.getElementById('roi-p1').style.display = 'block';
                     if (activePlayers === 2) document.getElementById('roi-p2').style.display = 'block';
-                    videoStatus.textContent = translations[currentLang] ? translations[currentLang].video_status_ready : "LISTO"; 
+                    const t = translations[currentLang] || translations['es'];
+                    videoStatus.textContent = t.video_status_ready; 
                     cameraOnBtn.disabled = true; cameraOffBtn.disabled = false; 
                     document.getElementById('cam-controls').classList.remove('opacity-50', 'pointer-events-none');
                     
-                    // Ocultar paneles superiores para dar visibilidad
-                    const headerPanel = document.getElementById('app-header-panel');
-                    const timesPanel = document.getElementById('times-traffic-panel');
-                    if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
-                    if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
+                    updateMainPagePanels(false); // Ocultar para dar visibilidad a la cámara
                     document.getElementById('config-panel').classList.remove('open');
                 };
             } catch (err) { videoStatus.textContent = 'Error: ' + err.name; }
@@ -995,13 +1000,10 @@
             document.querySelectorAll('.movable-rectangle').forEach(el => el.style.display = 'none');
             cameraOnBtn.disabled = false; cameraOffBtn.disabled = true; 
             document.getElementById('cam-controls').classList.add('opacity-50', 'pointer-events-none');
-            videoStatus.textContent = translations[currentLang] ? translations[currentLang].video_status_off : "Apagada";
+            const t = translations[currentLang] || translations['es'];
+            videoStatus.textContent = t.video_status_off;
             
-            // Mostrar paneles superiores de nuevo
-            const headerPanel = document.getElementById('app-header-panel');
-            const timesPanel = document.getElementById('times-traffic-panel');
-            if(headerPanel) { headerPanel.classList.remove('hidden'); headerPanel.classList.add('flex'); }
-            if(timesPanel) { timesPanel.classList.remove('hidden'); timesPanel.classList.add('flex'); }
+            updateMainPagePanels(true); // Re-mostrar cabeceras
         }
 
         function autoAdjustMargin(p, increment) {
@@ -1084,9 +1086,9 @@
                                     p.referencePixels[i+2] = p.referencePixels[i+2] * 0.95 + data[i+2] * 0.05;
                                 }
                                 p.noiseFloor = p.noiseFloor * 0.8 + p.currentChangePct * 0.2;
-                                p.noiseFloor = Math.min(p.noiseFloor, 10); // Límite máximo de ruido de fondo
-                                let targetSens = Math.ceil(p.noiseFloor + 15); // Margen más amplio sobre el ruido
-                                p.sensitivity = Math.max(18, Math.min(70, targetSens)); // Sensibilidad mínima a 18 (mucho más estable)
+                                p.noiseFloor = Math.min(p.noiseFloor, 10);
+                                let targetSens = Math.ceil(p.noiseFloor + 15);
+                                p.sensitivity = Math.max(18, Math.min(70, targetSens));
                                 document.getElementById(p.thresholdId).value = p.sensitivity; document.getElementById(p.thresholdDispId).textContent = p.sensitivity;
                             }
                         }
@@ -1141,11 +1143,12 @@
                 if (samples >= 30) {
                     clearInterval(checkInterval);
                     let targetSens = Math.ceil(maxChange + 15);
-                    p.sensitivity = Math.max(15, Math.min(80, targetSens));
+                    p.sensitivity = Math.max(20, Math.min(80, targetSens));
                     document.getElementById(p.thresholdId).value = p.sensitivity; window.updateThreshold(p.id);
                     
                     isCalibrating = false; calibOverlay.classList.remove('active');
-                    calibOverlay.querySelector('h3').textContent = `Calibrando Sensores...`;
+                    const t = translations[currentLang] || translations['es'];
+                    calibOverlay.querySelector('h3').textContent = t.calibrating_title;
                     document.getElementById('calib-p1-btn').disabled = false;
                     if (document.getElementById('calib-p2-btn')) document.getElementById('calib-p2-btn').disabled = false;
                     speak('voice_calibrated', ' P' + pId);
@@ -1170,16 +1173,17 @@
         function togglePause() {
             if (!isRaceActive && !isPaused) return; 
             isPaused = !isPaused;
+            const t = translations[currentLang] || translations['es'];
             if (isPaused) {
                 isRaceActive = false; clearInterval(raceIntervalId); pauseStartTimestamp = Date.now();
-                pauseText.textContent = translations[currentLang] ? translations[currentLang].resume : "RESUME"; yellowFlagOverlay.classList.remove('hidden');
+                pauseText.textContent = t.resume; yellowFlagOverlay.classList.remove('hidden');
             } else {
                 const pd = Date.now() - pauseStartTimestamp; raceStartTime += pd;
                 players.forEach(p => { 
                     if (p.hasCrossedStart) { p.lapStartTime += pd; p.lastRecordTime += pd; } 
                     p.referencePixels = null;
                 });
-                isRaceActive = true; pauseText.textContent = translations[currentLang] ? translations[currentLang].pause : "PAUSA"; yellowFlagOverlay.classList.add('hidden'); startTimers(); 
+                isRaceActive = true; pauseText.textContent = t.pause; yellowFlagOverlay.classList.add('hidden'); startTimers(); 
             }
             broadcastState(); syncToCloud();
         }
@@ -1187,13 +1191,15 @@
         function startRace() {
             configPanel.classList.remove('open'); 
             
-            // Asegurar que el panel de tiempos y semáforo esté visible para la carrera
+            // Mostrar tiempos al arrancar carrera
             const timesPanel = document.getElementById('times-traffic-panel');
             if(timesPanel) { timesPanel.classList.remove('hidden'); timesPanel.classList.add('flex'); }
             
             startRaceBtn.disabled = true; resetRaceBtn.disabled = true; pauseRaceBtn.disabled = true; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden');
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
-            isPaused = false; pauseText.textContent = "PAUSA";
+            isPaused = false; 
+            const t = translations[currentLang] || translations['es'];
+            pauseText.textContent = t.pause;
             raceMode = raceConditionSelect.value;
             if (raceMode === 'laps') totalLapsTarget = lapLimitSelect.value==='Infinity'?Infinity:parseInt(lapLimitSelect.value); else { totalLapsTarget = Infinity; raceDurationTarget = parseInt(timeLimitSelect.value) * 60000; }
             blindTimeMs = parseInt(safetyTimeSelect.value);
@@ -1211,7 +1217,6 @@
             broadcastState(); syncToCloud();
 
             (async()=>{
-                // Periodo de gracia para que la cámara estabilice y lea bien el asfalto antes de la cuenta atrás
                 await new Promise(r=>setTimeout(r, 600)); 
                 
                 isCountdown = true; raceAborted = false; speak('voice_ready');
@@ -1222,8 +1227,6 @@
                 
                 isRaceActive=true; isDetectionReady=true; resetRaceBtn.disabled=false; pauseRaceBtn.disabled=false; 
                 document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden');
-                const telPanel2 = document.getElementById('telemetry-panel-wrapper'); if(telPanel2) telPanel2.classList.remove('hidden'); 
-                const grpPanel2 = document.getElementById('graph-panel-wrapper'); if(grpPanel2) grpPanel2.classList.remove('hidden');
                 
                 raceStartTime=Date.now(); players.forEach(p=>{p.lapStartTime=raceStartTime; p.lastRecordTime=Date.now()-blindTimeMs;}); startTimers();
                 broadcastState(); syncToCloud();
@@ -1307,9 +1310,7 @@
             players.forEach(p => { p.referencePixels = null; }); 
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
             
-            // Vuelve a mostrar la cabecera ("lo de arriba") al terminar la carrera
-            const headerPanel = document.getElementById('app-header-panel');
-            if (headerPanel) { headerPanel.classList.remove('hidden'); headerPanel.classList.add('flex'); }
+            updateMainPagePanels(true); // Restaura panel al final
             
             let winner = players[0]; 
             if (activePlayers === 2) { 
@@ -1321,9 +1322,9 @@
                 } 
             }
             
-            document.getElementById('winner-text').textContent = activePlayers===1 ? "Completado" : `Ganador: ${document.getElementById(winner.nameId).value}`;
+            const t = translations[currentLang] || translations['es'];
+            document.getElementById('winner-text').textContent = activePlayers===1 ? t.completed : `${t.winner} ${document.getElementById(winner.nameId).value}`;
             
-            // Ocultar la tarjeta del jugador 2 si estamos en modo 1 jugador
             document.getElementById('p2-summary-card').style.display = activePlayers === 2 ? 'block' : 'none';
             document.getElementById('modal-table-p2-container').style.display = activePlayers === 2 ? 'block' : 'none';
             
@@ -1338,13 +1339,11 @@
                 document.getElementById(`modal-table-p${p.id}-name`).textContent = n;
                 document.getElementById(`modal-p${p.id}-total`).textContent = formatTime(totalT);
                 
-                // Rellenar las nuevas estadísticas
                 const elLaps = document.getElementById(`modal-p${p.id}-laps`); if(elLaps) elLaps.textContent = p.laps;
                 const elBest = document.getElementById(`modal-p${p.id}-best`); if(elBest) elBest.textContent = p.bestLap !== Infinity ? formatTime(p.bestLap) : '--.---';
                 const elCons = document.getElementById(`modal-p${p.id}-cons`); if(elCons) elCons.textContent = (p.consistency || 0).toFixed(1) + '%';
                 const elSpd = document.getElementById(`modal-p${p.id}-spd`); if(elSpd) elSpd.textContent = (p.avgSpeed || 0).toFixed(1) + ' km/h';
 
-                // Renderizar tabla individual para este piloto
                 const tbody = document.getElementById(`modal-lap-list-p${p.id}`);
                 tbody.innerHTML = '';
                 
@@ -1370,10 +1369,9 @@
                 }
             });
             
-            // Mostrar modal con animación correcta
             const resModal = document.getElementById('resultsModal');
             resModal.classList.remove('hidden');
-            setTimeout(() => resModal.classList.add('open'), 50); // Tiempo para que aplique el display:block antes de transicionar
+            setTimeout(() => resModal.classList.add('open'), 50);
             
             speak('voice_completed'); broadcastState(); syncToCloud();
         }
@@ -1544,18 +1542,13 @@
             function updateTVUI() {
                 if(!tvData || !tvData.players) return;
                 
-                // Forzar idioma local para que coincida con el idioma retransmitido por el Host de la carrera
-                if (tvData.currentLang && tvData.currentLang !== currentLang) {
-                    setLanguage(tvData.currentLang);
-                }
+                if (tvData.currentLang && tvData.currentLang !== currentLang) { setLanguage(tvData.currentLang); }
                 const t = translations[currentLang] || translations['es'];
                 
                 if (tvData.timestamp && (Date.now() - tvData.timestamp > 7200000)) { tvData.isRaceActive = false; tvData.isCountdown = false; tvData.isPaused = false; tvData.raceAborted = false; }
                 const p1 = tvData.players.find(p=>p.id===1); const p2 = tvData.players.find(p=>p.id===2);
                 
                 const tvStatus = document.getElementById('tv-status');
-                
-                // Base estructural inamovible (Garantiza que nunca desaparezca)
                 const baseStatusClass = "flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-all duration-300 ";
                 
                 if (tvData.isPaused) {
@@ -1666,7 +1659,6 @@
 
             if (cloudRoomCode) {
                 const tvCloudCodeDisplay = document.getElementById('tv-cloud-code-display');
-                // Mostramos AUTO-LINK localmente o el código literal
                 tvCloudCodeDisplay.querySelector('span').textContent = (cloudRoomCode === getPortalRoomCode()) ? "AUTO-LINK" : cloudRoomCode;
                 tvCloudCodeDisplay.classList.remove('hidden');
                 tvCloudCodeDisplay.classList.add('flex');
@@ -1732,7 +1724,7 @@
             const exitBtn = document.getElementById('tv-exit-btn');
             if (urlParams.get('tv') === 'true' || (cloudRoomCode && cloudRoomCode !== window.myRoomCode)) { exitBtn.style.display = 'none'; } else { exitBtn.addEventListener('click', () => window.location.href = window.location.pathname); }
 
-            // Lógica de Pantalla Completa (Saneada usando onclick directamente)
+            // Lógica de Pantalla Completa
             const tvFsBtn = document.getElementById('tv-fullscreen-btn');
             if (tvFsBtn) {
                 tvFsBtn.onclick = function() {
@@ -1774,13 +1766,7 @@
         document.getElementById('reset-race-btn').onclick = () => { 
             isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden'); document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
             
-            // Si la cámara sigue encendida, ocultar TODO lo de arriba de nuevo
-            if (cameraStream) {
-                const headerPanel = document.getElementById('app-header-panel');
-                const timesPanel = document.getElementById('times-traffic-panel');
-                if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
-                if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
-            }
+            if (cameraStream) { updateMainPagePanels(false); }
             broadcastState(); syncToCloud(); 
         };
         document.getElementById('central-config-btn').onclick = () => document.getElementById('config-panel').classList.toggle('open');
@@ -1798,13 +1784,7 @@
                 isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; pauseRaceBtn.disabled = true; isPaused = false; 
                 document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden'); 
                 
-                // Si la cámara sigue encendida, ocultar TODO lo de arriba de nuevo para la vista previa
-                if (cameraStream) {
-                    const headerPanel = document.getElementById('app-header-panel');
-                    const timesPanel = document.getElementById('times-traffic-panel');
-                    if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
-                    if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
-                }
+                if (cameraStream) { updateMainPagePanels(false); }
                 broadcastState(); syncToCloud(); 
             }, 300);
         };
@@ -1820,12 +1800,10 @@
                 const pName = document.getElementById(p.nameId).value;
                 p.lapHistory.forEach((time, idx) => {
                     const speed = (trackLen / (time / 1000)) * 3.6;
-                    // Ponemos comillas en el nombre por si tiene comas
                     csv += `"${pName}",${idx + 1},${time},${formatTime(time)},${speed.toFixed(2)}\n`;
                 });
             });
             
-            // Usar \uFEFF asegura que Excel reconozca el archivo como UTF-8
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement("a");
             const url = URL.createObjectURL(blob);
@@ -1862,9 +1840,8 @@
             const h = e.target.closest('.resize-handle'); const r = e.target.closest('.movable-rectangle'); if (!r) return;
             if (e.cancelable && !e.target.closest('input')) e.preventDefault();
             
-            // Traer el recuadro seleccionado al frente para que sea fácil agarrarlo si se cruzan
-            document.querySelectorAll('.movable-rectangle').forEach(el => el.style.zIndex = '10');
-            r.style.zIndex = '15';
+            document.querySelectorAll('.movable-rectangle').forEach(el => el.style.zIndex = '40');
+            r.style.zIndex = '45';
 
             const pos = getEventPos(e); startX = pos.clientX; startY = pos.clientY; startLeft = r.offsetLeft; startTop = r.offsetTop; startWidth = r.offsetWidth; startHeight = r.offsetHeight; actRoi = r;
             if (h) { 
@@ -1904,17 +1881,10 @@
         window.onload = () => {
             window.updateThreshold(1); window.updateThreshold(2);
             
-            const updateTelemetryHeaders = () => {
-                const elP1Name = document.getElementById('p1-telemetry-name'); if(elP1Name) elP1Name.textContent = document.getElementById('p1-name').value || 'P1';
-                const elP1Car = document.getElementById('p1-telemetry-car'); if(elP1Car) elP1Car.textContent = document.getElementById('p1-car').value || '-';
-                const elP2Name = document.getElementById('p2-telemetry-name'); if(elP2Name) elP2Name.textContent = document.getElementById('p2-name').value || 'P2';
-                const elP2Car = document.getElementById('p2-telemetry-car'); if(elP2Car) elP2Car.textContent = document.getElementById('p2-car').value || '-';
-            };
             ['p1-name', 'p1-car', 'p2-name', 'p2-car'].forEach(id => {
                 const input = document.getElementById(id);
-                if (input) { input.addEventListener('input', () => { updateTelemetryHeaders(); if (!isTVMode) { broadcastState(); syncToCloud(); } }); }
+                if (input) { input.addEventListener('input', () => { if (!isTVMode) { broadcastState(); syncToCloud(); } }); }
             });
-            updateTelemetryHeaders();
             
             if (urlParams.get('tv') === 'true') window.startTVMode(urlParams.get('room') || window.myRoomCode);
             else { setInterval(() => { const pCode = getPortalRoomCode(); if (pCode && pCode !== window.myRoomCode) { window.myRoomCode = pCode; triggerCloudSync(); } }, 1000); }
