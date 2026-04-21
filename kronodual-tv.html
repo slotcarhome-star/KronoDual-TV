@@ -163,9 +163,31 @@
         .tv-scrollbar::-webkit-scrollbar { width: 6px; }
         .tv-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
         .tv-scrollbar::-webkit-scrollbar-thumb { background: rgba(250, 204, 21, 0.3); border-radius: 4px; }
-        .tv-grid-snapping { grid-auto-rows: 120px; }
-        .tv-widget { transition: box-shadow 0.2s ease, border-color 0.2s ease; container-type: size; height: 100%; }
+        
+        /* NO-SCROLL TV FLEX LAYOUT (SOPORTA DRAG Y RESIZE LIBRE) */
+        .tv-grid-layout { display: flex; flex-wrap: wrap; align-content: flex-start; width: 100%; height: 100%; gap: 1rem; padding-bottom: 0.5rem; overflow-y: auto; overflow-x: hidden; }
+        .tv-widget { transition: box-shadow 0.2s ease, border-color 0.2s ease; container-type: size; flex: 0 0 auto; box-sizing: border-box; position: relative; }
         .tv-widget:hover { border-color: rgba(250, 204, 21, 0.3); }
+
+        /* TAMAÑOS POR DEFECTO WIDGETS TV (Desktop) */
+        #w-time { width: 100%; min-height: 110px; height: auto; }
+        #w-p1-main, #w-p1-stats, #w-p2-main, #w-p2-stats { width: calc(25% - 0.75rem); height: 160px; }
+        #w-combined-graph, #w-graph, #w-speed-graph, #w-consistency-graph { width: calc(33.333% - 0.67rem); height: 260px; }
+        #w-history { width: calc(33.333% - 0.67rem); height: 536px; }
+
+        /* TAMAÑOS RESPONSIVOS WIDGETS TV */
+        @media (max-width: 1023px) {
+            #w-p1-main, #w-p1-stats, #w-p2-main, #w-p2-stats { width: calc(50% - 0.5rem); }
+            #w-combined-graph, #w-graph, #w-speed-graph, #w-consistency-graph { width: calc(50% - 0.5rem); }
+            #w-history { width: 100%; height: 300px; }
+        }
+        @media (max-width: 767px) {
+            .tv-widget { width: 100% !important; height: 200px; }
+            #w-time { height: 100px; }
+        }
+        
+        .tv-grid-layout.single-player #w-p1-main,
+        .tv-grid-layout.single-player #w-p1-stats { width: calc(50% - 0.5rem); }
         
         /* Typography TV */
         .cq-text-xxs { font-size: clamp(0.5rem, 3cqmin, 1rem); line-height: 1.1; }
@@ -193,54 +215,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes ai-flash { 0% { opacity: 1; transform: scale(1.02); filter: contrast(1.5) brightness(1.5); } 50% { opacity: 0.8; transform: scale(0.98); filter: hue-rotate(90deg) blur(2px); } 100% { opacity: 0; transform: scale(1); filter: none; } }
         .ai-glitching { animation: ai-flash 0.6s ease-out forwards; }
-
-        /* NO-SCROLL TV GRID LAYOUT */
-        .tv-grid-layout { display: grid; width: 100%; height: 100%; gap: 1rem; padding-bottom: 0.5rem; }
-        .tv-grid-layout .drag-handle, .tv-grid-layout .resize-widget-handle { display: none !important; }
-        
-        @media (min-width: 1024px) { /* Desktop, Mac, TV */
-            .tv-grid-layout { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 70px minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
-            #w-time { grid-column: span 12; grid-row: span 1; }
-            #w-p1-main { grid-column: span 3; grid-row: span 1; }
-            #w-p1-stats { grid-column: span 3; grid-row: span 1; }
-            #w-p2-main { grid-column: span 3; grid-row: span 1; }
-            #w-p2-stats { grid-column: span 3; grid-row: span 1; }
-            #w-combined-graph { grid-column: span 4; grid-row: span 1; }
-            #w-graph { grid-column: span 4; grid-row: span 1; }
-            #w-history { grid-column: span 4; grid-row: span 2; }
-            #w-speed-graph { grid-column: span 4; grid-row: span 1; }
-            #w-consistency-graph { grid-column: span 4; grid-row: span 1; }
-            
-            .tv-grid-layout.single-player #w-p1-main { grid-column: span 6; }
-            .tv-grid-layout.single-player #w-p1-stats { grid-column: span 6; }
-        }
-        
-        @media (min-width: 768px) and (max-width: 1023px) { /* Tablet */
-            .tv-grid-layout { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 65px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
-            #w-time { grid-column: span 12; grid-row: span 1; }
-            #w-p1-main { grid-column: span 6; grid-row: span 1; }
-            #w-p2-main { grid-column: span 6; grid-row: span 1; }
-            #w-p1-stats { grid-column: span 6; grid-row: span 1; }
-            #w-p2-stats { grid-column: span 6; grid-row: span 1; }
-            #w-combined-graph { grid-column: span 6; grid-row: span 1; }
-            #w-graph { grid-column: span 6; grid-row: span 1; }
-            #w-speed-graph { grid-column: span 4; grid-row: span 1; }
-            #w-consistency-graph { grid-column: span 4; grid-row: span 1; }
-            #w-history { grid-column: span 4; grid-row: span 1; }
-            
-            .tv-grid-layout.single-player #w-p1-main { grid-column: span 12; }
-            .tv-grid-layout.single-player #w-p1-stats { grid-column: span 12; }
-        }
-        
-        @media (max-width: 767px) { /* Mobile Fallback */
-            .tv-grid-layout { grid-template-columns: repeat(1, minmax(0, 1fr)); grid-auto-rows: minmax(180px, auto); overflow-y: auto; }
-            #w-time { grid-auto-rows: 90px; }
-        }
-        
-        .tv-grid-layout.single-player #w-p2-main,
-        .tv-grid-layout.single-player #w-p2-stats,
-        .tv-grid-layout.single-player #tv-header-p2-container { display: none !important; }
-
     </style>
 </head>
 <body>
@@ -448,7 +422,7 @@
     </div> <!-- FIN CONTENEDOR APP -->
 
 
-    <!-- ================= CONTENEDOR MODO TV (SMART DASHBOARD OSCURO) MANTENIDO ORIGINAL ================= -->
+    <!-- ================= CONTENEDOR MODO TV (SMART DASHBOARD OSCURO) ================= -->
     <div id="tv-dashboard" class="hidden h-screen tv-bg text-white w-full flex-col font-sans overflow-hidden p-4 lg:p-6" data-theme="default">
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center space-x-5">
@@ -465,6 +439,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-3">
+                <button id="tv-layout-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition font-bold font-rajdhani tracking-widest flex items-center" title="Cambiar Organización">🔲 LAYOUT</button>
                 <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-yellow-400 hover:text-white hover:bg-yellow-900/50 hover:border-yellow-400 transition" title="Cambiar Tema">🎨 IA</button>
                 <button id="tv-exit-btn" class="p-3 rounded-xl bg-red-900/60 text-red-400 border border-red-500 hover:bg-red-800 hover:text-white transition">SALIR</button>
                 <div id="tv-status" class="text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-400 shadow-md">ESPERANDO...</div>
@@ -480,28 +455,28 @@
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
                 
-                <div class="flex flex-col items-start w-1/3 pointer-events-none">
-                    <span id="tv-header-p1-name" class="text-yellow-400 font-rajdhani font-bold cq-text-sm uppercase truncate w-full">P1</span>
-                    <span id="tv-header-p1-car" class="text-slate-400 font-rajdhani text-xs truncate w-full">-</span>
-                    <span id="tv-header-p1-laps" class="text-white font-rajdhani font-bold text-xs mt-1 bg-yellow-900/50 px-2 py-0.5 rounded border border-yellow-500/30">V: 0</span>
+                <div class="flex flex-col items-start w-1/3 pointer-events-none py-2">
+                    <span id="tv-header-p1-name" class="text-yellow-400 font-rajdhani font-black text-2xl md:text-4xl uppercase truncate w-full tracking-wider drop-shadow-md">P1</span>
+                    <span id="tv-header-p1-car" class="text-slate-300 font-rajdhani font-bold text-sm md:text-lg truncate w-full opacity-90">-</span>
+                    <span id="tv-header-p1-laps" class="text-yellow-300 font-rajdhani font-bold text-xl md:text-3xl mt-1 drop-shadow">V: 0</span>
                 </div>
 
                 <div class="flex flex-col items-center w-1/3 pointer-events-none">
-                    <span class="text-slate-400 font-rajdhani font-semibold cq-text-xs mb-1">TIEMPO GLOBAL</span>
-                    <span id="tv-race-time" class="tv-font cq-text-5xl font-black text-white">00:00.0</span>
+                    <span class="text-slate-400 font-rajdhani font-semibold text-xs md:text-sm mb-1 tracking-widest">TIEMPO GLOBAL</span>
+                    <span id="tv-race-time" class="tv-font text-4xl md:text-6xl font-black text-white drop-shadow-lg">00:00.0</span>
                 </div>
 
-                <div id="tv-header-p2-container" class="flex flex-col items-end w-1/3 text-right pointer-events-none">
-                    <span id="tv-header-p2-name" class="text-orange-400 font-rajdhani font-bold cq-text-sm uppercase truncate w-full">P2</span>
-                    <span id="tv-header-p2-car" class="text-slate-400 font-rajdhani text-xs truncate w-full">-</span>
-                    <span id="tv-header-p2-laps" class="text-white font-rajdhani font-bold text-xs mt-1 bg-orange-900/50 px-2 py-0.5 rounded border border-orange-500/30">V: 0</span>
+                <div id="tv-header-p2-container" class="flex flex-col items-end w-1/3 text-right pointer-events-none py-2">
+                    <span id="tv-header-p2-name" class="text-orange-400 font-rajdhani font-black text-2xl md:text-4xl uppercase truncate w-full tracking-wider drop-shadow-md">P2</span>
+                    <span id="tv-header-p2-car" class="text-slate-300 font-rajdhani font-bold text-sm md:text-lg truncate w-full opacity-90">-</span>
+                    <span id="tv-header-p2-laps" class="text-orange-300 font-rajdhani font-bold text-xl md:text-3xl mt-1 drop-shadow">V: 0</span>
                 </div>
             </div>
 
             <div id="w-p1-main" class="tv-widget tv-panel flex flex-col items-center justify-center border-t-4 border-yellow-400 bg-yellow-900/10 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span id="tv-p1-name" class="cq-text-sm font-rajdhani font-bold text-yellow-400 tracking-widest uppercase mb-2 pointer-events-none">P1</span>
+                <span id="tv-p1-name" class="text-2xl md:text-4xl font-rajdhani font-black text-yellow-400 tracking-widest uppercase mb-2 pointer-events-none drop-shadow-md">P1</span>
                 <span id="tv-p1-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none">00.000</span>
                 <div class="mt-4 pointer-events-none"><span id="tv-p1-gap" class="tv-font cq-text-2xl font-bold px-4 py-1.5 rounded-lg shadow-md">--</span></div>
             </div>
@@ -509,7 +484,7 @@
             <div id="w-p2-main" class="tv-widget tv-panel flex flex-col items-center justify-center border-t-4 border-orange-500 bg-orange-900/10 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-orange-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
-                <span id="tv-p2-name" class="cq-text-sm font-rajdhani font-bold text-orange-400 tracking-widest uppercase mb-2 pointer-events-none">P2</span>
+                <span id="tv-p2-name" class="text-2xl md:text-4xl font-rajdhani font-black text-orange-400 tracking-widest uppercase mb-2 pointer-events-none drop-shadow-md">P2</span>
                 <span id="tv-p2-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none">00.000</span>
                 <div class="mt-4 pointer-events-none"><span id="tv-p2-gap" class="tv-font cq-text-2xl font-bold px-4 py-1.5 rounded-lg shadow-md">--</span></div>
             </div>
@@ -1285,22 +1260,37 @@
             tvBoard.classList.add('flex');
             document.title = "KRONODUAL TV DASHBOARD";
             
+            // 1. Restaurar tamaños personalizados antes de cargar el drag and drop
+            const savedSizes = localStorage.getItem('krono_tv_widget_sizes');
+            if (savedSizes) {
+                try {
+                    const sizes = JSON.parse(savedSizes);
+                    Object.keys(sizes).forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el && sizes[id]) {
+                            el.style.width = sizes[id].width;
+                            el.style.height = sizes[id].height;
+                        }
+                    });
+                } catch(e) {}
+            }
+
             setTimeout(() => {
                 const tvGrid = document.getElementById('tv-grid-container');
                 if (tvGrid) {
-                    // 1. Restaurar el orden guardado anteriormente
+                    // Restaurar el orden guardado anteriormente
                     const savedOrder = localStorage.getItem('krono_tv_layout_ids');
                     if (savedOrder) {
                         try {
                             const orderArr = JSON.parse(savedOrder);
                             orderArr.forEach(id => {
                                 const el = document.getElementById(id);
-                                if (el) tvGrid.appendChild(el); // Mueve el elemento a su posición
+                                if (el) tvGrid.appendChild(el); 
                             });
                         } catch(e) {}
                     }
                     
-                    // 2. Reactivar el arrastre y guardar cambios automáticamente
+                    // Reactivar el arrastre (Drag & Drop)
                     if (window.Sortable) {
                         new Sortable(tvGrid, { 
                             animation: 250, 
@@ -1309,13 +1299,21 @@
                             dragClass: 'sortable-drag', 
                             easing: "cubic-bezier(0.25, 1, 0.5, 1)",
                             onEnd: function () {
-                                // Guarda el nuevo orden de los IDs al soltar el panel
                                 const currentOrder = Array.from(tvGrid.children).map(el => el.id).filter(id => id);
                                 localStorage.setItem('krono_tv_layout_ids', JSON.stringify(currentOrder));
                             }
                         });
                     }
                 }
+
+                // ResizeObserver: auto-redibuja gráficas cuando cambias el tamaño de un widget
+                if (window.ResizeObserver) {
+                    const resizeObs = new ResizeObserver(() => {
+                        if(window.redrawTVGraphs) window.redrawTVGraphs();
+                    });
+                    document.querySelectorAll('.tv-widget').forEach(w => resizeObs.observe(w));
+                }
+
             }, 300);
 
             window.drawTVDualGraph = function(canvasId, p1Laps, p2Laps) {
@@ -1442,6 +1440,48 @@
 
             function updateTVUI() {
                 if(!tvData || !tvData.players) return;
+                
+                // --- REPRODUCCIÓN DE AUDIO Y VOZ EN MODO TV ---
+                if (isTVMode && previousTvData) {
+                    // 1. Salida Nula
+                    if (tvData.raceAborted && !previousTvData.raceAborted) {
+                        polySynth.triggerAttackRelease(["C2", "F#2", "C3"], "1");
+                        speak('voice_false_start', " " + tvData.falseStartName);
+                    }
+                    // 2. Salida de Carrera (GO!)
+                    if (tvData.isRaceActive && !previousTvData.isRaceActive && !tvData.isPaused && !tvData.raceAborted) {
+                        polySynth.triggerAttackRelease(["C5","G5"],"0.5");
+                    }
+                    // 3. Cuenta Atrás
+                    if (tvData.isCountdown && !previousTvData.isCountdown) {
+                        speak('voice_ready');
+                        synth.triggerAttackRelease("C4","0.1"); 
+                    }
+                    // 4. Vueltas, Récords y Finales
+                    tvData.players.forEach(p => {
+                        const prevP = previousTvData.players.find(x => x.id === p.id);
+                        if (!prevP) return;
+                        
+                        if (p.laps > prevP.laps) {
+                            synth.triggerAttackRelease(p.soundTone, "0.1"); // Tono de vuelta
+                            
+                            // Comprobar Vuelta Rápida
+                            if (p.bestLap < prevP.bestLap || (prevP.bestLap === null && p.bestLap !== null && p.laps > 1)) {
+                                const lastLapTime = p.lapHistory[p.lapHistory.length-1];
+                                if (lastLapTime) speak('voice_record', p.name + "! " + (lastLapTime/1000).toFixed(2));
+                            }
+                        }
+                        // Meta final cruzada
+                        if (p.finished && !prevP.finished) {
+                            polySynth.triggerAttackRelease(["E6"], "0.2");
+                        }
+                    });
+                    // 5. Fin de la carrera general
+                    if (!tvData.isRaceActive && previousTvData.isRaceActive && !tvData.raceAborted && !tvData.isPaused) {
+                        speak('voice_completed');
+                    }
+                }
+
                 if (tvData.timestamp && (Date.now() - tvData.timestamp > 7200000)) { tvData.isRaceActive = false; tvData.isCountdown = false; tvData.isPaused = false; tvData.raceAborted = false; }
                 const p1 = tvData.players.find(p=>p.id===1); const p2 = tvData.players.find(p=>p.id===2);
                 
@@ -1525,6 +1565,9 @@
                         if(c) { c.width=c.parentElement.clientWidth-32; c.getContext('2d').clearRect(0,0,c.width, c.height); }
                     });
                 }
+                
+                // Guardar el estado actual para la próxima comparación
+                previousTvData = JSON.parse(JSON.stringify(tvData));
             }
 
             if (cloudRoomCode) {
@@ -1562,15 +1605,116 @@
                 if(exitBtn) exitBtn.style.display = 'none';
             }
 
-            document.getElementById('tv-fullscreen-btn').addEventListener('click', () => !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen());
+            document.getElementById('tv-fullscreen-btn').addEventListener('click', async () => { await Tone.start(); !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen(); });
             
             const themes = ['default', 'matrix', 'synthwave', 'corsa', 'carbon']; let currentThemeIndex = 0; 
-            document.getElementById('tv-ai-theme-btn').addEventListener('click', () => {
+            document.getElementById('tv-ai-theme-btn').addEventListener('click', async () => {
+                await Tone.start();
                 const overlay = document.getElementById('ai-flash-overlay'); overlay.classList.remove('hidden'); overlay.classList.add('ai-glitching');
                 setTimeout(() => { currentThemeIndex = (currentThemeIndex + 1) % themes.length; document.getElementById('tv-dashboard').setAttribute('data-theme', themes[currentThemeIndex]); }, 150);
                 setTimeout(() => { overlay.classList.remove('ai-glitching'); overlay.classList.add('hidden'); }, 600);
             });
             
+            // 5 ORGANIZACIONES AUTOMÁTICAS (PRESETS)
+            const layouts = [
+                { // 0: Default Balanceado
+                    'w-time': { w: '100%', h: 'auto', order: 1 },
+                    'w-p1-main': { w: 'calc(25% - 0.75rem)', h: '160px', order: 2 },
+                    'w-p2-main': { w: 'calc(25% - 0.75rem)', h: '160px', order: 3 },
+                    'w-p1-stats': { w: 'calc(25% - 0.75rem)', h: '160px', order: 4 },
+                    'w-p2-stats': { w: 'calc(25% - 0.75rem)', h: '160px', order: 5 },
+                    'w-combined-graph': { w: 'calc(33.333% - 0.67rem)', h: '260px', order: 6 },
+                    'w-graph': { w: 'calc(33.333% - 0.67rem)', h: '260px', order: 7 },
+                    'w-speed-graph': { w: 'calc(33.333% - 0.67rem)', h: '260px', order: 8 },
+                    'w-consistency-graph': { w: 'calc(33.333% - 0.67rem)', h: '260px', order: 9 },
+                    'w-history': { w: 'calc(33.333% - 0.67rem)', h: '536px', order: 10 }
+                },
+                { // 1: Tiempos Grandes
+                    'w-time': { w: '100%', h: 'auto', order: 1 },
+                    'w-p1-main': { w: 'calc(50% - 0.5rem)', h: '240px', order: 2 },
+                    'w-p2-main': { w: 'calc(50% - 0.5rem)', h: '240px', order: 3 },
+                    'w-p1-stats': { w: 'calc(50% - 0.5rem)', h: '150px', order: 4 },
+                    'w-p2-stats': { w: 'calc(50% - 0.5rem)', h: '150px', order: 5 },
+                    'w-combined-graph': { w: 'calc(50% - 0.5rem)', h: '220px', order: 6 },
+                    'w-graph': { w: 'calc(50% - 0.5rem)', h: '220px', order: 7 },
+                    'w-speed-graph': { w: 'calc(33.333% - 0.67rem)', h: '200px', order: 8 },
+                    'w-consistency-graph': { w: 'calc(33.333% - 0.67rem)', h: '200px', order: 9 },
+                    'w-history': { w: 'calc(33.333% - 0.67rem)', h: '200px', order: 10 }
+                },
+                { // 2: Telemetría / Gráficas Dominantes
+                    'w-time': { w: '100%', h: 'auto', order: 1 },
+                    'w-combined-graph': { w: '100%', h: '350px', order: 2 },
+                    'w-p1-main': { w: 'calc(25% - 0.75rem)', h: '120px', order: 3 },
+                    'w-p2-main': { w: 'calc(25% - 0.75rem)', h: '120px', order: 4 },
+                    'w-p1-stats': { w: 'calc(25% - 0.75rem)', h: '120px', order: 5 },
+                    'w-p2-stats': { w: 'calc(25% - 0.75rem)', h: '120px', order: 6 },
+                    'w-graph': { w: 'calc(25% - 0.75rem)', h: '220px', order: 7 },
+                    'w-speed-graph': { w: 'calc(25% - 0.75rem)', h: '220px', order: 8 },
+                    'w-consistency-graph': { w: 'calc(25% - 0.75rem)', h: '220px', order: 9 },
+                    'w-history': { w: 'calc(25% - 0.75rem)', h: '220px', order: 10 }
+                },
+                { // 3: Historial Dominante
+                    'w-time': { w: '100%', h: 'auto', order: 1 },
+                    'w-history': { w: '100%', h: '300px', order: 2 },
+                    'w-p1-main': { w: 'calc(25% - 0.75rem)', h: '140px', order: 3 },
+                    'w-p2-main': { w: 'calc(25% - 0.75rem)', h: '140px', order: 4 },
+                    'w-p1-stats': { w: 'calc(25% - 0.75rem)', h: '140px', order: 5 },
+                    'w-p2-stats': { w: 'calc(25% - 0.75rem)', h: '140px', order: 6 },
+                    'w-combined-graph': { w: 'calc(50% - 0.5rem)', h: '200px', order: 7 },
+                    'w-graph': { w: 'calc(50% - 0.5rem)', h: '200px', order: 8 },
+                    'w-speed-graph': { w: 'calc(50% - 0.5rem)', h: '200px', order: 9 },
+                    'w-consistency-graph': { w: 'calc(50% - 0.5rem)', h: '200px', order: 10 }
+                },
+                { // 4: Cuadrícula Uniforme Completa
+                    'w-time': { w: '100%', h: 'auto', order: 1 },
+                    'w-p1-main': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 2 },
+                    'w-p2-main': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 3 },
+                    'w-combined-graph': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 4 },
+                    'w-p1-stats': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 5 },
+                    'w-p2-stats': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 6 },
+                    'w-graph': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 7 },
+                    'w-speed-graph': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 8 },
+                    'w-consistency-graph': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 9 },
+                    'w-history': { w: 'calc(33.333% - 0.67rem)', h: '220px', order: 10 }
+                }
+            ];
+            
+            let currentTvLayoutIndex = 0;
+            document.getElementById('tv-layout-btn').addEventListener('click', async () => {
+                await Tone.start();
+                currentTvLayoutIndex = (currentTvLayoutIndex + 1) % layouts.length;
+                const layout = layouts[currentTvLayoutIndex];
+                
+                const tvGrid = document.getElementById('tv-grid-container');
+                const widgetSizes = {};
+                const widgetOrder = [];
+
+                // Reordenar elementos físicamente en el DOM
+                const elements = Array.from(tvGrid.children);
+                elements.sort((a, b) => {
+                    const orderA = layout[a.id] ? layout[a.id].order : 99;
+                    const orderB = layout[b.id] ? layout[b.id].order : 99;
+                    return orderA - orderB;
+                });
+                
+                elements.forEach(el => {
+                    tvGrid.appendChild(el); // Lo mueve en el DOM
+                    widgetOrder.push(el.id);
+                    if (layout[el.id]) {
+                        el.style.width = layout[el.id].w;
+                        el.style.height = layout[el.id].h;
+                        widgetSizes[el.id] = { width: layout[el.id].w, height: layout[el.id].h };
+                    }
+                });
+
+                // Guardar los tamaños y el orden para que resista recargas de página
+                localStorage.setItem('krono_tv_widget_sizes', JSON.stringify(widgetSizes));
+                localStorage.setItem('krono_tv_layout_ids', JSON.stringify(widgetOrder));
+
+                // Dar tiempo al navegador a pintar y re-calcular dimensiones del canvas
+                if(window.redrawTVGraphs) setTimeout(window.redrawTVGraphs, 50);
+            });
+
             window.addEventListener('resize', () => {
                 if(window.redrawTVGraphs) window.redrawTVGraphs();
             });
@@ -1727,6 +1871,7 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
 
         document.body.addEventListener('click', async () => { if (isTVMode) await Tone.start(); }, { once: true });
 
+        // LOGICAS DE DRAG ORIGINAL DE CÁMARAS
         let actRoi=null, isDrag=false, isResize=false, resizeHandle=null, startX=0, startY=0, startLeft=0, startTop=0, startWidth=0, startHeight=0;
         function getEventPos(e) { return e.touches ? e.touches[0] : e; }
         function dragStart(e) {
@@ -1770,6 +1915,48 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             isDrag = false; isResize = false; actRoi = null; 
         }
         videoContainer.addEventListener('mousedown', dragStart); videoContainer.addEventListener('touchstart', dragStart, {passive: false}); document.addEventListener('mousemove', dragMove); document.addEventListener('touchmove', dragMove, {passive: false}); document.addEventListener('mouseup', dragEnd); document.addEventListener('touchend', dragEnd);
+
+        // FUNCIONES DE RESIZE MANUAL PARA WIDGETS DEL TV DASHBOARD
+        let isTvResize = false, tvResizingWidget = null, startTvW = 0, startTvH = 0, startTvX = 0, startTvY = 0;
+
+        function startTvResizing(e) {
+            const handle = e.target.closest('.resize-widget-handle');
+            if (!handle) return;
+            e.preventDefault(); e.stopPropagation();
+            isTvResize = true; tvResizingWidget = handle.closest('.tv-widget');
+            const pos = e.touches ? e.touches[0] : e;
+            startTvX = pos.clientX; startTvY = pos.clientY;
+            startTvW = tvResizingWidget.offsetWidth; startTvH = tvResizingWidget.offsetHeight;
+        }
+
+        function doTvResizing(e) {
+            if (!isTvResize || !tvResizingWidget) return;
+            e.preventDefault();
+            const pos = e.touches ? e.touches[0] : e;
+            const dx = pos.clientX - startTvX; const dy = pos.clientY - startTvY;
+            
+            // Limitamos a tamaños mínimos razonables
+            tvResizingWidget.style.width = Math.max(150, startTvW + dx) + 'px';
+            tvResizingWidget.style.height = Math.max(100, startTvH + dy) + 'px';
+        }
+
+        function stopTvResizing() {
+            if (isTvResize && tvResizingWidget) {
+                const sizes = {};
+                document.querySelectorAll('.tv-widget').forEach(w => {
+                    if (w.style.width || w.style.height) sizes[w.id] = { width: w.style.width, height: w.style.height };
+                });
+                localStorage.setItem('krono_tv_widget_sizes', JSON.stringify(sizes));
+            }
+            isTvResize = false; tvResizingWidget = null;
+        }
+
+        document.addEventListener('mousedown', startTvResizing);
+        document.addEventListener('touchstart', startTvResizing, {passive: false});
+        document.addEventListener('mousemove', doTvResizing, {passive: false});
+        document.addEventListener('touchmove', doTvResizing, {passive: false});
+        document.addEventListener('mouseup', stopTvResizing);
+        document.addEventListener('touchend', stopTvResizing);
 
         // SISTEMA DE GUARDADO AUTOMÁTICO DE CONFIGURACIÓN
         function saveLocalConfig() {
