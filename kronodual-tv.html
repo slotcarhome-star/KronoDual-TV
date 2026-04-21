@@ -535,24 +535,21 @@
             
             <div class="flex flex-col items-end">
                 <div class="flex items-center space-x-3">
-                    <!-- BOTÓN SALIR -->
                     <button id="tv-exit-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-red-400 hover:text-white hover:bg-red-900/60 hover:border-red-500 transition shadow-lg hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] group" title="Salir del Modo TV">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     </button>
 
-                    <!-- BOTÓN IA LAYOUT (MUCHO MÁS VISIBLE) -->
-                    <button id="tv-ai-theme-btn" class="flex shrink-0 items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-900 to-blue-900 border-2 border-cyan-400 text-white hover:from-cyan-800 hover:to-blue-800 transition shadow-[0_0_15px_rgba(34,211,238,0.5)] group cursor-pointer" title="IA Auto-Configuración Visual">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-12 transition-transform drop-shadow-md text-cyan-300"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                        <span class="font-black text-xl tracking-widest drop-shadow-md">IA</span>
+                    <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="IA Auto-Configuración Visual">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                     </button>
 
                     <div id="tv-status" class="text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
                         ESPERANDO...
                     </div>
 
-                    <button id="tv-fullscreen-btn" class="flex shrink-0 items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-800 border-2 border-slate-500 text-slate-300 hover:text-white hover:bg-slate-700 hover:border-cyan-400 transition-all shadow-lg group z-50 cursor-pointer" title="Pantalla Completa">
-                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform drop-shadow-md"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-90 transition-transform drop-shadow-md"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+                    <button id="tv-fullscreen-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-700 transition shadow-lg" title="Pantalla Completa">
+                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
                     </button>
                 </div>
             </div>
@@ -1558,26 +1555,33 @@
                 tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-colors duration-300 ";
                 
                 if (tvData.isPaused) {
-                    tvStatus.textContent = t.tv_status_pause;
+                    tvStatus.textContent = t.tv_status_pause || "BANDERA AMARILLA (PAUSA)";
                     tvStatus.className += "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
                 } else if (tvData.raceAborted) {
-                    tvStatus.textContent = t.tv_status_false_start;
+                    tvStatus.textContent = t.tv_status_false_start || "SALIDA NULA";
                     tvStatus.className += "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
                 } else if (tvData.isCountdown) {
-                    tvStatus.textContent = t.tv_status_ready;
+                    tvStatus.textContent = t.tv_status_ready || "PREPARADOS...";
                     tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400";
                 } else if (tvData.isRaceActive) {
-                    tvStatus.textContent = t.tv_status_racing;
+                    tvStatus.textContent = t.tv_status_racing || "CARRERA EN CURSO";
                     tvStatus.className += "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
                 } else if ((p1 && p1.finished) || (p2 && p2.finished)) {
-                    tvStatus.textContent = t.tv_status_finished;
+                    tvStatus.textContent = t.tv_status_finished || "CARRERA FINALIZADA";
                     tvStatus.className += "bg-blue-900/30 border-blue-500/30 text-blue-400";
                 } else {
                     if (cloudRoomCode) {
-                        tvStatus.innerHTML = `<span class="flex items-center"><span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span></span> ${t.tv_status_link}</span>`;
-                        tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.2)]";
+                        tvStatus.innerHTML = `
+                            <div class="flex items-center space-x-2">
+                                <span class="relative flex h-3 w-3 mr-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+                                </span>
+                                <span>${t.tv_status_link || "ENLACE ACTIVO. ESPERANDO COCHES..."}</span>
+                            </div>`;
+                        tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.15)]";
                     } else {
-                        tvStatus.textContent = t.tv_status_waiting;
+                        tvStatus.textContent = t.tv_status_waiting || "ESPERANDO...";
                         tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.2)]";
                     }
                 }
@@ -1662,7 +1666,18 @@
                 const t = translations[currentLang] || translations['es'];
                 
                 tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-colors duration-300 bg-orange-900/40 border-orange-500/50 shadow-[0_0_15px_rgba(249,115,22,0.2)] text-orange-400";
-                tvStatus.innerHTML = `<span class="flex items-center"><svg class="animate-spin h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ESTABLECIENDO UPLINK...</span>`;
+                tvStatus.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <svg class="animate-spin h-6 w-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <div class="flex flex-col items-start leading-none mt-0.5">
+                            <span class="text-orange-400 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)] leading-tight">ESTABLECIENDO UPLINK...</span>
+                            <span class="text-[10px] text-orange-400/70 tracking-[0.3em] font-mono mt-1">${t.tv_status_searching || "BUSCANDO SEÑAL DE TELEMETRÍA"}</span>
+                        </div>
+                    </div>
+                `;
 
                 const checkDb = setInterval(() => {
                     if (window.db && window.auth && window.auth.currentUser) {
@@ -1675,13 +1690,12 @@
                                 lastReceivedLocalTime = Date.now(); 
                                 updateTVUI(); 
                             } else {
-                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="animate-spin h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ESPERANDO DATOS...</span>`;
-                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)]";
+                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ESPERANDO DATOS...</span>`;
+                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)] tv-pulse";
                             }
                         }, (err) => {
-                            const tvStatus = document.getElementById('tv-status');
                             const trans = translations[currentLang] || translations['es'];
-                            tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${trans.tv_status_error}</span>`;
+                            tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> ${trans.tv_status_error || "ERROR DE CONEXIÓN"}</span>`;
                             tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                         });
                     }
