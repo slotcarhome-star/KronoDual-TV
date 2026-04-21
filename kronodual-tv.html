@@ -533,23 +533,28 @@
                 </div>
             </div>
             
-            <div class="flex flex-col items-end">
-                <div class="flex items-center space-x-3">
-                    <button id="tv-exit-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-red-400 hover:text-white hover:bg-red-900/60 hover:border-red-500 transition shadow-lg hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] group" title="Salir del Modo TV">
+            <div class="flex flex-col items-end flex-shrink min-w-0">
+                <div class="flex items-center space-x-2 lg:space-x-3 w-full justify-end">
+                    <!-- BOTÓN SALIR -->
+                    <button id="tv-exit-btn" class="flex-shrink-0 p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-red-400 hover:text-white hover:bg-red-900/60 hover:border-red-500 transition shadow-lg hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] group" title="Salir del Modo TV">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     </button>
 
-                    <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="IA Auto-Configuración Visual">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                    <!-- BOTÓN IA LAYOUT -->
+                    <button id="tv-ai-theme-btn" class="hidden sm:flex flex-shrink-0 items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-900 to-blue-900 border-2 border-cyan-400 text-white hover:from-cyan-800 hover:to-blue-800 transition shadow-[0_0_15px_rgba(34,211,238,0.5)] group cursor-pointer" title="IA Auto-Configuración Visual">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-12 transition-transform drop-shadow-md text-cyan-300"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                        <span class="font-black text-xl tracking-widest drop-shadow-md">IA</span>
                     </button>
 
-                    <div id="tv-status" class="text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                    <!-- TV STATUS (CSS FLEXIBLE PARA QUE NO DESAPAREZCA) -->
+                    <div id="tv-status" style="display: flex;" class="flex items-center justify-center text-sm md:text-lg lg:text-xl font-rajdhani font-bold uppercase tracking-widest px-4 lg:px-6 py-2 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 shadow-lg transition-all duration-300 text-center min-w-[150px] overflow-hidden">
                         ESPERANDO...
                     </div>
 
-                    <button id="tv-fullscreen-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-700 transition shadow-lg" title="Pantalla Completa">
-                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+                    <!-- FULLSCREEN BTN -->
+                    <button id="tv-fullscreen-btn" class="flex-shrink-0 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-800 border-2 border-slate-500 text-slate-300 hover:text-white hover:bg-slate-700 hover:border-cyan-400 transition-all shadow-lg group z-50 cursor-pointer" title="Pantalla Completa">
+                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform drop-shadow-md"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-90 transition-transform drop-shadow-md"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
                     </button>
                 </div>
             </div>
@@ -809,21 +814,21 @@
                 start_race: "INICIAR", config: "CONFIG", reset_race: "REINICIAR", pause: "PAUSA", resume: "REANUDAR", video_status_init: "Inicia la cámara para 30FPS IA", video_status_ready: "CÁMARA IA LISTA", video_status_off: "Cámara Apagada", completed: "Completado", winner: "Ganador:", voice_completed: "Carrera terminada", voice_winner: "Victoria para ", voice_record: "Vuelta rápida de ", voice_calibrated: "Sensores calibrados", voice_ready: "Listos", voice_false_start: "Salida Nula de",
                 history_btn: "Historial", config_title: "Configuración", language_label: "Idioma", game_mode_label: "Modo", mode_2p: "🏁 2 JUGADORES (Duelo)", mode_1p: "⏱️ 1 JUGADOR (Contrarreloj)", player_1: "JUGADOR 1 (ORO)", player_2: "JUGADOR 2 (COBRE)", name_label: "Nombre", car_label: "Coche", sound_p1: "Sonido", sound_p2: "Sonido", track_length_label: "Pista (m)", race_condition_label: "Carrera", voice_comments: "Voz:", safety_time_label: "Anti-Rebotes:", global_time: "GLOBAL", calibrating_title: "Calibrando Sensores...", flag_yellow: "PAUSA", false_start: "¡SALIDA NULA!",
                 tv_stats_gold: "Estadísticas Oro", tv_stats_copper: "Estadísticas Cobre", tv_laps: "VUELTAS", tv_consistency: "CONSISTENCIA", tv_best: "MEJOR", tv_last: "ÚLTIMA", tv_avg_spd: "VEL. MED", tv_max_spd: "VEL. MÁX", tv_evol_time: "Evolución Tiempos & Delta (S)", tv_history: "Historial Cara a Cara", tv_speed_curve: "Curva Velocidad (Km/h)", tv_evol_cons: "Evolución Consistencia (%)", tv_bar_comp: "Comparativa Barras", tv_diff: "DIF",
-                tv_mode_duel: "MODO DUELO", tv_mode_time: "CONTRARRELOJ", tv_status_pause: "BANDERA AMARILLA (PAUSA)", tv_status_false_start: "SALIDA NULA", tv_status_ready: "PREPARADOS...", tv_status_racing: "CARRERA EN CURSO", tv_status_finished: "CARRERA FINALIZADA", tv_status_waiting: "ESPERANDO...", tv_status_link: "ENLACE ACTIVO. ESPERANDO COCHES...", tv_status_uplink: "ESTABLECIENDO UPLINK...", tv_status_searching: "BUSCANDO SEÑAL DE TELEMETRÍA", tv_status_inactive: "SALA INACTIVA O CERRADA", tv_status_error: "ERROR DE CONEXIÓN",
+                tv_mode_duel: "MODO DUELO", tv_mode_time: "CONTRARRELOJ", tv_status_pause: "BANDERA AMARILLA (PAUSA)", tv_status_false_start: "SALIDA NULA", tv_status_ready: "PREPARADOS...", tv_status_racing: "CARRERA EN CURSO", tv_status_finished: "CARRERA FINALIZADA", tv_status_waiting: "ESPERANDO...", tv_status_link: "ESPERANDO COCHES...", tv_status_uplink: "ESTABLECIENDO UPLINK...", tv_status_searching: "BUSCANDO SEÑAL", tv_status_inactive: "SALA INACTIVA", tv_status_error: "ERROR DE RED",
                 lap_breakdown: "Desglose de Vueltas por Piloto", csv_header: "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n", default_p1: "Piloto 1", default_p2: "Piloto 2", race_telemetry: "Telemetría en Vivo"
             },
             en: { 
                 start_race: "START", config: "CONFIG", reset_race: "RESET", pause: "PAUSE", resume: "RESUME", video_status_init: "Start camera for 30FPS AI", video_status_ready: "AI CAMERA READY", video_status_off: "Camera Off", completed: "Completed", winner: "Winner:", voice_completed: "Race finished", voice_winner: "Winner ", voice_record: "Fastest lap for ", voice_calibrated: "Sensors calibrated", voice_ready: "Ready", voice_false_start: "False start for",
                 history_btn: "History", config_title: "Configuration", language_label: "Language", game_mode_label: "Mode", mode_2p: "🏁 2 PLAYERS (Duel)", mode_1p: "⏱️ 1 PLAYER (Time Trial)", player_1: "PLAYER 1 (GOLD)", player_2: "PLAYER 2 (COPPER)", name_label: "Name", car_label: "Car", sound_p1: "Sound", sound_p2: "Sound", track_length_label: "Track (m)", race_condition_label: "Race", voice_comments: "Voice:", safety_time_label: "Anti-Bounce:", global_time: "GLOBAL", calibrating_title: "Calibrating Sensors...", flag_yellow: "PAUSE", false_start: "FALSE START!",
                 tv_stats_gold: "Gold Stats", tv_stats_copper: "Copper Stats", tv_laps: "LAPS", tv_consistency: "CONSISTENCY", tv_best: "BEST", tv_last: "LAST", tv_avg_spd: "AVG SPD", tv_max_spd: "MAX SPD", tv_evol_time: "Time Evolution & Delta (S)", tv_history: "Head-to-Head History", tv_speed_curve: "Speed Curve (Km/h)", tv_evol_cons: "Consistency Evolution (%)", tv_bar_comp: "Bar Comparison", tv_diff: "DIFF",
-                tv_mode_duel: "DUEL MODE", tv_mode_time: "TIME TRIAL", tv_status_pause: "YELLOW FLAG (PAUSED)", tv_status_false_start: "FALSE START", tv_status_ready: "GET READY...", tv_status_racing: "RACE IN PROGRESS", tv_status_finished: "RACE FINISHED", tv_status_waiting: "WAITING...", tv_status_link: "LINK ACTIVE. WAITING FOR CARS...", tv_status_uplink: "ESTABLISHING UPLINK...", tv_status_searching: "SEARCHING TELEMETRY SIGNAL", tv_status_inactive: "INACTIVE OR CLOSED ROOM", tv_status_error: "CONNECTION ERROR",
+                tv_mode_duel: "DUEL MODE", tv_mode_time: "TIME TRIAL", tv_status_pause: "YELLOW FLAG (PAUSED)", tv_status_false_start: "FALSE START", tv_status_ready: "GET READY...", tv_status_racing: "RACE IN PROGRESS", tv_status_finished: "RACE FINISHED", tv_status_waiting: "WAITING...", tv_status_link: "WAITING FOR CARS...", tv_status_uplink: "ESTABLISHING UPLINK...", tv_status_searching: "SEARCHING SIGNAL", tv_status_inactive: "INACTIVE ROOM", tv_status_error: "NETWORK ERROR",
                 lap_breakdown: "Lap Breakdown by Driver", csv_header: "Driver,Lap,Time(ms),Formatted Time,Avg Speed(km/h)\n", default_p1: "Driver 1", default_p2: "Driver 2", race_telemetry: "Live Telemetry"
             },
             fr: {
                 start_race: "DÉMARRER", config: "CONFIG", reset_race: "RÉINITIALISER", pause: "PAUSE", resume: "REPRENDRE", video_status_init: "Démarrer caméra pour 30FPS IA", video_status_ready: "CAMÉRA IA PRÊTE", video_status_off: "Caméra Désactivée", completed: "Terminé", winner: "Gagnant:", voice_completed: "Course terminée", voice_winner: "Victoire pour ", voice_record: "Meilleur tour pour ", voice_calibrated: "Capteurs calibrés", voice_ready: "Prêts", voice_false_start: "Faux départ de",
                 history_btn: "Historique", config_title: "Configuration", language_label: "Langue", game_mode_label: "Mode", mode_2p: "🏁 2 JOUEURS (Duel)", mode_1p: "⏱️ 1 JOUEUR (Contre-la-montre)", player_1: "JOUEUR 1 (OR)", player_2: "JOUEUR 2 (CUIVRE)", name_label: "Nom", car_label: "Voiture", sound_p1: "Son", sound_p2: "Son", track_length_label: "Piste (m)", race_condition_label: "Course", voice_comments: "Voix:", safety_time_label: "Anti-Rebond:", global_time: "GLOBAL", calibrating_title: "Calibrage Capteurs...", flag_yellow: "PAUSE", false_start: "FAUX DÉPART!",
                 tv_stats_gold: "Stats Or", tv_stats_copper: "Stats Cuivre", tv_laps: "TOURS", tv_consistency: "CONSISTANCE", tv_best: "MEILLEUR", tv_last: "DERNIER", tv_avg_spd: "VIT MOY", tv_max_spd: "VIT MAX", tv_evol_time: "Évolution Temps & Delta (S)", tv_history: "Historique Face à Face", tv_speed_curve: "Courbe de Vitesse (Km/h)", tv_evol_cons: "Évolution Consistance (%)", tv_bar_comp: "Comparaison Barres", tv_diff: "DIFF",
-                tv_mode_duel: "MODE DUEL", tv_mode_time: "CONTRE-LA-MONTRE", tv_status_pause: "DRAPEAU JAUNE (PAUSE)", tv_status_false_start: "FAUX DÉPART", tv_status_ready: "PRÊTS...", tv_status_racing: "COURSE EN COURS", tv_status_finished: "COURSE TERMINÉE", tv_status_waiting: "EN ATTENTE...", tv_status_link: "LIEN ACTIF. EN ATTENTE DE VOITURES...", tv_status_uplink: "ÉTABLISSEMENT LIAISON...", tv_status_searching: "RECHERCHE SIGNAL TÉLÉMÉTRIE", tv_status_inactive: "SALLE INACTIVE OU FERMÉE", tv_status_error: "ERREUR DE CONNEXION",
+                tv_mode_duel: "MODE DUEL", tv_mode_time: "CONTRE-LA-MONTRE", tv_status_pause: "DRAPEAU JAUNE (PAUSE)", tv_status_false_start: "FAUX DÉPART", tv_status_ready: "PRÊTS...", tv_status_racing: "COURSE EN COURS", tv_status_finished: "COURSE TERMINÉE", tv_status_waiting: "EN ATTENTE...", tv_status_link: "EN ATTENTE DE VOITURES...", tv_status_uplink: "ÉTABLISSEMENT LIAISON...", tv_status_searching: "RECHERCHE SIGNAL", tv_status_inactive: "SALLE INACTIVE", tv_status_error: "ERREUR RÉSEAU",
                 lap_breakdown: "Détail des Tours par Pilote", csv_header: "Pilote,Tour,Temps(ms),Temps Formaté,Vitesse Moyenne(km/h)\n", default_p1: "Pilote 1", default_p2: "Pilote 2", race_telemetry: "Télémétrie en Direct"
             }
         };
@@ -1471,458 +1476,4 @@
                         ctx.bezierCurveTo(cp1x, p0.y, cp2x, p1.y, p1.x, p1.y);
                     }
                     ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
-                    pts.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI * 2); ctx.fillStyle = '#0f172a'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = color; ctx.stroke(); });
-                };
-                drawL(d1, c1); if(d2) drawL(d2, c2);
-            };
-
-            window.drawTVSpeedGraph = function(canvasId, p1Laps, p2Laps, trackLen) {
-                const trLen = trackLen || 15;
-                const p1S = p1Laps.map(t => (trLen / (t/1000))*3.6); const p2S = p2Laps ? p2Laps.map(t => (trLen / (t/1000))*3.6) : null;
-                window.drawSmoothCurveDual(canvasId, p1S, p2S, '#facc15', '#f97316');
-            };
-
-            window.drawTVConsistencyGraph = function(canvasId, p1Laps, p2Laps) {
-                const calcCons = (laps) => {
-                    if(!laps || laps.length === 0) return null;
-                    const res = []; let tot = 0; let bst = Infinity;
-                    laps.forEach((t, i) => { tot += t; if(t < bst) bst = t; res.push((bst / (tot/(i+1))) * 100); }); return res;
-                };
-                window.drawSmoothCurveDual(canvasId, calcCons(p1Laps), calcCons(p2Laps), '#60a5fa', '#f43f5e');
-            };
-
-            window.drawCombinedLineGraph = function(canvasId, p1Laps, p2Laps) {
-                const canvas = document.getElementById(canvasId); if (!canvas) return; 
-                const ctx = canvas.getContext('2d'); const parent = canvas.parentElement; if (!parent) return; 
-                const w = parent.clientWidth - 32; const h = parent.clientHeight - 40; if (w <= 0 || h <= 0) return;
-                canvas.width = w; canvas.height = h; ctx.clearRect(0, 0, w, h);
-                const maxLen = Math.max(p1Laps.length, p2Laps ? p2Laps.length : 0); if(maxLen === 0) return;
-                const all = [...p1Laps, ...(p2Laps || [])]; const maxT = Math.max(...all); const minT = Math.min(...all); 
-                let rangeT = maxT - minT; if(rangeT === 0) rangeT = 1;
-                const padX = 35; const padY = 15; const gw = w - padX * 2;
-                const hTop = (h - padY * 2) * 0.65; const gap = (h - padY * 2) * 0.05;  const hBot = (h - padY * 2) * 0.30;
-                const topY = padY; const botY = padY + hTop + gap;
-                const stepX = maxLen > 1 ? gw / (maxLen - 1) : gw / 2;
-                
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; ctx.lineWidth = 1; ctx.beginPath();
-                for(let i=0; i<maxLen; i++) { let x = maxLen > 1 ? padX + i * stepX : padX + gw/2; ctx.moveTo(x, padY); ctx.lineTo(x, h - padY); } ctx.stroke();
-
-                const drawL = (data, color) => {
-                    if(!data || data.length===0) return;
-                    ctx.beginPath();
-                    data.forEach((t, i) => { let x = maxLen > 1 ? padX + i * stepX : padX + gw/2; let y = topY + hTop - ((t - minT) / rangeT) * hTop; if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
-                    ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.stroke();
-                    data.forEach((t, i) => { let x = maxLen > 1 ? padX + i * stepX : padX + gw/2; let y = topY + hTop - ((t - minT) / rangeT) * hTop; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fillStyle = '#0f172a'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = color; ctx.stroke(); });
-                };
-                drawL(p1Laps, '#22d3ee'); if (p2Laps) drawL(p2Laps, '#f43f5e');
-
-                if (p2Laps) {
-                    const deltas = []; for(let i=0; i<maxLen; i++) { if(p1Laps[i] && p2Laps[i]) deltas.push((p1Laps[i] - p2Laps[i]) / 1000); else deltas.push(0); }
-                    const maxD = Math.max(...deltas.map(Math.abs)) || 0.1; const zeroY = botY + hBot / 2;
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)'; ctx.lineWidth = 1; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(padX, zeroY); ctx.lineTo(padX + gw, zeroY); ctx.stroke(); ctx.setLineDash([]);
-                    deltas.forEach((d, i) => {
-                        if (i === 0 && d === 0) return; 
-                        let x = maxLen > 1 ? padX + i * stepX : padX + gw/2; let barH = (Math.abs(d) / maxD) * (hBot / 2 - 2); let bw = Math.max(3, Math.min(10, stepX * 0.4)); 
-                        if (d > 0) { ctx.fillStyle = '#facc15'; ctx.fillRect(x - bw/2, zeroY - barH, bw, barH); } else if (d < 0) { ctx.fillStyle = '#f97316'; ctx.fillRect(x - bw/2, zeroY, bw, barH); }
-                    });
-                }
-            };
-
-            window.redrawTVGraphs = function() {
-                if(!tvData || !tvData.players) return;
-                const p1 = tvData.players.find(p=>p.id===1); const p2 = tvData.players.find(p=>p.id===2);
-                const p1Laps = p1 ? p1.lapHistory || [] : []; const p2Laps = (tvData.activePlayers===2 && p2) ? p2.lapHistory || [] : null;
-                if(p1Laps.length > 0 || (p2Laps && p2Laps.length > 0)) {
-                    window.drawTVDualGraph('tv-lap-graph', p1Laps, p2Laps); window.drawTVSpeedGraph('tv-speed-graph', p1Laps, p2Laps, tvData.trackLength); window.drawTVConsistencyGraph('tv-consistency-graph', p1Laps, p2Laps); window.drawCombinedLineGraph('tv-combined-graph', p1Laps, p2Laps);
-                }
-            };
-
-            function updateTVUI() {
-                if(!tvData) return;
-                
-                // Forzar idioma local para que coincida con el idioma retransmitido por el Host de la carrera
-                if (tvData.currentLang && tvData.currentLang !== currentLang) {
-                    setLanguage(tvData.currentLang);
-                }
-                const t = translations[currentLang] || translations['es'];
-                
-                if (tvData.timestamp && (Date.now() - tvData.timestamp > 7200000)) { tvData.isRaceActive = false; tvData.isCountdown = false; tvData.isPaused = false; tvData.raceAborted = false; }
-                const p1 = tvData.players ? tvData.players.find(p=>p.id===1) : null; 
-                const p2 = tvData.players ? tvData.players.find(p=>p.id===2) : null;
-                
-                const tvStatus = document.getElementById('tv-status');
-                
-                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-colors duration-300 ";
-                
-                if (tvData.isPaused) {
-                    tvStatus.textContent = t.tv_status_pause || "BANDERA AMARILLA (PAUSA)";
-                    tvStatus.className += "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
-                } else if (tvData.raceAborted) {
-                    tvStatus.textContent = t.tv_status_false_start || "SALIDA NULA";
-                    tvStatus.className += "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
-                } else if (tvData.isCountdown) {
-                    tvStatus.textContent = t.tv_status_ready || "PREPARADOS...";
-                    tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400";
-                } else if (tvData.isRaceActive) {
-                    tvStatus.textContent = t.tv_status_racing || "CARRERA EN CURSO";
-                    tvStatus.className += "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
-                } else if ((p1 && p1.finished) || (p2 && p2.finished)) {
-                    tvStatus.textContent = t.tv_status_finished || "CARRERA FINALIZADA";
-                    tvStatus.className += "bg-blue-900/30 border-blue-500/30 text-blue-400";
-                } else {
-                    if (cloudRoomCode) {
-                        tvStatus.innerHTML = `
-                            <div class="flex items-center space-x-2">
-                                <span class="relative flex h-3 w-3 mr-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-                                </span>
-                                <span>${t.tv_status_link || "ENLACE ACTIVO. ESPERANDO COCHES..."}</span>
-                            </div>`;
-                        tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.15)]";
-                    } else {
-                        tvStatus.textContent = t.tv_status_waiting || "ESPERANDO...";
-                        tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.2)]";
-                    }
-                }
-
-                if(!tvData.players) return; // Ahora permitimos que la barra de estado se actualice aunque no haya jugadores cargados aún.
-
-                const headerMode = document.getElementById('tv-header-mode'); 
-                if (headerMode) headerMode.textContent = tvData.activePlayers === 1 ? t.tv_mode_time : t.tv_mode_duel;
-
-                if (p1) { 
-                    const hp1Name = document.getElementById('tv-header-p1-name'); if (hp1Name) hp1Name.textContent = p1.name;
-                    const hp1Car = document.getElementById('tv-header-p1-car'); if (hp1Car) hp1Car.textContent = p1.car || '-';
-                    document.getElementById('tv-p1-name').innerHTML = `${p1.name} <span class="text-yellow-200/70 cq-text-sm tracking-widest ml-1">${p1.car || ''}</span>`; document.getElementById('tv-p1-gap').textContent = p1.gapText; document.getElementById('tv-p1-laps').textContent = p1.laps;
-                    document.getElementById('tv-p1-best').textContent = p1.bestLap !== Infinity && p1.bestLap != null ? formatTime(p1.bestLap) : '--.---'; document.getElementById('tv-p1-last').textContent = p1.lapHistory && p1.lapHistory.length > 0 ? formatTime(p1.lapHistory[p1.lapHistory.length-1]) : '--.---';
-                    document.getElementById('tv-p1-spd').innerHTML = (p1.avgSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p1.avgSpeed || 0) * 32).toFixed(1) + ')</span>'; document.getElementById('tv-p1-max').innerHTML = (p1.maxSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p1.maxSpeed || 0) * 32).toFixed(1) + ')</span>';
-                    document.getElementById('tv-p1-cons').textContent = (p1.consistency || 0).toFixed(1) + '%';
-                }
-                if (tvData.activePlayers === 2 && p2) { 
-                    const hp2C = document.getElementById('tv-header-p2-container'); if (hp2C) hp2C.style.display = 'flex';
-                    const hp2Name = document.getElementById('tv-header-p2-name'); if (hp2Name) hp2Name.textContent = p2.name;
-                    const hp2Car = document.getElementById('tv-header-p2-car'); if (hp2Car) hp2Car.textContent = p2.car || '-';
-                    document.getElementById('w-p2-main').style.display = 'flex'; document.getElementById('w-p2-stats').style.display = 'flex';
-                    document.getElementById('tv-p2-name').innerHTML = `${p2.name} <span class="text-orange-200/70 cq-text-sm tracking-widest ml-1">${p2.car || ''}</span>`; document.getElementById('tv-p2-gap').textContent = p2.gapText; document.getElementById('tv-p2-laps').textContent = p2.laps;
-                    document.getElementById('tv-p2-best').textContent = p2.bestLap !== Infinity && p2.bestLap != null ? formatTime(p2.bestLap) : '--.---'; document.getElementById('tv-p2-last').textContent = p2.lapHistory && p2.lapHistory.length > 0 ? formatTime(p2.lapHistory[p2.lapHistory.length-1]) : '--.---';
-                    document.getElementById('tv-p2-spd').innerHTML = (p2.avgSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p2.avgSpeed || 0) * 32).toFixed(1) + ')</span>'; document.getElementById('tv-p2-max').innerHTML = (p2.maxSpeed || 0).toFixed(1) + ' <span class="text-slate-500 cq-text-xs ml-1">(1:32: ' + ((p2.maxSpeed || 0) * 32).toFixed(1) + ')</span>';
-                    document.getElementById('tv-p2-cons').textContent = (p2.consistency || 0).toFixed(1) + '%';
-                } else { 
-                    const hp2C = document.getElementById('tv-header-p2-container'); if (hp2C) hp2C.style.display = 'none';
-                    document.getElementById('w-p2-main').style.display = 'none'; document.getElementById('w-p2-stats').style.display = 'none';
-                }
-                
-                const p1Laps = p1 ? p1.lapHistory || [] : []; const p2Laps = (tvData.activePlayers===2 && p2) ? p2.lapHistory || [] : null;
-                if(p1Laps.length > 0 || (p2Laps && p2Laps.length > 0)) {
-                    const tbody = document.getElementById('tv-lap-tbody'); tbody.innerHTML = '';
-                    const maxLen = Math.max(p1Laps.length, p2Laps ? p2Laps.length : 0);
-                    for(let i=maxLen-1; i>=0; i--) {
-                        const tr = document.createElement('tr'); tr.className = 'border-b border-slate-700/50 hover:bg-slate-700/30';
-                        const t1 = p1Laps[i] ? formatTime(p1Laps[i]) : '-'; const t2 = (p2Laps && p2Laps[i]) ? formatTime(p2Laps[i]) : '-';
-                        let dif = '<td class="py-1 px-1 text-right text-slate-500">-</td>';
-                        if (p1Laps[i] && p2Laps && p2Laps[i]) {
-                            const d = p1Laps[i] - p2Laps[i];
-                            if (d < 0) dif = `<td class="py-1 px-1 text-right text-yellow-400">P1 -${(Math.abs(d)/1000).toFixed(3)}</td>`;
-                            else if (d > 0) dif = `<td class="py-1 px-1 text-right text-orange-400">P2 -${(d/1000).toFixed(3)}</td>`;
-                            else dif = `<td class="py-1 px-1 text-right text-slate-400">0.000</td>`;
-                        }
-                        tr.innerHTML = `<td class="py-1 px-1 text-slate-400">${i+1}</td><td class="py-1 px-1 text-yellow-400">${t1}</td><td class="py-1 px-1 text-orange-400">${tvData.activePlayers===2?t2:''}</td>${tvData.activePlayers===2?dif:''}`; tbody.appendChild(tr);
-                    }
-                    window.redrawTVGraphs();
-                } else {
-                    document.getElementById('tv-lap-tbody').innerHTML = '';
-                    const cls = ['tv-speed-graph', 'tv-lap-graph', 'tv-consistency-graph', 'tv-combined-graph'];
-                    cls.forEach(id => { const c = document.getElementById(id); if(c) { c.width=c.parentElement.clientWidth-32; c.getContext('2d').clearRect(0,0,c.width, c.height); } });
-                }
-
-                if (previousTvData) {
-                    if (!previousTvData.isCountdown && tvData.isCountdown) speak('voice_ready');
-                    if (!previousTvData.isRaceActive && tvData.isRaceActive && !tvData.raceAborted && previousTvData.isCountdown) { polySynth.triggerAttackRelease(["C5","G5"],"0.5"); }
-                    if (!previousTvData.raceAborted && tvData.raceAborted) { polySynth.triggerAttackRelease(["C2", "F#2", "C3"], "1"); speak('voice_false_start', " " + (tvData.falseStartName || "")); }
-                    tvData.players.forEach((p) => {
-                        const prevP = previousTvData.players.find(oldP => oldP.id === p.id);
-                        if (prevP) {
-                            if (p.laps > prevP.laps) {
-                                synth.triggerAttackRelease(p.soundTone || "C5", "0.1");
-                                if (p.bestLap < prevP.bestLap || (prevP.bestLap === Infinity && p.bestLap !== Infinity)) { const lapTimeSec = (p.lapHistory[p.lapHistory.length-1]/1000).toFixed(2); speak('voice_record', p.name + "! " + lapTimeSec); }
-                            }
-                            if (!prevP.finished && p.finished) { polySynth.triggerAttackRelease(["E6"], "0.2"); }
-                        }
-                    });
-                    if (previousTvData.isRaceActive && !tvData.isRaceActive && !tvData.isPaused && !tvData.raceAborted && !tvData.isCountdown) { speak('voice_completed'); }
-                }
-                previousTvData = JSON.parse(JSON.stringify(tvData));
-            }
-
-            if (cloudRoomCode) {
-                const tvCloudCodeDisplay = document.getElementById('tv-cloud-code-display');
-                // Mostramos AUTO-LINK localmente o el código literal
-                tvCloudCodeDisplay.querySelector('span').textContent = (cloudRoomCode === getPortalRoomCode()) ? "AUTO-LINK" : cloudRoomCode;
-                tvCloudCodeDisplay.classList.remove('hidden');
-                tvCloudCodeDisplay.classList.add('flex');
-                
-                const tvStatus = document.getElementById('tv-status');
-                const t = translations[currentLang] || translations['es'];
-                
-                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-colors duration-300 bg-orange-900/40 border-orange-500/50 shadow-[0_0_15px_rgba(249,115,22,0.2)] text-orange-400";
-                tvStatus.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <svg class="animate-spin h-6 w-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <div class="flex flex-col items-start leading-none mt-0.5">
-                            <span class="text-orange-400 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)] leading-tight">ESTABLECIENDO UPLINK...</span>
-                            <span class="text-[10px] text-orange-400/70 tracking-[0.3em] font-mono mt-1">${t.tv_status_searching || "BUSCANDO SEÑAL DE TELEMETRÍA"}</span>
-                        </div>
-                    </div>
-                `;
-
-                const checkDb = setInterval(() => {
-                    if (window.db && window.auth && window.auth.currentUser) {
-                        clearInterval(checkDb); 
-                        const docRef = window.fs.doc(window.db, 'artifacts', globalAppId, 'public', 'data', 'kronodual_tv_sessions', cloudRoomCode);
-                        
-                        window.fs.onSnapshot(docRef, (docSnap) => { 
-                            if (docSnap.exists()) { 
-                                tvData = docSnap.data(); 
-                                lastReceivedLocalTime = Date.now(); 
-                                updateTVUI(); 
-                            } else {
-                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ESPERANDO DATOS...</span>`;
-                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)] tv-pulse";
-                            }
-                        }, (err) => {
-                            const trans = translations[currentLang] || translations['es'];
-                            tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> ${trans.tv_status_error || "ERROR DE CONEXIÓN"}</span>`;
-                            tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
-                        });
-                    }
-                }, 500);
-            } else {
-                kronoChannel.postMessage({ type: 'REQUEST_STATE' });
-                try { const savedState = localStorage.getItem('kronodual_tv_state'); if (savedState) { tvData = JSON.parse(savedState); lastReceivedLocalTime = Date.now(); updateTVUI(); } } catch(e) {}
-                kronoChannel.onmessage = (event) => { if(event.data.type === 'STATE_UPDATE') { tvData = event.data.payload; lastReceivedLocalTime = Date.now(); updateTVUI(); } };
-            }
-
-            if (tvIntervalId) clearInterval(tvIntervalId);
-            tvIntervalId = setInterval(() => {
-                if (tvData && tvData.isRaceActive && !tvData.isPaused) {
-                    const estTime = tvData.timestamp ? (tvData.timestamp + (Date.now() - lastReceivedLocalTime)) : Date.now();
-                    document.getElementById('tv-race-time').textContent = formatTime(Math.max(0, tvData.raceMode === 'time' ? tvData.raceDurationTarget - (estTime - tvData.raceStartTime) : estTime - tvData.raceStartTime));
-                    const p1 = tvData.players && tvData.players.find(p=>p.id===1); if(p1 && p1.hasCrossedStart && !p1.finished) document.getElementById('tv-p1-current').textContent = formatTime(estTime - p1.lapStartTime);
-                    const p2 = tvData.players && tvData.players.find(p=>p.id===2); if(tvData.activePlayers===2 && p2 && p2.hasCrossedStart && !p2.finished) document.getElementById('tv-p2-current').textContent = formatTime(estTime - p2.lapStartTime);
-                }
-            }, 30);
-            
-            const exitBtn = document.getElementById('tv-exit-btn');
-            if (urlParams.get('tv') === 'true' || (cloudRoomCode && cloudRoomCode !== window.myRoomCode)) { exitBtn.style.display = 'none'; } else { exitBtn.addEventListener('click', () => window.location.href = window.location.pathname); }
-
-            // Lógica de Pantalla Completa (Saneada usando onclick directamente)
-            const tvFsBtn = document.getElementById('tv-fullscreen-btn');
-            if (tvFsBtn) {
-                tvFsBtn.onclick = function() {
-                    const doc = window.document; const docEl = doc.documentElement;
-                    const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-                    const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-                    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) { 
-                        if (requestFullScreen) requestFullScreen.call(docEl); 
-                    } else { 
-                        if (cancelFullScreen) cancelFullScreen.call(doc); 
-                    }
-                };
-            }
-            
-            function updateFsIconsTV() {
-                const isFs = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-                const tvFsEnter = document.getElementById('tv-fs-enter'); const tvFsExit = document.getElementById('tv-fs-exit');
-                if (tvFsEnter && tvFsExit) { 
-                    if (isFs) { 
-                        tvFsEnter.classList.add('hidden'); tvFsExit.classList.remove('hidden'); 
-                    } else { 
-                        tvFsEnter.classList.remove('hidden'); tvFsExit.classList.add('hidden'); 
-                    } 
-                }
-            }
-            document.addEventListener('fullscreenchange', updateFsIconsTV); document.addEventListener('webkitfullscreenchange', updateFsIconsTV); document.addEventListener('mozfullscreenchange', updateFsIconsTV); document.addEventListener('MSFullscreenChange', updateFsIconsTV);
-            
-            const themes = ['default', 'matrix', 'synthwave', 'corsa', 'carbon']; let currentThemeIndex = 0; 
-            document.getElementById('tv-ai-theme-btn').addEventListener('click', () => {
-                const overlay = document.getElementById('ai-flash-overlay'); overlay.classList.remove('hidden'); overlay.classList.add('ai-glitching');
-                setTimeout(() => { currentThemeIndex = (currentThemeIndex + 1) % themes.length; document.getElementById('tv-dashboard').setAttribute('data-theme', themes[currentThemeIndex]); }, 150);
-                setTimeout(() => { overlay.classList.remove('ai-glitching'); overlay.classList.add('hidden'); }, 600);
-            });
-            window.addEventListener('resize', () => { if(window.redrawTVGraphs) window.redrawTVGraphs(); });
-        };
-
-        // 7. EVENT LISTENERS
-        document.getElementById('start-race-btn').onclick = startRace;
-        document.getElementById('reset-race-btn').onclick = () => { 
-            isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden'); document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
-            
-            // Si la cámara sigue encendida, ocultar TODO lo de arriba de nuevo
-            if (cameraStream) {
-                const headerPanel = document.getElementById('app-header-panel');
-                const timesPanel = document.getElementById('times-traffic-panel');
-                if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
-                if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
-            }
-            broadcastState(); syncToCloud(); 
-        };
-        document.getElementById('central-config-btn').onclick = () => document.getElementById('config-panel').classList.toggle('open');
-        document.getElementById('pause-race-btn').onclick = togglePause;
-        document.getElementById('camera-on-btn').onclick = startWebcam; 
-        document.getElementById('camera-off-btn').onclick = stopWebcam;
-        
-        // Cierre del modal de resultados (animación correcta)
-        document.getElementById('modal-restart-btn').onclick = () => { 
-            const resModal = document.getElementById('resultsModal');
-            resModal.classList.remove('open');
-            setTimeout(() => {
-                resModal.classList.add('hidden');
-                document.getElementById('race-time').textContent = "00:00.000"; 
-                isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; pauseRaceBtn.disabled = true; isPaused = false; 
-                document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden'); 
-                
-                // Si la cámara sigue encendida, ocultar TODO lo de arriba de nuevo para la vista previa
-                if (cameraStream) {
-                    const headerPanel = document.getElementById('app-header-panel');
-                    const timesPanel = document.getElementById('times-traffic-panel');
-                    if(headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
-                    if(timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
-                }
-                broadcastState(); syncToCloud(); 
-            }, 300);
-        };
-        
-        // Exportar a Excel (CSV)
-        document.getElementById('export-excel-btn').onclick = () => {
-            const t = translations[currentLang] || translations['es'];
-            let csv = t.csv_header || "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n";
-            const trackLen = parseFloat(trackLengthInput.value) || 15;
-            
-            players.forEach(p => {
-                if (p.id > activePlayers) return;
-                const pName = document.getElementById(p.nameId).value;
-                p.lapHistory.forEach((time, idx) => {
-                    const speed = (trackLen / (time / 1000)) * 3.6;
-                    // Ponemos comillas en el nombre por si tiene comas
-                    csv += `"${pName}",${idx + 1},${time},${formatTime(time)},${speed.toFixed(2)}\n`;
-                });
-            });
-            
-            // Usar \uFEFF asegura que Excel reconozca el archivo como UTF-8
-            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            const url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            
-            const dateStr = new Date().toISOString().slice(0,10);
-            link.setAttribute("download", `KronoDual_Resultados_${dateStr}.csv`);
-            link.style.visibility = 'hidden';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
-        
-        languageSelect.addEventListener('change', (e) => setLanguage(e.target.value));
-        gameModeSelect.addEventListener('change', (e) => setGameMode(e.target.value));
-        raceConditionSelect.addEventListener('change', (e) => { if (e.target.value === 'laps') { lapLimitSelect.classList.remove('hidden'); timeLimitSelect.classList.add('hidden'); } else { lapLimitSelect.classList.add('hidden'); timeLimitSelect.classList.remove('hidden'); } triggerCloudSync(); });
-        lapLimitSelect.addEventListener('change', () => { totalLapsTarget = lapLimitSelect.value==='Infinity'?Infinity:parseInt(lapLimitSelect.value); triggerCloudSync(); });
-        
-        document.getElementById('open-tv-btn').addEventListener('click', () => { document.getElementById('room-code-display').textContent = window.myRoomCode; document.getElementById('tvSetupModal').classList.remove('hidden'); document.getElementById('tvSetupModal').classList.add('open'); });
-        document.getElementById('close-tv-setup-btn').addEventListener('click', () => { document.getElementById('tvSetupModal').classList.remove('open'); setTimeout(() => document.getElementById('tvSetupModal').classList.add('hidden'), 300); });
-        document.getElementById('btn-tv-local').addEventListener('click', async () => { await Tone.start(); window.open(window.location.href.split('?')[0] + '?tv=true', '_blank'); document.getElementById('tvSetupModal').classList.remove('open'); setTimeout(() => document.getElementById('tvSetupModal').classList.add('hidden'), 300); });
-        document.getElementById('btn-tv-connect').addEventListener('click', async () => { await Tone.start(); const code = document.getElementById('tv-code-input').value.trim().toUpperCase(); if(code) { document.getElementById('tvSetupModal').classList.remove('open'); setTimeout(() => { document.getElementById('tvSetupModal').classList.add('hidden'); window.startTVMode(code); }, 300); } });
-        document.getElementById('direct-tv-btn').addEventListener('click', async () => { await Tone.start(); window.startTVMode(window.myRoomCode); });
-        document.getElementById('close-history-btn').addEventListener('click', () => { document.getElementById('historyModal').classList.remove('open'); setTimeout(() => document.getElementById('historyModal').classList.add('hidden'), 300); });
-        document.getElementById('history-btn').addEventListener('click', () => { document.getElementById('historyModal').classList.remove('hidden'); setTimeout(() => document.getElementById('historyModal').classList.add('open'), 10); });
-        document.getElementById('fullscreen-btn').addEventListener('click', () => !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen());
-
-        document.body.addEventListener('click', async () => { if (isTVMode) await Tone.start(); }, { once: true });
-
-        let actRoi=null, isDrag=false, isResize=false, resizeHandle=null, startX=0, startY=0, startLeft=0, startTop=0, startWidth=0, startHeight=0;
-        function getEventPos(e) { return e.touches ? e.touches[0] : e; }
-        function dragStart(e) {
-            const h = e.target.closest('.resize-handle'); const r = e.target.closest('.movable-rectangle'); if (!r) return;
-            if (e.cancelable && !e.target.closest('input')) e.preventDefault();
-            
-            // Traer el recuadro seleccionado al frente para que sea fácil agarrarlo si se cruzan
-            document.querySelectorAll('.movable-rectangle').forEach(el => el.style.zIndex = '10');
-            r.style.zIndex = '15';
-
-            const pos = getEventPos(e); startX = pos.clientX; startY = pos.clientY; startLeft = r.offsetLeft; startTop = r.offsetTop; startWidth = r.offsetWidth; startHeight = r.offsetHeight; actRoi = r;
-            if (h) { 
-                isResize = true; 
-                if(h.classList.contains('handle-tl')) resizeHandle = 'tl';
-                else if(h.classList.contains('handle-tr')) resizeHandle = 'tr';
-                else if(h.classList.contains('handle-bl')) resizeHandle = 'bl';
-                else resizeHandle = 'br';
-                e.stopPropagation(); 
-            } else isDrag = true;
-        }
-        function dragMove(e) {
-            if (!isDrag && !isResize) return; e.preventDefault(); const pos = getEventPos(e); if(!pos) return; const dx = pos.clientX - startX; const dy = pos.clientY - startY; const pR = videoContainer.getBoundingClientRect();
-            if (isDrag) { actRoi.style.left = ((startLeft + dx) / pR.width) * 100 + '%'; actRoi.style.top = ((startTop + dy) / pR.height) * 100 + '%'; } 
-            else if (isResize) { 
-                let nW = startWidth, nH = startHeight, nL = startLeft, nT = startTop;
-                if (resizeHandle.includes('r')) nW = startWidth + dx;
-                if (resizeHandle.includes('l')) { nW = startWidth - dx; nL = startLeft + dx; }
-                if (resizeHandle.includes('b')) nH = startHeight + dy;
-                if (resizeHandle.includes('t')) { nH = startHeight - dy; nT = startTop + dy; }
-                
-                if (nW >= 40) { actRoi.style.width = (nW/pR.width)*100+'%'; actRoi.style.left = (nL/pR.width)*100+'%'; } 
-                if (nH >= 40) { actRoi.style.height = (nH/pR.height)*100+'%'; actRoi.style.top = (nT/pR.height)*100+'%'; } 
-            }
-        }
-        function dragEnd() { 
-            if (isDrag || isResize) {
-                if (actRoi) {
-                    const pId = actRoi.id === 'roi-p1' ? 1 : 2;
-                    players[pId - 1].referencePixels = null;
-                }
-            }
-            isDrag = false; isResize = false; actRoi = null; 
-        }
-        videoContainer.addEventListener('mousedown', dragStart); videoContainer.addEventListener('touchstart', dragStart, {passive: false}); document.addEventListener('mousemove', dragMove); document.addEventListener('touchmove', dragMove, {passive: false}); document.addEventListener('mouseup', dragEnd); document.addEventListener('touchend', dragEnd);
-
-        window.onload = () => {
-            window.updateThreshold(1); window.updateThreshold(2);
-            
-            // Recuperar nombres y coches guardados previamente
-            ['p1-name', 'p1-car', 'p2-name', 'p2-car'].forEach(id => {
-                const savedVal = localStorage.getItem('krono_saved_' + id);
-                if (savedVal) document.getElementById(id).value = savedVal;
-            });
-            
-            const updateTelemetryHeaders = () => {
-                const elP1Name = document.getElementById('p1-telemetry-name'); if(elP1Name) elP1Name.textContent = document.getElementById('p1-name').value || 'P1';
-                const elP1Car = document.getElementById('p1-telemetry-car'); if(elP1Car) elP1Car.textContent = document.getElementById('p1-car').value || '-';
-                const elP2Name = document.getElementById('p2-telemetry-name'); if(elP2Name) elP2Name.textContent = document.getElementById('p2-name').value || 'P2';
-                const elP2Car = document.getElementById('p2-telemetry-car'); if(elP2Car) elP2Car.textContent = document.getElementById('p2-car').value || '-';
-            };
-            ['p1-name', 'p1-car', 'p2-name', 'p2-car'].forEach(id => {
-                const input = document.getElementById(id);
-                if (input) { 
-                    input.addEventListener('input', () => { 
-                        // Guardar cada vez que el usuario escribe
-                        localStorage.setItem('krono_saved_' + id, input.value);
-                        updateTelemetryHeaders(); 
-                        if (!isTVMode) { broadcastState(); syncToCloud(); } 
-                    }); 
-                }
-            });
-            updateTelemetryHeaders();
-            
-            if (urlParams.get('tv') === 'true') window.startTVMode(urlParams.get('room') || window.myRoomCode);
-            else { 
-                triggerCloudSync(); // Sincronizamos instantáneamente al cargar para que la TV detecte enlace activo.
-                setInterval(() => { const pCode = getPortalRoomCode(); if (pCode && pCode !== window.myRoomCode) { window.myRoomCode = pCode; triggerCloudSync(); } }, 1000); 
-            }
-        };
-        if(!isTVMode) kronoChannel.onmessage = (event) => { if (event.data.type === 'REQUEST_STATE') broadcastState(); };
-    </script>
-</body>
-</html>
+                    pts.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI * 2); ctx.fillStyle = '#0
