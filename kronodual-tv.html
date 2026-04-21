@@ -1543,7 +1543,7 @@
             };
 
             function updateTVUI() {
-                if(!tvData || !tvData.players) return;
+                if(!tvData) return;
                 
                 // Forzar idioma local para que coincida con el idioma retransmitido por el Host de la carrera
                 if (tvData.currentLang && tvData.currentLang !== currentLang) {
@@ -1552,7 +1552,8 @@
                 const t = translations[currentLang] || translations['es'];
                 
                 if (tvData.timestamp && (Date.now() - tvData.timestamp > 7200000)) { tvData.isRaceActive = false; tvData.isCountdown = false; tvData.isPaused = false; tvData.raceAborted = false; }
-                const p1 = tvData.players.find(p=>p.id===1); const p2 = tvData.players.find(p=>p.id===2);
+                const p1 = tvData.players ? tvData.players.find(p=>p.id===1) : null; 
+                const p2 = tvData.players ? tvData.players.find(p=>p.id===2) : null;
                 
                 const tvStatus = document.getElementById('tv-status');
                 
@@ -1578,7 +1579,7 @@
                             <span>${t.tv_status_racing}</span>
                         </div>`;
                     tvStatus.className = baseStatusClass + "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
-                } else if ((p1 && p1.finished) || (p2 && p2.finished) || (tvData.lapHistory && tvData.lapHistory.length > 0)) {
+                } else if ((p1 && p1.finished) || (p2 && p2.finished)) {
                     tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-400 mr-2"></span><span>${t.tv_status_finished}</span></div>`;
                     tvStatus.className = baseStatusClass + "bg-blue-900/30 border-blue-500/30 text-blue-400";
                 } else {
@@ -1597,6 +1598,8 @@
                         tvStatus.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
                     }
                 }
+
+                if(!tvData.players) return; // Ahora permitimos que la barra de estado se actualice aunque no haya jugadores cargados aún.
 
                 const headerMode = document.getElementById('tv-header-mode'); 
                 if (headerMode) headerMode.textContent = tvData.activePlayers === 1 ? t.tv_mode_time : t.tv_mode_duel;
@@ -1699,6 +1702,11 @@
                                 tvData = docSnap.data(); 
                                 lastReceivedLocalTime = Date.now(); 
                                 updateTVUI(); 
+                            } else {
+                                // DOC DOES NOT EXIST YET (Host hasn't connected properly or hasn't started)
+                                const trans = translations[currentLang] || translations['es'];
+                                tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-slate-500 mr-2 animate-pulse"></span><span>${trans.tv_status_inactive}</span></div>`;
+                                tvStatus.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
                             }
                         }, (err) => {
                             const tvStatus = document.getElementById('tv-status');
@@ -1925,7 +1933,10 @@
             updateTelemetryHeaders();
             
             if (urlParams.get('tv') === 'true') window.startTVMode(urlParams.get('room') || window.myRoomCode);
-            else { setInterval(() => { const pCode = getPortalRoomCode(); if (pCode && pCode !== window.myRoomCode) { window.myRoomCode = pCode; triggerCloudSync(); } }, 1000); }
+            else { 
+                triggerCloudSync(); // Sincronizamos instantáneamente al cargar para que la TV detecte enlace activo.
+                setInterval(() => { const pCode = getPortalRoomCode(); if (pCode && pCode !== window.myRoomCode) { window.myRoomCode = pCode; triggerCloudSync(); } }, 1000); 
+            }
         };
         if(!isTVMode) kronoChannel.onmessage = (event) => { if (event.data.type === 'REQUEST_STATE') broadcastState(); };
     </script>
