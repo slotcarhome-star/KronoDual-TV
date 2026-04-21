@@ -447,8 +447,9 @@
 
     <!-- ================= CONTENEDOR MODO TV (SMART DASHBOARD OSCURO) ================= -->
     <div id="tv-dashboard" class="hidden h-screen tv-bg text-white w-full flex-col font-sans overflow-hidden p-4 lg:p-6" data-theme="default">
-        <!-- HEADER TV (NUEVO DISEÑO) -->
-        <div class="flex justify-between items-center mb-6">
+        
+        <!-- HEADER TV -->
+        <div class="flex justify-between items-center mb-3">
             <div class="flex items-center space-x-5">
                 
                 <!-- LOGO REDISEÑADO PREMIUM -->
@@ -456,6 +457,7 @@
                     <div class="absolute inset-0 bg-cyan-600/40 rounded-2xl blur-xl group-hover:bg-cyan-400/60 transition-all duration-500"></div>
                     <div class="relative bg-gradient-to-br from-slate-800 to-slate-900 p-3.5 rounded-2xl border border-cyan-400/50 shadow-[0_0_25px_rgba(34,211,238,0.3)] flex items-center justify-center overflow-hidden">
                         <div class="absolute w-[250%] h-[250%] bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+                        <!-- NUEVO: ICONO DE TELEMETRÍA ANIMADA -->
                         <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="url(#logo-gradient)" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
                             <defs>
                                 <linearGradient id="logo-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
@@ -493,10 +495,12 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 ml-3 relative">
                             DUAL
                         </span>
-                        <!-- Símbolo de Comunicación Animado -->
+                        <!-- Símbolo de Comunicación Animado (Sorpresa) -->
                         <div class="ml-4 flex items-center justify-center relative w-8 h-8 sm:w-10 sm:h-10" title="Enlace Telemetría Activo">
+                            <!-- Ondas expansivas -->
                             <span class="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-30 animate-ping" style="animation-duration: 2s;"></span>
                             <span class="absolute inline-flex h-2/3 w-2/3 rounded-full bg-blue-500 opacity-40 animate-ping" style="animation-duration: 2s; animation-delay: 0.5s;"></span>
+                            <!-- Icono Antena/Señal -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#comm-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
                                 <defs>
                                     <linearGradient id="comm-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
@@ -513,19 +517,19 @@
                     </h1>
                     
                     <div class="flex items-center space-x-4 mt-3">
-                        <!-- INSIGNIA TEXTUAL: BY ALBERT CLOSA -->
-                        <div class="flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.3em] uppercase opacity-90 shrink-0">
+                        <!-- INSIGNIA TEXTUAL: BY ALBERT CLOSA (SIN RECUADRO) -->
+                        <div class="flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.3em] uppercase opacity-90">
                             <div class="text-cyan-400 font-bold relative drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
                                 ALBERT CLOSA
                                 <div class="absolute -bottom-1 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-70"></div>
                             </div>
                         </div>
                         
-                        <!-- DISPLAY DEL CÓDIGO DE SALA (NUBE) - FIJADO CON SHRINK-0 PARA QUE NUNCA DESAPAREZCA -->
-                        <div id="tv-cloud-code-display" class="hidden shrink-0 flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.2em] whitespace-nowrap">
+                        <!-- DISPLAY DEL CÓDIGO DE SALA (NUBE) - ESTILO HUD (SIN RECUADRO) -->
+                        <div id="tv-cloud-code-display" class="hidden flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.2em]">
                             <div class="text-slate-700 mx-2">||</div>
-                            <div class="text-cyan-400 font-bold mr-2 flex items-center drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] uppercase">
-                                Netlink <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mx-2 animate-ping shadow-[0_0_8px_#818cf8]"></div> 
+                            <div class="text-slate-500 mr-2 flex items-center">
+                                NET.LINK <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mx-2 animate-ping shadow-[0_0_8px_#818cf8]"></div> 
                             </div>
                             <span class="text-white font-black text-sm sm:text-base tracking-[0.3em] drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"></span>
                         </div>
@@ -535,26 +539,23 @@
             
             <div class="flex flex-col items-end">
                 <div class="flex items-center space-x-3">
-                    <!-- BOTÓN SALIR -->
+                    <!-- NUEVO: BOTÓN SALIR MODO TV -->
                     <button id="tv-exit-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-red-400 hover:text-white hover:bg-red-900/60 hover:border-red-500 transition shadow-lg hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] group" title="Salir del Modo TV">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     </button>
 
-                    <!-- BOTÓN IA LAYOUT (MUCHO MÁS VISIBLE) -->
-                    <button id="tv-ai-theme-btn" class="flex shrink-0 items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-900 to-blue-900 border-2 border-cyan-400 text-white hover:from-cyan-800 hover:to-blue-800 transition shadow-[0_0_15px_rgba(34,211,238,0.5)] group cursor-pointer" title="IA Auto-Configuración Visual">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-12 transition-transform drop-shadow-md text-cyan-300"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                        <span class="font-black text-xl tracking-widest drop-shadow-md">IA</span>
+                    <!-- NUEVO: BOTÓN IA LAYOUT (SORPRESA) -->
+                    <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="IA Auto-Configuración Visual">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                     </button>
 
-                    <!-- TV STATUS (Blindado estructuralmente para no desaparecer jamás) -->
-                    <div id="tv-status" class="flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 shadow-lg transition-all duration-300">
+                    <div id="tv-status" class="text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 shadow-lg">
                         ESPERANDO...
                     </div>
 
-                    <!-- FULLSCREEN BTN (Fijado con clases estándar para evitar que desaparezca) -->
-                    <button id="tv-fullscreen-btn" class="flex shrink-0 items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-800 border-2 border-slate-500 text-slate-300 hover:text-white hover:bg-slate-700 hover:border-cyan-400 transition-all shadow-lg group z-50 cursor-pointer" title="Pantalla Completa">
-                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform drop-shadow-md"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-90 transition-transform drop-shadow-md"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+                    <button id="tv-fullscreen-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-700 transition shadow-lg" title="Pantalla Completa">
+                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
                     </button>
                 </div>
             </div>
@@ -1557,31 +1558,23 @@
                 
                 const tvStatus = document.getElementById('tv-status');
                 
-                // Base estructural inamovible (Garantiza que nunca desaparezca)
-                const baseStatusClass = "flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-all duration-300 ";
+                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-colors duration-300 ";
                 
                 if (tvData.isPaused) {
-                    tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-yellow-400 animate-pulse mr-2"></span><span>${t.tv_status_pause}</span></div>`;
-                    tvStatus.className = baseStatusClass + "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
+                    tvStatus.textContent = "BANDERA AMARILLA (PAUSA)";
+                    tvStatus.className += "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
                 } else if (tvData.raceAborted) {
-                    tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-red-500 animate-ping mr-2"></span><span>${t.tv_status_false_start}</span></div>`;
-                    tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
+                    tvStatus.textContent = "SALIDA NULA";
+                    tvStatus.className += "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
                 } else if (tvData.isCountdown) {
-                    tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-orange-400 animate-pulse mr-2"></span><span>${t.tv_status_ready}</span></div>`;
-                    tvStatus.className = baseStatusClass + "bg-orange-900/40 border-orange-500/50 text-orange-400";
+                    tvStatus.textContent = "PREPARADOS...";
+                    tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400";
                 } else if (tvData.isRaceActive) {
-                    tvStatus.innerHTML = `
-                        <div class="flex items-center space-x-2">
-                            <span class="relative flex h-3 w-3 mr-2">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                            </span>
-                            <span>${t.tv_status_racing}</span>
-                        </div>`;
-                    tvStatus.className = baseStatusClass + "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
+                    tvStatus.textContent = "CARRERA EN CURSO";
+                    tvStatus.className += "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
                 } else if ((p1 && p1.finished) || (p2 && p2.finished)) {
-                    tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-blue-400 mr-2"></span><span>${t.tv_status_finished}</span></div>`;
-                    tvStatus.className = baseStatusClass + "bg-blue-900/30 border-blue-500/30 text-blue-400";
+                    tvStatus.textContent = "CARRERA FINALIZADA";
+                    tvStatus.className += "bg-blue-900/30 border-blue-500/30 text-blue-400";
                 } else {
                     if (cloudRoomCode) {
                         tvStatus.innerHTML = `
@@ -1590,12 +1583,12 @@
                                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                                   <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
                                 </span>
-                                <span>${t.tv_status_link}</span>
+                                <span>ENLACE ACTIVO. ESPERANDO COCHE...</span>
                             </div>`;
-                        tvStatus.className = baseStatusClass + "bg-slate-800/90 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.15)]";
+                        tvStatus.className += "bg-slate-800/90 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.15)]";
                     } else {
-                        tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-slate-500 mr-2"></span><span>${t.tv_status_waiting}</span></div>`;
-                        tvStatus.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
+                        tvStatus.textContent = "ESPERANDO...";
+                        tvStatus.className += "bg-slate-800/80 border-slate-600 text-slate-400";
                     }
                 }
 
@@ -1677,17 +1670,17 @@
                 
                 const tvStatus = document.getElementById('tv-status');
                 const t = translations[currentLang] || translations['es'];
-                const baseStatusClass = "flex shrink-0 whitespace-nowrap items-center justify-center text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-all duration-300 ";
                 
-                tvStatus.className = baseStatusClass + "bg-slate-800/90 border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]";
+                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-colors duration-300 bg-slate-800/90 border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]";
                 tvStatus.innerHTML = `
                     <div class="flex items-center space-x-3">
                         <svg class="animate-spin h-6 w-6 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <div class="flex items-center leading-none mt-0.5">
-                            <span class="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] leading-tight">${t.tv_status_searching}</span>
+                        <div class="flex flex-col items-start leading-none mt-0.5">
+                            <span class="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] leading-tight">ESTABLECIENDO UPLINK...</span>
+                            <span class="text-[10px] text-cyan-500/70 tracking-[0.3em] font-mono mt-1">BUSCANDO SEÑAL DE TELEMETRÍA</span>
                         </div>
                     </div>
                 `;
@@ -1703,16 +1696,12 @@
                                 lastReceivedLocalTime = Date.now(); 
                                 updateTVUI(); 
                             } else {
-                                // DOC DOES NOT EXIST YET (Host hasn't connected properly or hasn't started)
-                                const trans = translations[currentLang] || translations['es'];
-                                tvStatus.innerHTML = `<div class="flex items-center space-x-2"><span class="w-3 h-3 rounded-full bg-slate-500 mr-2 animate-pulse"></span><span>${trans.tv_status_inactive}</span></div>`;
-                                tvStatus.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
+                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> SALA INACTIVA O CERRADA</span>`;
+                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                             }
                         }, (err) => {
-                            const tvStatus = document.getElementById('tv-status');
-                            const trans = translations[currentLang] || translations['es'];
-                            tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> ${trans.tv_status_error}</span>`;
-                            tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
+                            tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> ERROR DE CONEXIÓN</span>`;
+                            tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                         });
                     }
                 }, 500);
