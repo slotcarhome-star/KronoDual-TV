@@ -1574,14 +1574,7 @@
                     tvStatus.className += "bg-blue-900/30 border-blue-500/30 text-blue-400";
                 } else {
                     if (cloudRoomCode) {
-                        tvStatus.innerHTML = `
-                            <div class="flex items-center space-x-2">
-                                <span class="relative flex h-3 w-3 mr-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-                                </span>
-                                <span>${t.tv_status_link}</span>
-                            </div>`;
+                        tvStatus.innerHTML = `<span class="flex items-center"><span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span></span> ${t.tv_status_link}</span>`;
                         tvStatus.className += "bg-orange-900/40 border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.2)]";
                     } else {
                         tvStatus.textContent = t.tv_status_waiting;
@@ -1669,18 +1662,7 @@
                 const t = translations[currentLang] || translations['es'];
                 
                 tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-colors duration-300 bg-orange-900/40 border-orange-500/50 shadow-[0_0_15px_rgba(249,115,22,0.2)] text-orange-400";
-                tvStatus.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <svg class="animate-spin h-6 w-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <div class="flex flex-col items-start leading-none mt-0.5">
-                            <span class="text-orange-400 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)] leading-tight">ESTABLECIENDO UPLINK...</span>
-                            <span class="text-[10px] text-orange-400/70 tracking-[0.3em] font-mono mt-1">${t.tv_status_searching}</span>
-                        </div>
-                    </div>
-                `;
+                tvStatus.innerHTML = `<span class="flex items-center"><svg class="animate-spin h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ESTABLECIENDO UPLINK...</span>`;
 
                 const checkDb = setInterval(() => {
                     if (window.db && window.auth && window.auth.currentUser) {
@@ -1693,29 +1675,14 @@
                                 lastReceivedLocalTime = Date.now(); 
                                 updateTVUI(); 
                             } else {
-                                // Mantenemos el spinner naranja en lugar de lanzar el error rojo de sala inactiva.
-                                // La sala puede estar creada pero la carrera no ha empezado o el host no ha mandado datos aún.
-                                const t = translations[currentLang] || translations['es'];
-                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border transition-colors duration-300 bg-orange-900/40 border-orange-500/50 shadow-[0_0_15px_rgba(249,115,22,0.2)] text-orange-400";
-                                tvStatus.innerHTML = `
-                                    <div class="flex items-center space-x-3">
-                                        <svg class="animate-spin h-6 w-6 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        <div class="flex flex-col items-start leading-none mt-0.5">
-                                            <span class="text-orange-400 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)] leading-tight">ESPERANDO DATOS...</span>
-                                            <span class="text-[10px] text-orange-400/70 tracking-[0.3em] font-mono mt-1">SALA ACTIVA</span>
-                                        </div>
-                                    </div>
-                                `;
+                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="animate-spin h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ESPERANDO DATOS...</span>`;
+                                tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)]";
                             }
                         }, (err) => {
                             const tvStatus = document.getElementById('tv-status');
                             const trans = translations[currentLang] || translations['es'];
-                            // En caso de error de conexión de Firebase, mostramos un error en naranja para no romper el layout
                             tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${trans.tv_status_error}</span>`;
-                            tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-orange-900/40 border border-orange-500/50 text-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)] tv-pulse";
+                            tvStatus.className = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl bg-red-900/40 border border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                         });
                     }
                 }, 500);
