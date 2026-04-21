@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KRONODUAL V.4.1 - Luxury Gold & TrueColor AI (30fps)</title>
+    <title>KronoDual V.4.0 - Luxury Gold & TrueColor AI (30fps)</title>
     
     <!-- METADATOS PWA Y PERMISOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="KRONODUAL V.4.1">
-    <meta name="application-name" content="KRONODUAL V.4.1">
+    <meta name="apple-mobile-web-app-title" content="KronoDual V.4.0">
+    <meta name="application-name" content="KronoDual V.4.0">
     <meta http-equiv="Permissions-Policy" content="camera=(self)">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -255,7 +255,7 @@
                 <!-- Título y Autor -->
                 <div class="flex flex-col shrink-0 text-center sm:text-left">
                     <h1 class="text-xl sm:text-2xl md:text-3xl font-black font-rajdhani tracking-widest leading-none text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                        KRONODUAL V.4.1
+                        KronoDual V.4.0
                     </h1>
                     <span class="text-[10px] font-bold text-gray-300 tracking-widest mt-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">by Albert Closa</span>
                 </div>
@@ -362,7 +362,7 @@
                 </div>
                 <div class="mt-4 flex gap-4 items-center justify-center p-3 bg-red-900/20 rounded-lg border border-red-500/30">
                     <label class="text-xs font-black text-red-300 uppercase" data-lang-key="safety_time_label">Anti-Rebotes:</label>
-                    <select id="safety-time-select" class="p-1.5 rounded-lg text-xs bg-black text-white border border-red-500/50"><option value="1000">1s</option><option value="3000" selected>3s</option><option value="5000">5s</option></select>
+                    <select id="safety-time-select" class="p-1.5 rounded-lg text-xs bg-black text-white border border-red-500/50"><option value="1000">1s</option><option value="3000" selected>3s</option><option value="5000">5s</option><option value="10000">10s</option></select>
                 </div>
             </div>
             
@@ -540,9 +540,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                     </button>
 
-                    <!-- BOTÓN IA LAYOUT -->
-                    <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="IA Auto-Configuración Visual">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                    <!-- BOTÓN IA LAYOUT (MUCHO MÁS VISIBLE) -->
+                    <button id="tv-ai-theme-btn" class="flex shrink-0 items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-900 to-blue-900 border-2 border-cyan-400 text-white hover:from-cyan-800 hover:to-blue-800 transition shadow-[0_0_15px_rgba(34,211,238,0.5)] group cursor-pointer" title="IA Auto-Configuración Visual">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-12 transition-transform drop-shadow-md text-cyan-300"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                        <span class="font-black text-xl tracking-widest drop-shadow-md">IA</span>
                     </button>
 
                     <!-- TV STATUS (Blindado estructuralmente para no desaparecer jamás) -->
@@ -1682,9 +1683,8 @@
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <div class="flex flex-col items-start leading-none mt-0.5">
-                            <span class="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] leading-tight">${t.tv_status_uplink}</span>
-                            <span class="text-[10px] text-cyan-500/70 tracking-[0.3em] font-mono mt-1">${t.tv_status_searching}</span>
+                        <div class="flex items-center leading-none mt-0.5">
+                            <span class="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] leading-tight">${t.tv_status_searching}</span>
                         </div>
                     </div>
                 `;
@@ -1699,11 +1699,6 @@
                                 tvData = docSnap.data(); 
                                 lastReceivedLocalTime = Date.now(); 
                                 updateTVUI(); 
-                            } else {
-                                const tvStatus = document.getElementById('tv-status');
-                                const trans = translations[currentLang] || translations['es'];
-                                tvStatus.innerHTML = `<span class="flex items-center"><svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${trans.tv_status_inactive}</span>`;
-                                tvStatus.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] tv-pulse";
                             }
                         }, (err) => {
                             const tvStatus = document.getElementById('tv-status');
@@ -1904,6 +1899,12 @@
         window.onload = () => {
             window.updateThreshold(1); window.updateThreshold(2);
             
+            // Recuperar nombres y coches guardados previamente
+            ['p1-name', 'p1-car', 'p2-name', 'p2-car'].forEach(id => {
+                const savedVal = localStorage.getItem('krono_saved_' + id);
+                if (savedVal) document.getElementById(id).value = savedVal;
+            });
+            
             const updateTelemetryHeaders = () => {
                 const elP1Name = document.getElementById('p1-telemetry-name'); if(elP1Name) elP1Name.textContent = document.getElementById('p1-name').value || 'P1';
                 const elP1Car = document.getElementById('p1-telemetry-car'); if(elP1Car) elP1Car.textContent = document.getElementById('p1-car').value || '-';
@@ -1912,7 +1913,14 @@
             };
             ['p1-name', 'p1-car', 'p2-name', 'p2-car'].forEach(id => {
                 const input = document.getElementById(id);
-                if (input) { input.addEventListener('input', () => { updateTelemetryHeaders(); if (!isTVMode) { broadcastState(); syncToCloud(); } }); }
+                if (input) { 
+                    input.addEventListener('input', () => { 
+                        // Guardar cada vez que el usuario escribe
+                        localStorage.setItem('krono_saved_' + id, input.value);
+                        updateTelemetryHeaders(); 
+                        if (!isTVMode) { broadcastState(); syncToCloud(); } 
+                    }); 
+                }
             });
             updateTelemetryHeaders();
             
