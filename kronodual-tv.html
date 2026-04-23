@@ -393,7 +393,7 @@
                         <label class="block text-[10px] font-bold text-gray-300 mb-1 uppercase" data-lang-key="race_condition_label">Carrera</label>
                         <div class="flex gap-2">
                             <select id="race-condition-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="laps" selected>Vueltas</option><option value="time">Tiempo</option></select>
-                            <select id="lap-limit-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="5">5</option><option value="10" selected>10</option><option value="Infinity">∞</option></select>
+                            <select id="lap-limit-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="50">50</option><option value="Infinity">∞</option></select>
                             <select id="time-limit-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20 hidden"><option value="5">5 min</option><option value="10">10 min</option></select>
                         </div>
                     </div>
@@ -1375,7 +1375,7 @@
                 const maxLen = Math.max(p1Laps.length, p2Laps ? p2Laps.length : 0); if(maxLen === 0) return;
                 const all = [...p1Laps, ...(p2Laps || [])]; const maxVal = Math.max(...all); const minVal = Math.min(...all); let range = maxVal - minVal; if(range === 0) range = 1;
                 const padX = 10, padY = 20; const gw = w - padX * 2; const gh = h - padY * 2;
-                const groupW = Math.max(10, Math.min(60, (gw / maxLen) - 4)); const startX = padX + (gw - maxLen * (groupW + 4)) / 2;
+                const groupW = Math.max(2, Math.min(60, (gw / maxLen) - 4)); const startX = padX + (gw - maxLen * (groupW + 4)) / 2;
                 
                 for(let i=0; i<maxLen; i++) {
                     const x = startX + i * (groupW + 4);
@@ -1587,7 +1587,7 @@
 
                     const hP1Name = document.getElementById('tv-header-p1-name'); if(hP1Name) hP1Name.textContent = p1.name;
                     const hP1Car = document.getElementById('tv-header-p1-car'); if(hP1Car) hP1Car.textContent = p1.car || '-';
-                    const hP1Laps = document.getElementById('tv-header-p1-laps'); if(hP1Laps) hP1Laps.textContent = `V: ${p1.laps}`;
+                    const hP1Laps = document.getElementById('tv-header-p1-laps'); if(hP1Laps) hP1Laps.textContent = tvData.raceMode === 'time' ? `V: ${p1.laps}` : `V: ${p1.laps} / ${tvData.totalLapsTarget===Infinity?'∞':tvData.totalLapsTarget}`;
                 }
                 if (tvData.activePlayers === 2 && p2) { 
                     if(tvGridContainer) tvGridContainer.classList.remove('single-player');
@@ -1606,7 +1606,7 @@
                     const hP2Container = document.getElementById('tv-header-p2-container'); if(hP2Container) hP2Container.style.display = 'flex';
                     const hP2Name = document.getElementById('tv-header-p2-name'); if(hP2Name) hP2Name.textContent = p2.name;
                     const hP2Car = document.getElementById('tv-header-p2-car'); if(hP2Car) hP2Car.textContent = p2.car || '-';
-                    const hP2Laps = document.getElementById('tv-header-p2-laps'); if(hP2Laps) hP2Laps.textContent = `V: ${p2.laps}`;
+                    const hP2Laps = document.getElementById('tv-header-p2-laps'); if(hP2Laps) hP2Laps.textContent = tvData.raceMode === 'time' ? `V: ${p2.laps}` : `V: ${p2.laps} / ${tvData.totalLapsTarget===Infinity?'∞':tvData.totalLapsTarget}`;
                 } else { 
                     if(tvGridContainer) tvGridContainer.classList.add('single-player');
 
@@ -1934,10 +1934,30 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             document.body.removeChild(link);
         };
         
+        function updateLapCountersUI() {
+            if (!isRaceActive && raceMode === 'laps') {
+                document.getElementById('p1-lap-count').textContent = `V: 0 / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
+                document.getElementById('p2-lap-count').textContent = `V: 0 / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
+            }
+        }
+        
         languageSelect.addEventListener('change', (e) => setLanguage(e.target.value));
         gameModeSelect.addEventListener('change', (e) => setGameMode(e.target.value));
-        raceConditionSelect.addEventListener('change', (e) => { if (e.target.value === 'laps') { lapLimitSelect.classList.remove('hidden'); timeLimitSelect.classList.add('hidden'); } else { lapLimitSelect.classList.add('hidden'); timeLimitSelect.classList.remove('hidden'); } triggerCloudSync(); });
-        lapLimitSelect.addEventListener('change', () => { totalLapsTarget = lapLimitSelect.value==='Infinity'?Infinity:parseInt(lapLimitSelect.value); triggerCloudSync(); });
+        raceConditionSelect.addEventListener('change', (e) => { 
+            if (e.target.value === 'laps') { 
+                lapLimitSelect.classList.remove('hidden'); timeLimitSelect.classList.add('hidden'); 
+                raceMode = 'laps'; updateLapCountersUI();
+            } else { 
+                lapLimitSelect.classList.add('hidden'); timeLimitSelect.classList.remove('hidden'); 
+                raceMode = 'time'; document.getElementById('p1-lap-count').textContent = "V: 0"; document.getElementById('p2-lap-count').textContent = "V: 0";
+            } 
+            triggerCloudSync(); 
+        });
+        lapLimitSelect.addEventListener('change', () => { 
+            totalLapsTarget = lapLimitSelect.value==='Infinity'?Infinity:parseInt(lapLimitSelect.value); 
+            updateLapCountersUI();
+            triggerCloudSync(); 
+        });
         
         document.getElementById('open-tv-btn').addEventListener('click', () => { document.getElementById('room-code-display').textContent = window.myRoomCode; document.getElementById('tvSetupModal').classList.remove('hidden'); document.getElementById('tvSetupModal').classList.add('open'); });
         document.getElementById('close-tv-setup-btn').addEventListener('click', () => { document.getElementById('tvSetupModal').classList.remove('open'); setTimeout(() => document.getElementById('tvSetupModal').classList.add('hidden'), 300); });
@@ -2071,11 +2091,16 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
                     el.value = savedVal;
                     if (id === 'game-mode-select') setGameMode(savedVal);
                     if (id === 'race-condition-select') {
+                        raceMode = savedVal;
                         if (savedVal === 'laps') { lapLimitSelect.classList.remove('hidden'); timeLimitSelect.classList.add('hidden'); } 
                         else { lapLimitSelect.classList.add('hidden'); timeLimitSelect.classList.remove('hidden'); }
                     }
+                    if (id === 'lap-limit-select') {
+                        totalLapsTarget = savedVal === 'Infinity' ? Infinity : parseInt(savedVal);
+                    }
                 }
             });
+            updateLapCountersUI();
         }
 
         window.onload = () => {
