@@ -2429,7 +2429,9 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             }
         };
 
-        let lastProcessedCmdTs = 0;
+        // Evita ejecutar comandos antiguos que se quedaron guardados en la base de datos al cargar la app
+        let lastProcessedCmdTs = Date.now(); 
+        
         function handleRemoteCommand(action) {
             if (action === 'PAUSE') {
                 togglePause();
