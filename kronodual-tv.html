@@ -1359,31 +1359,42 @@
         }
 
         function updateGaps() {
-             const now = Date.now();
-             if (players[0].laps > 0 || players[1].laps > 0) {
-                 const t1 = players[0].finished ? players[0].totalTime : (players[0].lapHistory.reduce((a,b)=>a+b,0) + (players[0].hasCrossedStart ? (now - players[0].lapStartTime) : 0));
-                 const t2 = players[1].finished ? players[1].totalTime : (players[1].lapHistory.reduce((a,b)=>a+b,0) + (players[1].hasCrossedStart ? (now - players[1].lapStartTime) : 0));
+             if (players[0].laps > 0 && players[1].laps > 0) {
+                 // Delta Real de Competición: Se suma el tiempo TOTAL acumulado de ambos coches
+                 // hasta la última vuelta que ambos hayan cruzado para dar una diferencia exacta en segundos.
+                 const minLaps = Math.min(players[0].laps, players[1].laps);
+                 
+                 const t1 = players[0].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
+                 const t2 = players[1].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
+                 
                  const diff = t1 - t2;
+                 const diffSec = (Math.abs(diff) / 1000).toFixed(3);
                  
                  if (diff < 0) {
-                     players[0].gapText = "LIDER"; 
-                     players[1].gapText = `+${(Math.abs(diff)/1000).toFixed(3)}s`;
+                     players[0].gapText = "LÍDER"; 
+                     players[1].gapText = `+${diffSec}s`;
                  } else if (diff > 0) {
-                     players[1].gapText = "LIDER"; 
-                     players[0].gapText = `+${(diff/1000).toFixed(3)}s`;
+                     players[1].gapText = "LÍDER"; 
+                     players[0].gapText = `+${diffSec}s`;
                  } else {
                      players[0].gapText = "EMPATE"; 
                      players[1].gapText = "EMPATE";
                  }
-                 
-                 [0, 1].forEach(i => {
-                     const gapEl = document.getElementById(players[i].gapId);
-                     if (gapEl) {
-                         gapEl.textContent = players[i].gapText;
-                         gapEl.style.color = players[i].gapText === "LIDER" ? "#4ade80" : (players[i].gapText === "EMPATE" ? "#facc15" : "#f87171");
-                     }
-                 });
+             } else {
+                 players[0].gapText = "--"; 
+                 players[1].gapText = "--";
              }
+             
+             [0, 1].forEach(i => {
+                 const gapEl = document.getElementById(players[i].gapId);
+                 if (gapEl) {
+                     gapEl.textContent = players[i].gapText;
+                     if (players[i].gapText === "LÍDER") gapEl.style.color = "#4ade80"; 
+                     else if (players[i].gapText === "EMPATE") gapEl.style.color = "#facc15";
+                     else if (players[i].gapText.startsWith('+')) gapEl.style.color = "#f87171"; 
+                     else gapEl.style.color = "white";
+                 }
+             });
         }
 
         function endRace() {
@@ -1791,9 +1802,9 @@
                     
                     const tvP1Gap = document.getElementById('tv-p1-gap');
                     tvP1Gap.textContent = p1.gapText;
-                    if(p1.gapText === 'LIDER') tvP1Gap.style.color = '#4ade80';
+                    if(p1.gapText === 'LÍDER') tvP1Gap.style.color = '#4ade80';
                     else if(p1.gapText === 'EMPATE') tvP1Gap.style.color = '#facc15';
-                    else if(p1.gapText !== '--') tvP1Gap.style.color = '#f87171';
+                    else if(p1.gapText.startsWith('+')) tvP1Gap.style.color = '#f87171';
                     else tvP1Gap.style.color = 'white';
                     
                     document.getElementById('tv-p1-laps').textContent = p1.laps;
@@ -1816,9 +1827,9 @@
                     
                     const tvP2Gap = document.getElementById('tv-p2-gap');
                     tvP2Gap.textContent = p2.gapText;
-                    if(p2.gapText === 'LIDER') tvP2Gap.style.color = '#4ade80';
+                    if(p2.gapText === 'LÍDER') tvP2Gap.style.color = '#4ade80';
                     else if(p2.gapText === 'EMPATE') tvP2Gap.style.color = '#facc15';
-                    else if(p2.gapText !== '--') tvP2Gap.style.color = '#f87171';
+                    else if(p2.gapText.startsWith('+')) tvP2Gap.style.color = '#f87171';
                     else tvP2Gap.style.color = 'white';
 
                     document.getElementById('tv-p2-laps').textContent = p2.laps;
@@ -1905,42 +1916,6 @@
                     
                     if(p1 && p1.hasCrossedStart && !p1.finished) document.getElementById('tv-p1-current').textContent = formatTime(estTime - p1.lapStartTime);
                     if(tvData.activePlayers===2 && p2 && p2.hasCrossedStart && !p2.finished) document.getElementById('tv-p2-current').textContent = formatTime(estTime - p2.lapStartTime);
-                    
-                    // CÁLCULO DE DELTA EN TIEMPO REAL PARA MODO TV (Solo Segundos)
-                    if (tvData.activePlayers === 2 && p1 && p2 && (p1.laps > 0 || p2.laps > 0)) {
-                        const t1 = p1.finished ? p1.totalTime : ((p1.lapHistory ? p1.lapHistory.reduce((a,b)=>a+b,0) : 0) + (p1.hasCrossedStart ? (estTime - p1.lapStartTime) : 0));
-                        const t2 = p2.finished ? p2.totalTime : ((p2.lapHistory ? p2.lapHistory.reduce((a,b)=>a+b,0) : 0) + (p2.hasCrossedStart ? (estTime - p2.lapStartTime) : 0));
-                        
-                        const diff = t1 - t2; 
-                        const diffSec = (Math.abs(diff)/1000).toFixed(3);
-                        
-                        let p1GapStr = "--", p2GapStr = "--";
-                        
-                        if (diff < 0) {
-                            p1GapStr = "LIDER";
-                            p2GapStr = `+${diffSec}s`;
-                        } else if (diff > 0) {
-                            p2GapStr = "LIDER";
-                            p1GapStr = `+${diffSec}s`;
-                        } else {
-                            p1GapStr = "EMPATE";
-                            p2GapStr = "EMPATE";
-                        }
-
-                        const tvP1Gap = document.getElementById('tv-p1-gap');
-                        if (tvP1Gap) {
-                            tvP1Gap.textContent = p1GapStr;
-                            if (p1GapStr === 'LIDER') tvP1Gap.style.color = '#4ade80';
-                            else if (p1GapStr !== '--') tvP1Gap.style.color = '#f87171';
-                        }
-                        
-                        const tvP2Gap = document.getElementById('tv-p2-gap');
-                        if (tvP2Gap) {
-                            tvP2Gap.textContent = p2GapStr;
-                            if (p2GapStr === 'LIDER') tvP2Gap.style.color = '#4ade80';
-                            else if (p2GapStr !== '--') tvP2Gap.style.color = '#f87171';
-                        }
-                    }
                 }
             }, 30);
             
