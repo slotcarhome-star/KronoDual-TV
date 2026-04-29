@@ -924,14 +924,14 @@
                 lapCountId: 'p1-lap-count', currentLapId: 'p1-current-lap', bestLapId: 'p1-best-lap', lastLapId: 'p1-last-lap', avgSpeedId: 'p1-avg-speed', gapId: 'p1-gap', thresholdId: 'p1-threshold', thresholdDispId: 'p1-threshold-disp', soundId: 'p1-sound',
                 laps: 0, lapHistory: [], bestLap: Infinity, lapStartTime: 0, lastRecordTime: 0, totalTime: 0, finished: false, hasCrossedStart: false,
                 soundTone: "C5", avgSpeed: 0, maxSpeed: 0, consistency: 0,
-                sensitivity: 20, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false
+                sensitivity: 20, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false, gapText: "--"
             },
             {
                 id: 2, nameId: 'p2-name', carId: 'p2-car', roiId: 'roi-p2', valId: 'val-p2', msgId: 'msg-p2',
                 lapCountId: 'p2-lap-count', currentLapId: 'p2-current-lap', bestLapId: 'p2-best-lap', lastLapId: 'p2-last-lap', avgSpeedId: 'p2-avg-speed', gapId: 'p2-gap', thresholdId: 'p2-threshold', thresholdDispId: 'p2-threshold-disp', soundId: 'p2-sound',
                 laps: 0, lapHistory: [], bestLap: Infinity, lapStartTime: 0, lastRecordTime: 0, totalTime: 0, finished: false, hasCrossedStart: false,
                 soundTone: "G5", avgSpeed: 0, maxSpeed: 0, consistency: 0,
-                sensitivity: 20, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false
+                sensitivity: 20, referencePixels: null, currentChangePct: 0, noiseFloor: 0, stuckFrameCount: 0, isLineBlocked: false, isObstruction: false, gapText: "--"
             }
         ];
         
@@ -1278,7 +1278,7 @@
 
             players.forEach(p => {
                 p.soundTone = document.getElementById(p.soundId).value; p.laps=0; p.lapHistory=[]; p.bestLap=Infinity; p.totalTime=0; p.lastRecordTime=0; p.finished=false; p.hasCrossedStart=false; 
-                p.isLineBlocked=false; p.stuckFrameCount=0; p.referencePixels=null; 
+                p.isLineBlocked=false; p.stuckFrameCount=0; p.referencePixels=null; p.gapText="--";
                 updatePlayerUI(p); 
                 const curLapEl = document.getElementById(p.currentLapId); if(curLapEl) curLapEl.textContent = "ESPERANDO..."; 
                 const gapEl = document.getElementById(p.gapId); if(gapEl) gapEl.textContent = "--"; 
@@ -1366,12 +1366,16 @@
                  const diff = t1 - t2; const diffSec = (Math.abs(diff)/1000).toFixed(1);
                  if (raceMode === 'time' && players[0].laps !== players[1].laps) {
                      const ldr = players[0].laps > players[1].laps ? 0 : 1; const trl = ldr === 0 ? 1 : 0;
-                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = "LIDER"; ldrGap.style.color = "#4ade80"; }
-                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = `-${Math.abs(players[0].laps - players[1].laps)}L`; trlGap.style.color = "#f87171"; }
+                     players[ldr].gapText = "LIDER";
+                     players[trl].gapText = `-${Math.abs(players[0].laps - players[1].laps)}L`;
+                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = players[ldr].gapText; ldrGap.style.color = "#4ade80"; }
+                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = players[trl].gapText; trlGap.style.color = "#f87171"; }
                  } else {
                      const ldr = diff < 0 ? 0 : 1; const trl = ldr === 0 ? 1 : 0;
-                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = "LIDER"; ldrGap.style.color = "#4ade80"; }
-                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = `+${diffSec}s`; trlGap.style.color = "#f87171"; }
+                     players[ldr].gapText = "LIDER";
+                     players[trl].gapText = `+${diffSec}s`;
+                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = players[ldr].gapText; ldrGap.style.color = "#4ade80"; }
+                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = players[trl].gapText; trlGap.style.color = "#f87171"; }
                  }
              }
         }
@@ -1459,10 +1463,9 @@
                 timestamp: Date.now(), raceMode: raceMode, activePlayers: activePlayers, trackLength: parseFloat(trackLengthInput.value) || 15, totalLapsTarget: totalLapsTarget, raceDurationTarget: raceDurationTarget, isRaceActive: isRaceActive, isCountdown: isCountdown, isPaused: isPaused, raceAborted: raceAborted, raceStartTime: raceStartTime, currentLang: currentLang,
                 voiceEnabled: voiceToggle.checked, falseStartName: falseStartPlayerName.textContent,
                 players: players.map(p => {
-                    const gapEl = document.getElementById(p.gapId);
                     return { 
                         id: p.id, name: document.getElementById(p.nameId).value, car: document.getElementById(p.carId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
-                        totalTime: p.totalTime, finished: p.finished, lapStartTime: p.lapStartTime, hasCrossedStart: p.hasCrossedStart, gapText: gapEl ? gapEl.textContent : "--",
+                        totalTime: p.totalTime, finished: p.finished, lapStartTime: p.lapStartTime, hasCrossedStart: p.hasCrossedStart, gapText: p.gapText || "--",
                         avgSpeed: p.avgSpeed, maxSpeed: p.maxSpeed, consistency: p.consistency, soundTone: p.soundTone
                     };
                 })
@@ -1779,7 +1782,13 @@
 
                 if (p1) { 
                     document.getElementById('tv-p1-name').textContent = p1.name; 
-                    document.getElementById('tv-p1-gap').textContent = p1.gapText; 
+                    
+                    const tvP1Gap = document.getElementById('tv-p1-gap');
+                    tvP1Gap.textContent = p1.gapText;
+                    if(p1.gapText === 'LIDER') tvP1Gap.style.color = '#4ade80';
+                    else if(p1.gapText !== '--') tvP1Gap.style.color = '#f87171';
+                    else tvP1Gap.style.color = 'white';
+                    
                     document.getElementById('tv-p1-laps').textContent = p1.laps;
                     document.getElementById('tv-p1-best').textContent = p1.bestLap !== Infinity && p1.bestLap != null ? formatTime(p1.bestLap) : '--.---';
                     document.getElementById('tv-p1-last').textContent = p1.lapHistory && p1.lapHistory.length > 0 ? formatTime(p1.lapHistory[p1.lapHistory.length-1]) : '--.---';
@@ -1797,7 +1806,13 @@
                     document.getElementById('w-p2-main').style.display = 'flex'; 
                     document.getElementById('w-p2-stats').style.display = 'flex';
                     document.getElementById('tv-p2-name').textContent = p2.name; 
-                    document.getElementById('tv-p2-gap').textContent = p2.gapText; 
+                    
+                    const tvP2Gap = document.getElementById('tv-p2-gap');
+                    tvP2Gap.textContent = p2.gapText;
+                    if(p2.gapText === 'LIDER') tvP2Gap.style.color = '#4ade80';
+                    else if(p2.gapText !== '--') tvP2Gap.style.color = '#f87171';
+                    else tvP2Gap.style.color = 'white';
+
                     document.getElementById('tv-p2-laps').textContent = p2.laps;
                     document.getElementById('tv-p2-best').textContent = p2.bestLap !== Infinity && p2.bestLap != null ? formatTime(p2.bestLap) : '--.---';
                     document.getElementById('tv-p2-last').textContent = p2.lapHistory && p2.lapHistory.length > 0 ? formatTime(p2.lapHistory[p2.lapHistory.length-1]) : '--.---';
