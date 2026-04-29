@@ -12,6 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="KronoDual V.4.0">
     <meta name="application-name" content="KronoDual V.4.0">
     <meta http-equiv="Permissions-Policy" content="camera=(self)">
+    <meta name="color-scheme" content="dark">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
@@ -655,7 +656,7 @@
             <div id="w-p1-stats" class="tv-widget tv-panel flex flex-col justify-center p-4 border-l-4 border-yellow-400/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                <span class="text-yellow-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(250,204,21,0.5)] w-full truncate">Estadísticas Oro</span>
+                <span class="relative z-10 shrink-0 text-yellow-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(250,204,21,0.5)] w-full truncate">Estadísticas Oro</span>
                 <div class="grid grid-cols-2 gap-1 sm:gap-2 mt-1 pointer-events-none w-full min-h-0 flex-1 content-center">
                     <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VUELTAS</span><span id="tv-p1-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
                     <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">CONSISTENCIA</span><span id="tv-p1-cons" class="font-bold text-blue-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] truncate block">--%</span></div>
@@ -669,7 +670,7 @@
             <div id="w-p2-stats" class="tv-widget tv-panel flex flex-col justify-center p-4 border-l-4 border-orange-500/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                <span class="text-orange-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(249,115,22,0.5)] w-full truncate">Estadísticas Cobre</span>
+                <span class="relative z-10 shrink-0 text-orange-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(249,115,22,0.5)] w-full truncate">Estadísticas Cobre</span>
                 <div class="grid grid-cols-2 gap-1 sm:gap-2 mt-1 pointer-events-none w-full min-h-0 flex-1 content-center">
                     <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VUELTAS</span><span id="tv-p2-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
                     <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">CONSISTENCIA</span><span id="tv-p2-cons" class="font-bold text-blue-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] truncate block">--%</span></div>
@@ -683,29 +684,37 @@
             <div id="w-combined-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-cyan-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="cq-text-sm text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 z-10 pointer-events-none drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] w-full truncate">Evolución Tiempos & Delta (S)</span>
-                 <canvas id="tv-combined-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 pointer-events-none drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] w-full truncate">Evolución Tiempos & Delta (S)</span>
+                 <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
+                     <canvas id="tv-combined-graph" class="absolute inset-0 w-full h-full"></canvas>
+                 </div>
             </div>
 
             <div id="w-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none w-full truncate">Comparativa Barras</span>
-                 <canvas id="tv-lap-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none w-full truncate">Comparativa Barras</span>
+                 <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
+                     <canvas id="tv-lap-graph" class="absolute inset-0 w-full h-full"></canvas>
+                 </div>
             </div>
 
             <div id="w-speed-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-purple-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="cq-text-sm text-purple-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] w-full truncate">Curva Velocidad (Km/h)</span>
-                 <canvas id="tv-speed-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-purple-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] w-full truncate">Curva Velocidad (Km/h)</span>
+                 <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
+                     <canvas id="tv-speed-graph" class="absolute inset-0 w-full h-full"></canvas>
+                 </div>
             </div>
 
             <div id="w-consistency-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-blue-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="cq-text-sm text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] w-full truncate">Evolución Consistencia (%)</span>
-                 <canvas id="tv-consistency-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] w-full truncate">Evolución Consistencia (%)</span>
+                 <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
+                     <canvas id="tv-consistency-graph" class="absolute inset-0 w-full h-full"></canvas>
+                 </div>
             </div>
 
             <div id="w-history" class="tv-widget tv-panel flex flex-col p-0 overflow-hidden group">
@@ -1532,7 +1541,7 @@
 
             // ================== GRÁFICAS NEÓN (CANVAS) ==================
             window.drawTVDualGraph = function(canvasId, p1Laps, p2Laps) {
-                const canvas = document.getElementById(canvasId); if (!canvas) return; const ctx = canvas.getContext('2d'); const parent = canvas.parentElement; if (!parent) return; const w = parent.clientWidth - 32; const h = parent.clientHeight - 40; if (w <= 0 || h <= 0) return;
+                const canvas = document.getElementById(canvasId); if (!canvas) return; const ctx = canvas.getContext('2d'); const w = canvas.clientWidth; const h = canvas.clientHeight; if (w <= 0 || h <= 0) return;
                 canvas.width = w; canvas.height = h; ctx.clearRect(0, 0, w, h);
                 const maxLen = Math.max(p1Laps.length, p2Laps ? p2Laps.length : 0); if(maxLen === 0) return;
                 const all = [...p1Laps, ...(p2Laps || [])]; const maxVal = Math.max(...all); const minVal = Math.min(...all); let range = maxVal - minVal; if(range === 0) range = 1;
@@ -1561,8 +1570,7 @@
 
             window.drawSmoothCurveDual = function(canvasId, d1, d2, c1, c2) {
                 const canvas = document.getElementById(canvasId); if (!canvas) return; 
-                const ctx = canvas.getContext('2d'); const parent = canvas.parentElement; if(!parent) return;
-                const w = parent.clientWidth - 32; const h = parent.clientHeight - 40;
+                const ctx = canvas.getContext('2d'); const w = canvas.clientWidth; const h = canvas.clientHeight;
                 if (w <= 0 || h <= 0) return; canvas.width = w; canvas.height = h; ctx.clearRect(0, 0, w, h);
                 const maxLen = Math.max(d1 ? d1.length : 0, d2 ? d2.length : 0); if(maxLen === 0) return;
                 const all = [...(d1||[]), ...(d2||[])]; const maxVal = Math.max(...all) || 1; const minVal = Math.min(...all) || 0;
@@ -1612,8 +1620,7 @@
 
             window.drawCombinedLineGraph = function(canvasId, p1Laps, p2Laps) {
                 const canvas = document.getElementById(canvasId); if (!canvas) return; 
-                const ctx = canvas.getContext('2d'); const parent = canvas.parentElement; if (!parent) return; 
-                const w = parent.clientWidth - 32; const h = parent.clientHeight - 40; 
+                const ctx = canvas.getContext('2d'); const w = canvas.clientWidth; const h = canvas.clientHeight; 
                 if (w <= 0 || h <= 0) return;
                 canvas.width = w; canvas.height = h; ctx.clearRect(0, 0, w, h);
                 const maxLen = Math.max(p1Laps.length, p2Laps ? p2Laps.length : 0); if(maxLen === 0) return;
