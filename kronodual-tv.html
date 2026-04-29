@@ -1362,29 +1362,30 @@
              if (players[0].laps > 0 || players[1].laps > 0) {
                  const minLaps = Math.min(players[0].laps, players[1].laps);
                  if (minLaps === 0) {
+                     // Si uno ha cruzado pero el otro aún no ha dado ni 1 vuelta
                      const ldr = players[0].laps > 0 ? 0 : 1;
                      const trl = ldr === 0 ? 1 : 0;
                      players[ldr].gapText = "LIDER";
                      players[trl].gapText = `-${players[ldr].laps}L`;
                  } else {
+                     // Calcula el tiempo acumulado exacto hasta la última vuelta completada por AMBOS
                      const t1 = players[0].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
                      const t2 = players[1].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
-                     if (players[0].laps === players[1].laps) {
-                         const diff = t1 - t2;
-                         if (diff < 0) {
-                             players[0].gapText = "LIDER"; players[1].gapText = `+${(Math.abs(diff)/1000).toFixed(3)}s`;
-                         } else if (diff > 0) {
-                             players[1].gapText = "LIDER"; players[0].gapText = `+${(diff/1000).toFixed(3)}s`;
-                         } else {
-                             players[0].gapText = "EMPATE"; players[1].gapText = "EMPATE";
-                         }
+                     const diff = t1 - t2;
+                     
+                     // Siempre mostramos segundos (ya no mostramos diferencias de "vueltas")
+                     if (diff < 0) {
+                         players[0].gapText = "LIDER"; 
+                         players[1].gapText = `+${(Math.abs(diff)/1000).toFixed(3)}s`;
+                     } else if (diff > 0) {
+                         players[1].gapText = "LIDER"; 
+                         players[0].gapText = `+${(diff/1000).toFixed(3)}s`;
                      } else {
-                         const ldr = players[0].laps > players[1].laps ? 0 : 1;
-                         const trl = ldr === 0 ? 1 : 0;
-                         players[ldr].gapText = "LIDER";
-                         players[trl].gapText = `-${players[ldr].laps - players[trl].laps}L`;
+                         players[0].gapText = "EMPATE"; 
+                         players[1].gapText = "EMPATE";
                      }
                  }
+                 
                  [0, 1].forEach(i => {
                      const gapEl = document.getElementById(players[i].gapId);
                      if (gapEl) {
