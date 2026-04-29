@@ -1891,8 +1891,55 @@
                 if (tvData && tvData.isRaceActive && !tvData.isPaused) {
                     const estTime = tvData.timestamp ? (tvData.timestamp + (Date.now() - lastReceivedLocalTime)) : Date.now();
                     document.getElementById('tv-race-time').textContent = formatTime(Math.max(0, tvData.raceMode === 'time' ? tvData.raceDurationTarget - (estTime - tvData.raceStartTime) : estTime - tvData.raceStartTime));
-                    const p1 = tvData.players && tvData.players.find(p=>p.id===1); if(p1 && p1.hasCrossedStart && !p1.finished) document.getElementById('tv-p1-current').textContent = formatTime(estTime - p1.lapStartTime);
-                    const p2 = tvData.players && tvData.players.find(p=>p.id===2); if(tvData.activePlayers===2 && p2 && p2.hasCrossedStart && !p2.finished) document.getElementById('tv-p2-current').textContent = formatTime(estTime - p2.lapStartTime);
+                    
+                    const p1 = tvData.players && tvData.players.find(p=>p.id===1); 
+                    const p2 = tvData.players && tvData.players.find(p=>p.id===2); 
+                    
+                    if(p1 && p1.hasCrossedStart && !p1.finished) document.getElementById('tv-p1-current').textContent = formatTime(estTime - p1.lapStartTime);
+                    if(tvData.activePlayers===2 && p2 && p2.hasCrossedStart && !p2.finished) document.getElementById('tv-p2-current').textContent = formatTime(estTime - p2.lapStartTime);
+                    
+                    // CÁLCULO DE DELTA EN TIEMPO REAL PARA MODO TV
+                    if (tvData.activePlayers === 2 && p1 && p2 && p1.laps > 0 && p2.laps > 0) {
+                        const t1 = p1.finished ? p1.totalTime : (p1.lapHistory.reduce((a,b)=>a+b,0) + (estTime - p1.lapStartTime));
+                        const t2 = p2.finished ? p2.totalTime : (p2.lapHistory.reduce((a,b)=>a+b,0) + (estTime - p2.lapStartTime));
+                        
+                        const diff = t1 - t2; 
+                        const diffSec = (Math.abs(diff)/1000).toFixed(1);
+                        
+                        let p1GapStr = "--", p2GapStr = "--";
+                        
+                        if (tvData.raceMode === 'time' && p1.laps !== p2.laps) {
+                            if (p1.laps > p2.laps) {
+                                p1GapStr = "LIDER";
+                                p2GapStr = `-${p1.laps - p2.laps}L`;
+                            } else {
+                                p2GapStr = "LIDER";
+                                p1GapStr = `-${p2.laps - p1.laps}L`;
+                            }
+                        } else {
+                            if (diff < 0) {
+                                p1GapStr = "LIDER";
+                                p2GapStr = `+${diffSec}s`;
+                            } else {
+                                p2GapStr = "LIDER";
+                                p1GapStr = `+${diffSec}s`;
+                            }
+                        }
+
+                        const tvP1Gap = document.getElementById('tv-p1-gap');
+                        if (tvP1Gap) {
+                            tvP1Gap.textContent = p1GapStr;
+                            if (p1GapStr === 'LIDER') tvP1Gap.style.color = '#4ade80';
+                            else if (p1GapStr !== '--') tvP1Gap.style.color = '#f87171';
+                        }
+                        
+                        const tvP2Gap = document.getElementById('tv-p2-gap');
+                        if (tvP2Gap) {
+                            tvP2Gap.textContent = p2GapStr;
+                            if (p2GapStr === 'LIDER') tvP2Gap.style.color = '#4ade80';
+                            else if (p2GapStr !== '--') tvP2Gap.style.color = '#f87171';
+                        }
+                    }
                 }
             }, 30);
             
