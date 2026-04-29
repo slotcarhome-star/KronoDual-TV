@@ -1359,24 +1359,39 @@
         }
 
         function updateGaps() {
-             const now = Date.now();
-             const t1 = players[0].finished ? players[0].totalTime : (players[0].laps > 0 ? (players[0].lapHistory.reduce((a,b)=>a+b,0) + (now - players[0].lapStartTime)) : 0);
-             const t2 = players[1].finished ? players[1].totalTime : (players[1].laps > 0 ? (players[1].lapHistory.reduce((a,b)=>a+b,0) + (now - players[1].lapStartTime)) : 0);
-             if (players[0].laps > 0 && players[1].laps > 0) {
-                 const diff = t1 - t2; const diffSec = (Math.abs(diff)/1000).toFixed(1);
-                 if (raceMode === 'time' && players[0].laps !== players[1].laps) {
-                     const ldr = players[0].laps > players[1].laps ? 0 : 1; const trl = ldr === 0 ? 1 : 0;
+             if (players[0].laps > 0 || players[1].laps > 0) {
+                 const minLaps = Math.min(players[0].laps, players[1].laps);
+                 if (minLaps === 0) {
+                     const ldr = players[0].laps > 0 ? 0 : 1;
+                     const trl = ldr === 0 ? 1 : 0;
                      players[ldr].gapText = "LIDER";
-                     players[trl].gapText = `-${Math.abs(players[0].laps - players[1].laps)}L`;
-                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = players[ldr].gapText; ldrGap.style.color = "#4ade80"; }
-                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = players[trl].gapText; trlGap.style.color = "#f87171"; }
+                     players[trl].gapText = `-${players[ldr].laps}L`;
                  } else {
-                     const ldr = diff < 0 ? 0 : 1; const trl = ldr === 0 ? 1 : 0;
-                     players[ldr].gapText = "LIDER";
-                     players[trl].gapText = `+${diffSec}s`;
-                     const ldrGap = document.getElementById(players[ldr].gapId); if (ldrGap) { ldrGap.textContent = players[ldr].gapText; ldrGap.style.color = "#4ade80"; }
-                     const trlGap = document.getElementById(players[trl].gapId); if (trlGap) { trlGap.textContent = players[trl].gapText; trlGap.style.color = "#f87171"; }
+                     const t1 = players[0].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
+                     const t2 = players[1].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
+                     if (players[0].laps === players[1].laps) {
+                         const diff = t1 - t2;
+                         if (diff < 0) {
+                             players[0].gapText = "LIDER"; players[1].gapText = `+${(Math.abs(diff)/1000).toFixed(3)}s`;
+                         } else if (diff > 0) {
+                             players[1].gapText = "LIDER"; players[0].gapText = `+${(diff/1000).toFixed(3)}s`;
+                         } else {
+                             players[0].gapText = "EMPATE"; players[1].gapText = "EMPATE";
+                         }
+                     } else {
+                         const ldr = players[0].laps > players[1].laps ? 0 : 1;
+                         const trl = ldr === 0 ? 1 : 0;
+                         players[ldr].gapText = "LIDER";
+                         players[trl].gapText = `-${players[ldr].laps - players[trl].laps}L`;
+                     }
                  }
+                 [0, 1].forEach(i => {
+                     const gapEl = document.getElementById(players[i].gapId);
+                     if (gapEl) {
+                         gapEl.textContent = players[i].gapText;
+                         gapEl.style.color = players[i].gapText === "LIDER" ? "#4ade80" : (players[i].gapText === "EMPATE" ? "#facc15" : "#f87171");
+                     }
+                 });
              }
         }
 
@@ -1786,6 +1801,7 @@
                     const tvP1Gap = document.getElementById('tv-p1-gap');
                     tvP1Gap.textContent = p1.gapText;
                     if(p1.gapText === 'LIDER') tvP1Gap.style.color = '#4ade80';
+                    else if(p1.gapText === 'EMPATE') tvP1Gap.style.color = '#facc15';
                     else if(p1.gapText !== '--') tvP1Gap.style.color = '#f87171';
                     else tvP1Gap.style.color = 'white';
                     
@@ -1810,6 +1826,7 @@
                     const tvP2Gap = document.getElementById('tv-p2-gap');
                     tvP2Gap.textContent = p2.gapText;
                     if(p2.gapText === 'LIDER') tvP2Gap.style.color = '#4ade80';
+                    else if(p2.gapText === 'EMPATE') tvP2Gap.style.color = '#facc15';
                     else if(p2.gapText !== '--') tvP2Gap.style.color = '#f87171';
                     else tvP2Gap.style.color = 'white';
 
@@ -1897,49 +1914,6 @@
                     
                     if(p1 && p1.hasCrossedStart && !p1.finished) document.getElementById('tv-p1-current').textContent = formatTime(estTime - p1.lapStartTime);
                     if(tvData.activePlayers===2 && p2 && p2.hasCrossedStart && !p2.finished) document.getElementById('tv-p2-current').textContent = formatTime(estTime - p2.lapStartTime);
-                    
-                    // CÁLCULO DE DELTA EN TIEMPO REAL PARA MODO TV
-                    if (tvData.activePlayers === 2 && p1 && p2 && p1.laps > 0 && p2.laps > 0) {
-                        const t1 = p1.finished ? p1.totalTime : (p1.lapHistory.reduce((a,b)=>a+b,0) + (estTime - p1.lapStartTime));
-                        const t2 = p2.finished ? p2.totalTime : (p2.lapHistory.reduce((a,b)=>a+b,0) + (estTime - p2.lapStartTime));
-                        
-                        const diff = t1 - t2; 
-                        const diffSec = (Math.abs(diff)/1000).toFixed(1);
-                        
-                        let p1GapStr = "--", p2GapStr = "--";
-                        
-                        if (tvData.raceMode === 'time' && p1.laps !== p2.laps) {
-                            if (p1.laps > p2.laps) {
-                                p1GapStr = "LIDER";
-                                p2GapStr = `-${p1.laps - p2.laps}L`;
-                            } else {
-                                p2GapStr = "LIDER";
-                                p1GapStr = `-${p2.laps - p1.laps}L`;
-                            }
-                        } else {
-                            if (diff < 0) {
-                                p1GapStr = "LIDER";
-                                p2GapStr = `+${diffSec}s`;
-                            } else {
-                                p2GapStr = "LIDER";
-                                p1GapStr = `+${diffSec}s`;
-                            }
-                        }
-
-                        const tvP1Gap = document.getElementById('tv-p1-gap');
-                        if (tvP1Gap) {
-                            tvP1Gap.textContent = p1GapStr;
-                            if (p1GapStr === 'LIDER') tvP1Gap.style.color = '#4ade80';
-                            else if (p1GapStr !== '--') tvP1Gap.style.color = '#f87171';
-                        }
-                        
-                        const tvP2Gap = document.getElementById('tv-p2-gap');
-                        if (tvP2Gap) {
-                            tvP2Gap.textContent = p2GapStr;
-                            if (p2GapStr === 'LIDER') tvP2Gap.style.color = '#4ade80';
-                            else if (p2GapStr !== '--') tvP2Gap.style.color = '#f87171';
-                        }
-                    }
                 }
             }, 30);
             
