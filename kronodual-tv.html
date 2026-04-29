@@ -238,27 +238,31 @@
         /* ESTILOS CUADRADITO ESCALAR (RESIZE) - SIEMPRE VISIBLE */
         .resize-widget-handle { 
             position: absolute !important;
-            touch-action: none !important;
-            width: 24px !important;
-            height: 24px !important;
-            background-color: #facc15 !important;
-            border: 2px solid #0f172a !important;
-            border-radius: 4px !important;
-            bottom: 8px !important;
-            right: 8px !important;
-            opacity: 0.9 !important;
+            bottom: 10px !important;
+            right: 10px !important;
+            width: 32px !important;
+            height: 32px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(15, 23, 42, 0.9) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            border-radius: 6px !important;
+            opacity: 1 !important;
             z-index: 50 !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.8) !important;
-            transition: transform 0.1s, background-color 0.1s !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5) !important;
+            transition: all 0.1s ease !important;
             cursor: se-resize !important;
-            padding: 0 !important;
+            padding: 6px !important;
             pointer-events: auto !important;
+            color: #facc15 !important; /* Dedo de color amarillo puro */
+            touch-action: none !important;
         }
         .resize-widget-handle:hover, .resize-widget-handle:active {
-            transform: scale(1.3) !important;
-            background-color: #fbbf24 !important;
+            transform: scale(1.1) !important;
+            background: rgba(250, 204, 21, 0.2) !important;
+            border-color: #facc15 !important;
         }
-        .resize-widget-handle svg { display: none !important; } /* Ocultamos el viejo icono SVG */
 
         .sortable-ghost { opacity: 0.3; background: rgba(250, 204, 21, 0.1); border: 2px dashed rgba(250, 204, 21, 0.8) !important; transform: scale(0.98); }
         .sortable-drag { opacity: 1 !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(250, 204, 21, 0.5) !important; border-color: rgba(250, 204, 21, 1) !important; z-index: 100; cursor: grabbing !important; }
@@ -612,7 +616,7 @@
             
             <div id="w-time" class="tv-widget tv-panel flex flex-row justify-between items-center px-4 sm:px-8 border-b-2 border-slate-600/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 
                 <div class="flex flex-col items-start w-1/3 pointer-events-none py-2 min-w-0 pr-2">
                     <span id="tv-header-p1-name" class="text-yellow-400 font-rajdhani font-black cq-text-3xl uppercase truncate w-full tracking-wider drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]">P1</span>
@@ -634,7 +638,7 @@
 
             <div id="w-p1-main" class="tv-widget tv-panel flex flex-col items-center justify-center border-t-4 border-yellow-400 bg-yellow-900/10 group p-2">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 <span id="tv-p1-name" class="cq-text-4xl font-rajdhani font-black text-yellow-400 tracking-widest uppercase mb-2 pointer-events-none drop-shadow-[0_0_10px_rgba(250,204,21,0.6)] truncate w-full text-center px-4">P1</span>
                 <span id="tv-p1-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none drop-shadow-lg truncate w-full text-center px-2">00.000</span>
                 <div class="mt-2 pointer-events-none w-full text-center min-h-0 px-2"><span id="tv-p1-gap" class="tv-font cq-text-2xl font-bold px-4 py-1.5 rounded-lg shadow-md bg-black/30 truncate max-w-full inline-block">--</span></div>
@@ -642,7 +646,7 @@
 
             <div id="w-p2-main" class="tv-widget tv-panel flex flex-col items-center justify-center border-t-4 border-orange-500 bg-orange-900/10 group p-2">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-orange-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 <span id="tv-p2-name" class="cq-text-4xl font-rajdhani font-black text-orange-400 tracking-widest uppercase mb-2 pointer-events-none drop-shadow-[0_0_10px_rgba(249,115,22,0.6)] truncate w-full text-center px-4">P2</span>
                 <span id="tv-p2-current" class="tv-font cq-text-giant font-black text-white tracking-tighter pointer-events-none drop-shadow-lg truncate w-full text-center px-2">00.000</span>
                 <div class="mt-2 pointer-events-none w-full text-center min-h-0 px-2"><span id="tv-p2-gap" class="tv-font cq-text-2xl font-bold px-4 py-1.5 rounded-lg shadow-md bg-black/30 truncate max-w-full inline-block">--</span></div>
@@ -650,7 +654,7 @@
 
             <div id="w-p1-stats" class="tv-widget tv-panel flex flex-col justify-center p-4 border-l-4 border-yellow-400/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 <span class="text-yellow-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(250,204,21,0.5)] w-full truncate">Estadísticas Oro</span>
                 <div class="grid grid-cols-2 gap-1 sm:gap-2 mt-1 pointer-events-none w-full min-h-0 flex-1 content-center">
                     <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VUELTAS</span><span id="tv-p1-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
@@ -664,7 +668,7 @@
 
             <div id="w-p2-stats" class="tv-widget tv-panel flex flex-col justify-center p-4 border-l-4 border-orange-500/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-orange-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 <span class="text-orange-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(249,115,22,0.5)] w-full truncate">Estadísticas Cobre</span>
                 <div class="grid grid-cols-2 gap-1 sm:gap-2 mt-1 pointer-events-none w-full min-h-0 flex-1 content-center">
                     <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VUELTAS</span><span id="tv-p2-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
@@ -678,35 +682,35 @@
 
             <div id="w-combined-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-cyan-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-cyan-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                  <span class="cq-text-sm text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 z-10 pointer-events-none drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] w-full truncate">Evolución Tiempos & Delta (S)</span>
                  <canvas id="tv-combined-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
             </div>
 
             <div id="w-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                  <span class="cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none w-full truncate">Comparativa Barras</span>
                  <canvas id="tv-lap-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
             </div>
 
             <div id="w-speed-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-purple-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-purple-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                  <span class="cq-text-sm text-purple-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] w-full truncate">Curva Velocidad (Km/h)</span>
                  <canvas id="tv-speed-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
             </div>
 
             <div id="w-consistency-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-blue-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                 <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-blue-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                  <span class="cq-text-sm text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] w-full truncate">Evolución Consistencia (%)</span>
                  <canvas id="tv-consistency-graph" class="w-full flex-1 mt-2 pointer-events-none"></canvas>
             </div>
 
             <div id="w-history" class="tv-widget tv-panel flex flex-col p-0 overflow-hidden group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
-                <div class="resize-widget-handle absolute bottom-0 right-0 w-8 h-8 cursor-se-resize z-30 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity flex items-end justify-end p-2 text-slate-500 hover:text-yellow-400"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 21 21 21 21 15"></polyline><line x1="14" y1="14" x2="21" y2="21"></line></svg></div>
+                <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 <div class="bg-slate-800/50 p-2 border-b border-slate-700/50 shrink-0 text-center pointer-events-none">
                     <h3 class="text-slate-300 font-rajdhani font-bold uppercase tracking-widest cq-text-sm truncate">Historial Cara a Cara</h3>
                 </div>
@@ -1181,16 +1185,28 @@
         function togglePause() {
             if (!isRaceActive && !isPaused) return; 
             isPaused = !isPaused;
+            
+            const iconPause = document.getElementById('icon-pause');
+            const iconPlay = document.getElementById('icon-play');
+
             if (isPaused) {
                 isRaceActive = false; clearInterval(raceIntervalId); pauseStartTimestamp = Date.now();
-                pauseText.textContent = translations[currentLang] ? translations[currentLang].resume : "RESUME"; yellowFlagOverlay.classList.remove('hidden');
+                pauseText.textContent = translations[currentLang] ? translations[currentLang].resume : "RESUME"; 
+                yellowFlagOverlay.classList.remove('hidden');
+                if (iconPause) iconPause.classList.add('hidden');
+                if (iconPlay) iconPlay.classList.remove('hidden');
             } else {
                 const pd = Date.now() - pauseStartTimestamp; raceStartTime += pd;
                 players.forEach(p => { 
                     if (p.hasCrossedStart) { p.lapStartTime += pd; p.lastRecordTime += pd; } 
                     p.referencePixels = null;
                 });
-                isRaceActive = true; pauseText.textContent = translations[currentLang] ? translations[currentLang].pause : "PAUSA"; yellowFlagOverlay.classList.add('hidden'); startTimers(); 
+                isRaceActive = true; 
+                pauseText.textContent = translations[currentLang] ? translations[currentLang].pause : "PAUSA"; 
+                yellowFlagOverlay.classList.add('hidden'); 
+                if (iconPlay) iconPlay.classList.add('hidden');
+                if (iconPause) iconPause.classList.remove('hidden');
+                startTimers(); 
             }
             broadcastState(); syncToCloud();
         }
@@ -1223,6 +1239,8 @@
 
         function startRace() {
             configPanel.classList.remove('open'); 
+            const mainCont = document.getElementById('main-app-container');
+            if(mainCont) { mainCont.classList.add('overflow-y-auto'); mainCont.classList.remove('overflow-hidden'); }
             
             // Guardar en el historial de autocompletado
             saveToHistory('driver', document.getElementById('p1-name').value);
@@ -1238,6 +1256,12 @@
             startRaceBtn.disabled = true; resetRaceBtn.disabled = true; pauseRaceBtn.disabled = true; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden');
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
             isPaused = false; pauseText.textContent = "PAUSA";
+            
+            const iconPause = document.getElementById('icon-pause');
+            const iconPlay = document.getElementById('icon-play');
+            if (iconPlay) iconPlay.classList.add('hidden');
+            if (iconPause) iconPause.classList.remove('hidden');
+
             raceMode = raceConditionSelect.value;
             if (raceMode === 'laps') totalLapsTarget = lapLimitSelect.value==='Infinity'?Infinity:parseInt(lapLimitSelect.value); else { totalLapsTarget = Infinity; raceDurationTarget = parseInt(timeLimitSelect.value) * 60000; }
             blindTimeMs = parseInt(safetyTimeSelect.value);
@@ -2043,6 +2067,12 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
         document.getElementById('start-race-btn').onclick = startRace;
         document.getElementById('reset-race-btn').onclick = () => { 
             isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden'); document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
+            
+            const iconPause = document.getElementById('icon-pause');
+            const iconPlay = document.getElementById('icon-play');
+            if (iconPlay) iconPlay.classList.add('hidden');
+            if (iconPause) iconPause.classList.remove('hidden');
+
             if (cameraStream) {
                 const headerPanel = document.getElementById('app-header-panel');
                 const timesPanel = document.getElementById('times-traffic-panel');
@@ -2051,13 +2081,38 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             }
             broadcastState(); syncToCloud(); 
         };
+        
         document.getElementById('central-config-btn').onclick = () => {
             const panel = document.getElementById('config-panel');
+            const headerPanel = document.getElementById('app-header-panel');
+            const timesPanel = document.getElementById('times-traffic-panel');
+            const mainContainer = document.getElementById('main-app-container');
+
             panel.classList.toggle('open');
+            
             if (panel.classList.contains('open')) {
-                document.getElementById('main-app-container').scrollTo({ top: 0, behavior: 'smooth' });
+                mainContainer.scrollTo({ top: 0, behavior: 'auto' });
+                mainContainer.classList.remove('overflow-y-auto');
+                mainContainer.classList.add('overflow-hidden');
+                
+                if (headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
+                if (timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
+            } else {
+                mainContainer.classList.add('overflow-y-auto');
+                mainContainer.classList.remove('overflow-hidden');
+                
+                if (cameraStream && !isRaceActive && !isPaused && !isCountdown) {
+                    if (headerPanel) { headerPanel.classList.add('hidden'); headerPanel.classList.remove('flex'); }
+                    if (timesPanel) { timesPanel.classList.add('hidden'); timesPanel.classList.remove('flex'); }
+                } else {
+                    if (timesPanel) { timesPanel.classList.remove('hidden'); timesPanel.classList.add('flex'); }
+                    if (!cameraStream) {
+                        if (headerPanel) { headerPanel.classList.remove('hidden'); headerPanel.classList.add('flex'); }
+                    }
+                }
             }
         };
+        
         document.getElementById('pause-race-btn').onclick = togglePause;
         document.getElementById('camera-on-btn').onclick = startWebcam; 
         document.getElementById('camera-off-btn').onclick = stopWebcam;
@@ -2072,6 +2127,11 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
                 isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; pauseRaceBtn.disabled = true; isPaused = false; 
                 document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden'); 
                 
+                const iconPause = document.getElementById('icon-pause');
+                const iconPlay = document.getElementById('icon-play');
+                if (iconPlay) iconPlay.classList.add('hidden');
+                if (iconPause) iconPause.classList.remove('hidden');
+
                 if (cameraStream) {
                     const headerPanel = document.getElementById('app-header-panel');
                     const timesPanel = document.getElementById('times-traffic-panel');
@@ -2374,6 +2434,21 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             if (action === 'PAUSE') {
                 togglePause();
             } else if (action === 'NEW_RACE') {
+                // Comprobamos si el modal de resultados está abierto
+                const resModal = document.getElementById('resultsModal');
+                if (resModal && !resModal.classList.contains('hidden')) {
+                    const modalRestartBtn = document.getElementById('modal-restart-btn');
+                    if (modalRestartBtn) modalRestartBtn.click(); // Cierra el modal y resetea la carrera
+                    
+                    // Esperamos a que la animación de cierre termine antes de iniciar
+                    setTimeout(() => {
+                        const startBtn = document.getElementById('start-race-btn');
+                        if (startBtn && !startBtn.disabled) startBtn.click();
+                    }, 400);
+                    return; // Salimos para no ejecutar el reseteo estándar de abajo
+                }
+
+                // Reseteo estándar si el modal no estaba abierto
                 const resetBtn = document.getElementById('reset-race-btn');
                 if (resetBtn && !resetBtn.disabled) resetBtn.click();
                 setTimeout(() => {
