@@ -164,15 +164,18 @@
         .tv-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
         .tv-scrollbar::-webkit-scrollbar-thumb { background: rgba(250, 204, 21, 0.3); border-radius: 4px; }
         
-        /* NO-SCROLL TV GRID LAYOUT (SOPORTA DRAG Y RESIZE TIPO PUZZLE) */
+        /* TV GRID LAYOUT (SOPORTA DRAG Y RESIZE TIPO PUZZLE) */
         .tv-grid-layout { 
             display: grid; 
             grid-template-columns: repeat(12, 1fr); 
             grid-auto-rows: 140px; 
             grid-auto-flow: row dense; /* Efecto Puzzle Activo */
             gap: 1rem; 
-            width: 100%; height: 100%; 
-            padding-bottom: 0.5rem; overflow-y: auto; overflow-x: hidden; 
+            width: 100%; 
+            padding-bottom: 4rem; 
+            overflow-y: auto; 
+            overflow-x: hidden; 
+            align-content: start;
         }
         .tv-widget { transition: box-shadow 0.2s ease, border-color 0.2s ease; container-type: size; width: 100%; height: 100%; box-sizing: border-box; position: relative; overflow: hidden; }
         .tv-widget:hover { border-color: rgba(250, 204, 21, 0.4); box-shadow: 0 0 20px rgba(250, 204, 21, 0.1); }
@@ -328,6 +331,7 @@
                     </button>
                     <button id="fullscreen-btn" class="shrink-0 flex items-center justify-center text-slate-800 hover:text-slate-900 transition-colors px-3 py-1.5 rounded-lg bg-slate-200/90 hover:bg-slate-200 border border-slate-400 shadow-md" title="Pantalla Completa">
                         <svg id="fs-icon-enter" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:mr-1"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                        <svg id="fs-icon-exit" class="hidden sm:mr-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
                         <span class="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Pantalla Completa</span>
                     </button>
                 </div>
@@ -455,6 +459,7 @@
                 <button id="pause-race-btn" class="flex-1 bg-white/90 hover:bg-white text-gray-900 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md border border-white/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     <div class="flex items-center justify-center">
                         <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="mr-1 sm:mr-1.5 text-gray-700 w-3.5 h-3.5 sm:w-4 sm:h-4"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                        <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="mr-1 sm:mr-1.5 text-green-700 hidden w-3.5 h-3.5 sm:w-4 sm:h-4"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                         <span id="pause-text" data-lang-key="pause">PAUSA</span>
                     </div>
                 </button>
@@ -478,33 +483,123 @@
 
 
     <!-- ================= CONTENEDOR MODO TV (SMART DASHBOARD OSCURO) ================= -->
-    <div id="tv-dashboard" class="hidden h-screen tv-bg text-white w-full flex-col font-sans overflow-hidden p-4 lg:p-6" data-theme="default">
-        <div class="flex justify-between items-center mb-6">
+    <div id="tv-dashboard" class="hidden h-screen tv-bg text-white w-full flex-col font-sans overflow-hidden p-4 lg:p-6 relative z-20" data-theme="default">
+        <div class="flex justify-between items-center mb-3 z-20 relative">
             <div class="flex items-center space-x-5">
-                <div class="flex flex-col">
-                    <h1 class="text-3xl lg:text-5xl font-black font-rajdhani tracking-[0.1em] text-yellow-400 drop-shadow-lg leading-none">KRONODUAL TV</h1>
-                    <span class="text-slate-400 font-rajdhani font-bold text-xs lg:text-sm tracking-[0.3em] uppercase mt-1.5 ml-1">by Albert Closa</span>
-                </div>
-                <div id="tv-cloud-code-display" class="hidden flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.2em]">
-                    <div class="text-slate-700 mx-2">||</div>
-                    <div class="text-slate-500 mr-2 flex items-center">
-                        NET.LINK <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mx-2 animate-ping shadow-[0_0_8px_#818cf8]"></div> 
+                
+                <!-- LOGO REDISEÑADO PREMIUM -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-yellow-600/40 rounded-2xl blur-xl group-hover:bg-yellow-400/60 transition-all duration-500"></div>
+                    <div class="relative bg-gradient-to-br from-slate-800 to-slate-900 p-3.5 rounded-2xl border border-yellow-400/50 shadow-[0_0_25px_rgba(250,204,21,0.3)] flex items-center justify-center overflow-hidden">
+                        <div class="absolute w-[250%] h-[250%] bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+                        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="url(#logo-gradient)" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]">
+                            <defs>
+                                <linearGradient id="logo-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ef4444" />
+                                    <stop offset="50%" stop-color="#f97316" />
+                                    <stop offset="100%" stop-color="#facc15" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M3 20h18" stroke-width="1.5" opacity="0.5"/>
+                            <path d="M3 20V4" stroke-width="1.5" opacity="0.5"/>
+                            <path d="M7 20V12" stroke-width="2.5">
+                                <animate attributeName="d" values="M7 20V12; M7 20V16; M7 20V8; M7 20V12" dur="1.5s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M12 20V8" stroke-width="2.5">
+                                <animate attributeName="d" values="M12 20V8; M12 20V15; M12 20V5; M12 20V8" dur="2.1s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M17 20V15" stroke-width="2.5">
+                                <animate attributeName="d" values="M17 20V15; M17 20V7; M17 20V12; M17 20V15" dur="1.8s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M3 16 Q 8 4 12 10 T 21 6" stroke-width="2" fill="none" stroke="#fff" stroke-dasharray="6 4" opacity="0.9">
+                                <animate attributeName="stroke-dashoffset" values="20;0" dur="0.8s" linear="ease" repeatCount="indefinite"/>
+                            </path>
+                            <circle cx="21" cy="6" r="1.5" fill="#fff" stroke="none">
+                                 <animate attributeName="r" values="1.5;3;1.5" dur="1s" repeatCount="indefinite" />
+                                 <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite" />
+                            </circle>
+                        </svg>
                     </div>
-                    <span class="text-white font-black text-sm sm:text-base tracking-[0.3em] drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"></span>
+                </div>
+
+                <!-- TÍTULO Y FIRMA -->
+                <div class="flex flex-col justify-center">
+                    <h1 class="text-3xl lg:text-5xl font-black font-rajdhani tracking-[0.1em] leading-none flex items-center drop-shadow-2xl">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-300">KRONO</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 ml-3 relative">
+                            DUAL
+                        </span>
+                        <!-- Símbolo de Comunicación Animado -->
+                        <div class="ml-4 flex items-center justify-center relative w-8 h-8 sm:w-10 sm:h-10" title="Enlace Telemetría Activo">
+                            <span class="absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-30 animate-ping" style="animation-duration: 2s;"></span>
+                            <span class="absolute inline-flex h-2/3 w-2/3 rounded-full bg-orange-500 opacity-40 animate-ping" style="animation-duration: 2s; animation-delay: 0.5s;"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#comm-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]">
+                                <defs>
+                                    <linearGradient id="comm-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#f97316" />
+                                        <stop offset="100%" stop-color="#facc15" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M2 8.82a15 15 0 0 1 20 0"/>
+                                <path d="M5 12.82a10 10 0 0 1 14 0"/>
+                                <path d="M8.5 16.42a5 5 0 0 1 7 0"/>
+                                <circle cx="12" cy="20" r="2" fill="#facc15" stroke="none"/>
+                            </svg>
+                        </div>
+                    </h1>
+                    
+                    <div class="flex items-center space-x-4 mt-3">
+                        <div class="flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.3em] uppercase opacity-90">
+                            <div class="text-yellow-400 font-bold relative drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]">
+                                ALBERT CLOSA
+                                <div class="absolute -bottom-1 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-70"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="tv-cloud-code-display" class="hidden flex items-center font-rajdhani text-[11px] sm:text-xs tracking-[0.2em]">
+                            <div class="text-slate-700 mx-2">||</div>
+                            <div class="text-slate-500 mr-2 flex items-center">
+                                NET.LINK <div class="w-1.5 h-1.5 bg-indigo-400 rounded-full mx-2 animate-ping shadow-[0_0_8px_#818cf8]"></div> 
+                            </div>
+                            <span class="text-white font-black text-sm sm:text-base tracking-[0.3em] drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
-                <button id="tv-layout-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition font-bold font-rajdhani tracking-widest flex items-center shadow-[0_0_10px_rgba(34,211,238,0.2)]" title="Cambiar Organización (Puzzle)">🔲 LAYOUT</button>
-                <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-yellow-400 hover:text-white hover:bg-yellow-900/50 hover:border-yellow-400 transition" title="Cambiar Tema">🎨 IA</button>
-                <button id="tv-exit-btn" class="p-3 rounded-xl bg-red-900/60 text-red-400 border border-red-500 hover:bg-red-800 hover:text-white transition">SALIR</button>
-                <div id="tv-status" class="text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-400 shadow-md">ESPERANDO...</div>
-                <button id="tv-fullscreen-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-700 transition flex items-center justify-center" title="Pantalla Completa">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-                </button>
+            
+            <div class="flex flex-col items-end">
+                <div class="flex items-center space-x-3">
+                    <button id="tv-remote-pause-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-yellow-400 hover:text-white hover:bg-yellow-900/60 hover:border-yellow-500 transition shadow-lg group" title="Pausa / Reanudar Carrera">
+                        <svg id="tv-pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="group-hover:scale-110 transition-transform"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                    </button>
+
+                    <button id="tv-layout-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-purple-400 hover:text-white hover:bg-purple-900/60 hover:border-purple-500 transition shadow-lg group" title="Organizar Layout">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-180 transition-transform duration-500"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </button>
+
+                    <button id="tv-remote-reset-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-emerald-400 hover:text-white hover:bg-emerald-900/60 hover:border-emerald-500 transition shadow-lg group" title="Nueva Carrera">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-rotate-90 transition-transform duration-300"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    </button>
+
+                    <button id="tv-ai-theme-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-cyan-400 hover:text-white hover:bg-cyan-900/50 hover:border-cyan-400 transition shadow-[0_0_10px_rgba(34,211,238,0.2)] group" title="Cambiar Tema">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                    </button>
+
+                    <button id="tv-exit-btn" class="p-3 rounded-xl bg-red-900/60 text-red-400 border border-red-500 hover:bg-red-800 hover:text-white transition group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    </button>
+
+                    <div id="tv-status" class="text-xl lg:text-2xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-400 shadow-md">ESPERANDO...</div>
+
+                    <button id="tv-fullscreen-btn" class="p-3 rounded-xl bg-slate-800/80 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-700 transition flex items-center justify-center" title="Pantalla Completa">
+                        <svg id="tv-fs-enter" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                        <svg id="tv-fs-exit" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+                    </button>
+                </div>
             </div>
         </div>
         
-        <div id="tv-grid-container" class="flex-1 tv-grid-layout">
+        <div id="tv-grid-container" class="flex-1 min-h-0 tv-grid-layout tv-scrollbar">
             
             <div id="w-time" class="tv-widget tv-panel flex flex-row justify-between items-center px-4 sm:px-8 border-b-2 border-slate-600/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
@@ -721,7 +816,7 @@
         function getPortalRoomCode() { return localStorage.getItem('doc_id_app_kronodual_tv') || urlParams.get('room'); }
         window.myRoomCode = getPortalRoomCode() || Math.random().toString(36).substring(2, 6).toUpperCase();
 
-        const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'app_kronodual_tv';
+        const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'app_krono';
 
         const translations = {
             es: { 
@@ -1568,10 +1663,42 @@
                 const p1 = tvData.players.find(p=>p.id===1); const p2 = tvData.players.find(p=>p.id===2);
                 
                 const statusEl = document.getElementById('tv-status');
-                statusEl.textContent = tvData.isPaused ? "PAUSA" : (tvData.raceAborted ? "NULA" : (tvData.isRaceActive ? "CORRIENDO" : "ESPERANDO"));
                 
-                if (tvData.isRaceActive) statusEl.className = "text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-green-900 border border-green-500 text-green-400";
-                else statusEl.className = "text-xl font-rajdhani font-bold px-6 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-400";
+                const baseStatusClass = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-colors duration-300 ";
+                if (tvData.isPaused) {
+                    statusEl.textContent = "BANDERA AMARILLA (PAUSA)";
+                    statusEl.className = baseStatusClass + "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
+                } else if (tvData.raceAborted) {
+                    statusEl.textContent = "SALIDA NULA";
+                    statusEl.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
+                } else if (tvData.isCountdown) {
+                    statusEl.textContent = "PREPARADOS...";
+                    statusEl.className = baseStatusClass + "bg-orange-900/40 border-orange-500/50 text-orange-400";
+                } else if (tvData.isRaceActive) {
+                    statusEl.textContent = "CARRERA EN CURSO";
+                    statusEl.className = baseStatusClass + "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
+                } else if (tvData.lapHistory && tvData.lapHistory.length > 0) {
+                    statusEl.textContent = "CARRERA FINALIZADA";
+                    statusEl.className = baseStatusClass + "bg-blue-900/30 border-blue-500/30 text-blue-400";
+                } else {
+                    if (cloudRoomCode) {
+                        statusEl.innerHTML = `<div class="flex items-center space-x-2"><span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span></span><span>ENLACE ACTIVO</span></div>`;
+                        statusEl.className = baseStatusClass + "bg-slate-800/90 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.15)]";
+                    } else {
+                        statusEl.textContent = "ESPERANDO...";
+                        statusEl.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
+                    }
+                }
+
+                // Cambiar el icono de pausa en TV según el estado
+                const tvPauseIcon = document.getElementById('tv-pause-icon');
+                if (tvPauseIcon) {
+                    if (tvData.isPaused) {
+                        tvPauseIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"/>`; // Play
+                    } else {
+                        tvPauseIcon.innerHTML = `<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>`; // Pause
+                    }
+                }
 
                 const tvGridContainer = document.getElementById('tv-grid-container');
 
@@ -1966,7 +2093,41 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
         document.getElementById('direct-tv-btn').addEventListener('click', async () => { await Tone.start(); window.startTVMode(window.myRoomCode); });
         document.getElementById('close-history-btn').addEventListener('click', () => { document.getElementById('historyModal').classList.remove('open'); setTimeout(() => document.getElementById('historyModal').classList.add('hidden'), 300); });
         document.getElementById('history-btn').addEventListener('click', () => { document.getElementById('historyModal').classList.remove('hidden'); setTimeout(() => document.getElementById('historyModal').classList.add('open'), 10); });
-        document.getElementById('fullscreen-btn').addEventListener('click', () => !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen());
+        
+        function toggleFullScreen() {
+            const doc = window.document;
+            const docEl = doc.documentElement;
+            const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+            const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                if (requestFullScreen) requestFullScreen.call(docEl);
+            } else {
+                if (cancelFullScreen) cancelFullScreen.call(doc);
+            }
+        }
+
+        function updateFsIcons() {
+            const isFs = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+            const fsIconEnter = document.getElementById('fs-icon-enter');
+            const fsIconExit = document.getElementById('fs-icon-exit');
+            if (fsIconEnter && fsIconExit) {
+                if (isFs) { fsIconEnter.classList.add('hidden'); fsIconExit.classList.remove('hidden'); } 
+                else { fsIconEnter.classList.remove('hidden'); fsIconExit.classList.add('hidden'); }
+            }
+            const tvFsEnter = document.getElementById('tv-fs-enter');
+            const tvFsExit = document.getElementById('tv-fs-exit');
+            if (tvFsEnter && tvFsExit) {
+                if (isFs) { tvFsEnter.classList.add('hidden'); tvFsExit.classList.remove('hidden'); } 
+                else { tvFsEnter.classList.remove('hidden'); tvFsExit.classList.add('hidden'); }
+            }
+        }
+        
+        document.addEventListener('fullscreenchange', updateFsIcons);
+        document.addEventListener('webkitfullscreenchange', updateFsIcons);
+        document.addEventListener('mozfullscreenchange', updateFsIcons);
+        document.addEventListener('MSFullscreenChange', updateFsIcons);
+
+        document.getElementById('fullscreen-btn').addEventListener('click', toggleFullScreen);
 
         document.body.addEventListener('click', async () => { if (isTVMode) await Tone.start(); }, { once: true });
 
@@ -2127,8 +2288,74 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
                 triggerCloudSync(); 
                 setInterval(() => { const pCode = getPortalRoomCode(); if (pCode && pCode !== window.myRoomCode) { window.myRoomCode = pCode; triggerCloudSync(); } }, 1000); 
             }
+
+            if (!isTVMode) {
+                const initCloudRemoteListener = setInterval(() => {
+                    if (window.db && window.auth && window.myRoomCode && window.fs) {
+                        clearInterval(initCloudRemoteListener);
+                        const cmdDocRef = window.fs.doc(window.db, 'artifacts', globalAppId, 'public', 'data', 'tv_commands', window.myRoomCode);
+                        window.fs.onSnapshot(cmdDocRef, (docSnap) => {
+                            if (docSnap.exists()) {
+                                const cmd = docSnap.data();
+                                if (cmd.ts > lastProcessedCmdTs) {
+                                    lastProcessedCmdTs = cmd.ts;
+                                    handleRemoteCommand(cmd.action);
+                                }
+                            }
+                        });
+                    }
+                }, 1000);
+            }
         };
-        if(!isTVMode) kronoChannel.onmessage = (event) => { if (event.data.type === 'REQUEST_STATE') broadcastState(); };
+
+        let lastProcessedCmdTs = 0;
+        function handleRemoteCommand(action) {
+            if (action === 'PAUSE') {
+                if (isRaceActive) togglePause();
+            } else if (action === 'NEW_RACE') {
+                const resetBtn = document.getElementById('reset-race-btn');
+                if (resetBtn && !resetBtn.disabled) resetBtn.click();
+                setTimeout(() => {
+                    const startBtn = document.getElementById('start-race-btn');
+                    if (startBtn && !startBtn.disabled) startBtn.click();
+                }, 350);
+            }
+        }
+
+        if(!isTVMode) {
+            kronoChannel.onmessage = (event) => { 
+                if (event.data.type === 'REQUEST_STATE') broadcastState(); 
+                else if (event.data.type === 'REMOTE_CMD') {
+                    const cmdTs = event.data.ts || Date.now();
+                    if (cmdTs > lastProcessedCmdTs) {
+                        lastProcessedCmdTs = cmdTs;
+                        handleRemoteCommand(event.data.command);
+                    }
+                }
+            };
+        }
+
+        // --- BOTONES CONTROL REMOTO TV Y RECEPCIÓN DE COMANDOS ---
+        const tvRemotePauseBtn = document.getElementById('tv-remote-pause-btn');
+        const tvRemoteResetBtn = document.getElementById('tv-remote-reset-btn');
+
+        function sendRemoteCommand(action) {
+            const now = Date.now();
+            if (!isTVMode && typeof handleRemoteCommand === 'function') {
+                lastProcessedCmdTs = now;
+                handleRemoteCommand(action);
+            }
+            kronoChannel.postMessage({ type: 'REMOTE_CMD', command: action, ts: now });
+            if (cloudRoomCode && window.db && window.fs) {
+                try {
+                    const cmdDocRef = window.fs.doc(window.db, 'artifacts', globalAppId, 'public', 'data', 'tv_commands', cloudRoomCode);
+                    window.fs.setDoc(cmdDocRef, { action: action, ts: now });
+                } catch (e) {}
+            }
+        }
+
+        if (tvRemotePauseBtn) tvRemotePauseBtn.onclick = () => sendRemoteCommand('PAUSE');
+        if (tvRemoteResetBtn) tvRemoteResetBtn.onclick = () => sendRemoteCommand('NEW_RACE');
     </script>
 </body>
 </html>
