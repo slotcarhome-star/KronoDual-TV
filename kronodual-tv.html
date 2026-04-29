@@ -1141,6 +1141,8 @@
                                 if (!p.hasCrossedStart) {
                                     p.hasCrossedStart = true; p.lapStartTime = now; p.lastRecordTime = now; p.isLineBlocked = true;
                                     document.getElementById(p.msgId).textContent = "GO!"; synth.triggerAttackRelease(p.soundTone, "0.1");
+                                    updatePlayerUI(p);
+                                    broadcastState(); syncToCloud();
                                 } else recordLap(p);
                             }
                         }
@@ -1280,7 +1282,7 @@
                 p.soundTone = document.getElementById(p.soundId).value; p.laps=0; p.lapHistory=[]; p.bestLap=Infinity; p.totalTime=0; p.lastRecordTime=0; p.finished=false; p.hasCrossedStart=false; 
                 p.isLineBlocked=false; p.stuckFrameCount=0; p.referencePixels=null; p.gapText="--";
                 updatePlayerUI(p); 
-                const curLapEl = document.getElementById(p.currentLapId); if(curLapEl) curLapEl.textContent = "ESPERANDO..."; 
+                const curLapEl = document.getElementById(p.currentLapId); if(curLapEl) curLapEl.textContent = "00.000"; 
                 const gapEl = document.getElementById(p.gapId); if(gapEl) gapEl.textContent = "--"; 
                 const roiEl = document.getElementById(p.roiId); if(roiEl) roiEl.classList.remove('roi-locked');
             });
@@ -1314,13 +1316,9 @@
                     if (remaining <= 0) { remaining = 0; if (isRaceActive) endRace(); }
                     document.getElementById('race-time').textContent = formatTime(remaining);
                 } else { document.getElementById('race-time').textContent = formatTime(now - raceStartTime); }
-
-                players.forEach(p => {
-                    if(p.id <= activePlayers && !p.finished && p.hasCrossedStart) {
-                        const elap = now - p.lapStartTime; document.getElementById(p.currentLapId).textContent = `${Math.floor(elap/1000)}.${String(elap%1000).padStart(3,'0')}`;
-                    }
-                });
-                if (activePlayers === 2) updateGaps();
+                
+                // Los tiempos individuales y el delta ya no se calculan en vivo aquí.
+                // Se congelan al cruzar la meta.
             }, 40);
         }
 
@@ -1335,7 +1333,10 @@
             if (lapSpeed > p.maxSpeed) p.maxSpeed = lapSpeed;
 
             let isNewRecord = false; if (lapTime < p.bestLap) { p.bestLap = lapTime; recordNotification.classList.add('show'); setTimeout(()=>recordNotification.classList.remove('show'),2000); isNewRecord = true; }
-            synth.triggerAttackRelease(p.soundTone, "0.1"); updatePlayerUI(p);
+            synth.triggerAttackRelease(p.soundTone, "0.1"); 
+            updatePlayerUI(p);
+            if (activePlayers === 2) updateGaps(); // Actualiza el Delta congelado al cruzar la meta
+            
             if (isNewRecord) speak('voice_record', document.getElementById(p.nameId).value + "! " + (lapTime/1000).toFixed(2));
 
             if(raceMode === 'laps' && totalLapsTarget !== Infinity) {
@@ -1350,7 +1351,19 @@
         function updatePlayerUI(p) {
             const elLapCount = document.getElementById(p.lapCountId); if (elLapCount) elLapCount.textContent = raceMode === 'time' ? `V: ${p.laps}` : `V: ${p.laps} / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
             const elBestLap = document.getElementById(p.bestLapId); if (elBestLap) elBestLap.textContent = formatTime(p.bestLap); 
-            const elLastLap = document.getElementById(p.lastLapId); if (elLastLap) elLastLap.textContent = p.lapHistory.length>0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : "--.---";
+            
+            const lastTimeString = p.lapHistory.length>0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : "--.---";
+            const elLastLap = document.getElementById(p.lastLapId); if (elLastLap) elLastLap.textContent = lastTimeString;
+            
+            if (!p.finished) {
+                const curLapEl = document.getElementById(p.currentLapId); 
+                if (curLapEl) {
+                    if (p.laps > 0) curLapEl.textContent = lastTimeString; // El tiempo se queda CONGELADO aquí
+                    else if (p.hasCrossedStart) curLapEl.textContent = "--.---";
+                    else curLapEl.textContent = "00.000";
+                }
+            }
+
             if(p.laps>0) { 
                 const avg = p.lapHistory.reduce((a,b)=>a+b,0)/p.laps; const trackLen = parseFloat(trackLengthInput.value) || 15; 
                 p.avgSpeed = (trackLen/(avg/1000))*3.6; p.consistency = avg > 0 ? (p.bestLap / avg) * 100 : 0;
@@ -1360,13 +1373,9 @@
 
         function updateGaps() {
              if (players[0].laps > 0 && players[1].laps > 0) {
-                 // Delta Real de Competición: Se suma el tiempo TOTAL acumulado de ambos coches
-                 // hasta la última vuelta que ambos hayan cruzado para dar una diferencia exacta en segundos.
                  const minLaps = Math.min(players[0].laps, players[1].laps);
-                 
                  const t1 = players[0].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
                  const t2 = players[1].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
-                 
                  const diff = t1 - t2;
                  const diffSec = (Math.abs(diff) / 1000).toFixed(3);
                  
@@ -1800,6 +1809,12 @@
                 if (p1) { 
                     document.getElementById('tv-p1-name').textContent = p1.name; 
                     
+                    let p1CurrentText = "00.000";
+                    if (p1.finished) p1CurrentText = "META";
+                    else if (p1.laps > 0) p1CurrentText = formatTime(p1.lapHistory[p1.lapHistory.length-1]);
+                    else if (p1.hasCrossedStart) p1CurrentText = "--.---";
+                    document.getElementById('tv-p1-current').textContent = p1CurrentText;
+                    
                     const tvP1Gap = document.getElementById('tv-p1-gap');
                     tvP1Gap.textContent = p1.gapText;
                     if(p1.gapText === 'LÍDER') tvP1Gap.style.color = '#4ade80';
@@ -1824,6 +1839,12 @@
                     document.getElementById('w-p2-main').style.display = 'flex'; 
                     document.getElementById('w-p2-stats').style.display = 'flex';
                     document.getElementById('tv-p2-name').textContent = p2.name; 
+                    
+                    let p2CurrentText = "00.000";
+                    if (p2.finished) p2CurrentText = "META";
+                    else if (p2.laps > 0) p2CurrentText = formatTime(p2.lapHistory[p2.lapHistory.length-1]);
+                    else if (p2.hasCrossedStart) p2CurrentText = "--.---";
+                    document.getElementById('tv-p2-current').textContent = p2CurrentText;
                     
                     const tvP2Gap = document.getElementById('tv-p2-gap');
                     tvP2Gap.textContent = p2.gapText;
@@ -1908,14 +1929,10 @@
             if (tvIntervalId) clearInterval(tvIntervalId);
             tvIntervalId = setInterval(() => {
                 if (tvData && tvData.isRaceActive && !tvData.isPaused) {
+                    // MODO TV: El único cronómetro que corre es el Global. 
+                    // P1 y P2 muestran el tiempo y delta CONGELADO enviado por la telemetría móvil.
                     const estTime = tvData.timestamp ? (tvData.timestamp + (Date.now() - lastReceivedLocalTime)) : Date.now();
                     document.getElementById('tv-race-time').textContent = formatTime(Math.max(0, tvData.raceMode === 'time' ? tvData.raceDurationTarget - (estTime - tvData.raceStartTime) : estTime - tvData.raceStartTime));
-                    
-                    const p1 = tvData.players && tvData.players.find(p=>p.id===1); 
-                    const p2 = tvData.players && tvData.players.find(p=>p.id===2); 
-                    
-                    if(p1 && p1.hasCrossedStart && !p1.finished) document.getElementById('tv-p1-current').textContent = formatTime(estTime - p1.lapStartTime);
-                    if(tvData.activePlayers===2 && p2 && p2.hasCrossedStart && !p2.finished) document.getElementById('tv-p2-current').textContent = formatTime(estTime - p2.lapStartTime);
                 }
             }, 30);
             
