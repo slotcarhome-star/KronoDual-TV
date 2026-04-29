@@ -123,8 +123,8 @@
         #roi-p1 .resize-handle { background-color: #facc15; }
         #roi-p2 .resize-handle { background-color: #f97316; }
 
-        #config-panel { transition: all 0.3s ease-in-out; max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-10px); }
-        #config-panel.open { max-height: 1500px; opacity: 1; transform: translateY(0); padding: 16px; margin-top: 10px; margin-bottom: 10px; }
+        #config-panel { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-30px); padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; border-width: 0; }
+        #config-panel.open { max-height: 1000px; opacity: 1; transform: translateY(0); padding: 12px; margin-top: 8px; margin-bottom: 8px; border-width: 1px; }
         
         .btn-adjust { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: #fff; box-shadow: 0 2px 2px rgba(0,0,0,0.1); width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; font-size: 0.8rem; }
         .btn-adjust:active { background: rgba(255,255,255,0.4); box-shadow: inset 0 2px 2px rgba(0,0,0,0.1); }
@@ -305,6 +305,65 @@
     <!-- ================= CONTENEDOR MODO APP (NUEVO LAYOUT TRANSPARENTE) ================= -->
     <div id="main-app-container" class="container w-full max-w-4xl mx-auto px-2 sm:px-4 relative z-10 flex flex-col h-[100dvh] overflow-y-auto no-scrollbar pointer-events-none">
 
+        <!-- ZONA CONFIG PANEL (AHORA ARRIBA DE TODO Y COMPRIMIDA) -->
+        <div class="w-full flex flex-col shrink-0 pointer-events-auto z-50 relative">
+            <div id="config-panel" class="bg-black/80 backdrop-blur-xl border-white/20 rounded-xl shadow-xl w-full pointer-events-auto text-white border">
+                <h2 class="text-xs font-bold text-yellow-500 mb-2 border-b-2 border-white/10 pb-1 uppercase tracking-widest"><span data-lang-key="config_title">Configuración</span></h2>
+                
+                <!-- LISTAS DE HISTORIAL DE AUTOGUARDADO -->
+                <datalist id="drivers-list"></datalist>
+                <datalist id="cars-list"></datalist>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
+                     <div><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="language_label">Idioma</label><select id="language-select" class="w-full p-1 rounded-lg text-xs font-bold text-center bg-white/10 border border-white/20 text-white focus:bg-black"><option value="es" selected>🇪🇸 Español</option><option value="en">🇬🇧 English</option><option value="fr">🇫🇷 Français</option></select></div>
+                     <div><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="game_mode_label">Modo</label><select id="game-mode-select" class="w-full p-1 rounded-lg text-xs font-bold text-center bg-white/10 border border-white/20 text-white focus:bg-black"><option value="2" selected data-lang-key="mode_2p">🏁 2 JUGADORES (Duelo)</option><option value="1" data-lang-key="mode_1p">⏱️ 1 JUGADOR (Contrarreloj)</option></select></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div class="p-2 bg-yellow-900/20 rounded-xl border border-yellow-500/30">
+                        <h3 class="text-[10px] font-black text-yellow-400 uppercase mb-1 border-b border-yellow-500/30 pb-0.5" data-lang-key="player_1">JUGADOR 1 (ORO)</h3>
+                        <div class="space-y-1.5">
+                            <div><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="name_label">Nombre</label><input type="text" id="p1-name" list="drivers-list" value="Piloto 1" class="w-full p-1 rounded-lg border-l-4 border-yellow-500 text-[10px] bg-white/10 text-white border-y border-r border-white/20" /></div>
+                            <div class="flex gap-2 w-full">
+                                <div class="flex-1"><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="car_label">Coche</label><input type="text" id="p1-car" list="cars-list" value="Porsche 911" class="w-full p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20" /></div>
+                                <div class="flex-1"><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="sound_p1">Sonido</label><select id="p1-sound" class="w-full p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="C4">Grave (C4)</option><option value="E4">Medio (E4)</option><option value="G4">Alto (G4)</option><option value="C5" selected>Beep (C5)</option><option value="G5">Agudo (G5)</option></select></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="p2-config-block" class="p-2 bg-orange-900/20 rounded-xl border border-orange-500/30">
+                        <h3 class="text-[10px] font-black text-orange-400 uppercase mb-1 border-b border-orange-500/30 pb-0.5" data-lang-key="player_2">JUGADOR 2 (COBRE)</h3>
+                        <div class="space-y-1.5">
+                            <div><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="name_label">Nombre</label><input type="text" id="p2-name" list="drivers-list" value="Piloto 2" class="w-full p-1 rounded-lg border-l-4 border-orange-500 text-[10px] bg-white/10 text-white border-y border-r border-white/20" /></div>
+                            <div class="flex gap-2 w-full">
+                                <div class="flex-1"><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="car_label">Coche</label><input type="text" id="p2-car" list="cars-list" value="Audi R8" class="w-full p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20" /></div>
+                                <div class="flex-1"><label class="block text-[9px] font-bold text-gray-300 mb-0.5" data-lang-key="sound_p2">Sonido</label><select id="p2-sound" class="w-full p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="C4">Grave (C4)</option><option value="E4">Medio (E4)</option><option value="G4">Alto (G4)</option><option value="C5">Beep (C5)</option><option value="G5" selected>Agudo (G5)</option></select></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2 pt-2 border-t border-white/20 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                     <div><label class="block text-[9px] font-bold text-gray-300 mb-0.5 uppercase" data-lang-key="track_length_label">Pista (m)</label><input type="number" id="track-length-input" value="15" min="1" step="0.5" class="w-full p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20" /></div>
+                     <div>
+                        <label class="block text-[9px] font-bold text-gray-300 mb-0.5 uppercase" data-lang-key="race_condition_label">Carrera</label>
+                        <div class="flex gap-1">
+                            <select id="race-condition-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="laps" selected>Vueltas</option><option value="time">Tiempo</option></select>
+                            <select id="lap-limit-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="50">50</option><option value="Infinity">∞</option></select>
+                            <select id="time-limit-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20 hidden"><option value="5">5 min</option><option value="10">10 min</option></select>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-1.5 rounded-lg border border-white/20 bg-white/5">
+                         <label class="text-[10px] font-bold text-gray-200" data-lang-key="voice_comments">Voz:</label>
+                         <input type="checkbox" id="voice-toggle" checked class="w-4 h-4 accent-blue-500 cursor-pointer"/>
+                    </div>
+                </div>
+                <div class="mt-2 flex gap-2 items-center justify-center p-1.5 bg-red-900/20 rounded-lg border border-red-500/30">
+                    <label class="text-[9px] font-black text-red-300 uppercase" data-lang-key="safety_time_label">Anti-Rebotes:</label>
+                    <select id="safety-time-select" class="p-1 rounded-lg text-[10px] bg-black text-white border border-red-500/50"><option value="1000">1s</option><option value="3000" selected>3s</option><option value="5000">5s</option><option value="10000">10s</option></select>
+                </div>
+            </div>
+        </div>
+
         <!-- GRUPO SUPERIOR: Título y Tiempos -->
         <div class="flex flex-col gap-2 sm:gap-3 mt-2 sm:mt-4 shrink-0 w-full pointer-events-auto">
             
@@ -359,56 +418,6 @@
                         <p id="p2-current-lap" class="font-arial text-2xl sm:text-3xl font-black text-white drop-shadow-md leading-none">--.---</p>
                         <p id="p2-lap-count" class="font-arial text-gray-300 text-xs font-bold leading-none mt-1">V: 0 / 10</p>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ZONA CENTRAL CONFIG PANEL -->
-        <div class="my-auto w-full flex flex-col shrink-0 py-2 sm:py-4 pointer-events-auto gap-3">
-            <div id="config-panel" class="bg-black/60 backdrop-blur-xl border border-white/20 rounded-xl shadow-xl w-full p-4 pointer-events-auto text-white">
-                <h2 class="text-sm font-bold text-yellow-500 mb-3 border-b-2 border-white/10 pb-2 uppercase tracking-widest"><span data-lang-key="config_title">Configuración</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                     <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="language_label">Idioma</label><select id="language-select" class="w-full p-2 rounded-lg text-sm font-bold text-center bg-white/10 border border-white/20 text-white focus:bg-black"><option value="es" selected>🇪🇸 Español</option><option value="en">🇬🇧 English</option><option value="fr">🇫🇷 Français</option></select></div>
-                     <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="game_mode_label">Modo</label><select id="game-mode-select" class="w-full p-2 rounded-lg text-sm font-bold text-center bg-white/10 border border-white/20 text-white focus:bg-black"><option value="2" selected data-lang-key="mode_2p">🏁 2 JUGADORES (Duelo)</option><option value="1" data-lang-key="mode_1p">⏱️ 1 JUGADOR (Contrarreloj)</option></select></div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-3 bg-yellow-900/20 rounded-xl border border-yellow-500/30">
-                        <h3 class="text-xs font-black text-yellow-400 uppercase mb-2 border-b border-yellow-500/30 pb-1" data-lang-key="player_1">JUGADOR 1 (ORO)</h3>
-                        <div class="space-y-3">
-                            <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="name_label">Nombre</label><input type="text" id="p1-name" value="Piloto 1" class="w-full p-1.5 rounded-lg border-l-4 border-yellow-500 text-xs bg-white/10 text-white border-y border-r border-white/20" /></div>
-                            <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="car_label">Coche</label><input type="text" id="p1-car" value="Porsche 911" class="w-full p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20" /></div>
-                            <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="sound_p1">Sonido</label><select id="p1-sound" class="w-full p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="C4">Grave (C4)</option><option value="E4">Medio (E4)</option><option value="G4">Alto (G4)</option><option value="C5" selected>Beep (C5)</option><option value="G5">Agudo (G5)</option></select></div>
-                        </div>
-                    </div>
-                    <div id="p2-config-block" class="p-3 bg-orange-900/20 rounded-xl border border-orange-500/30">
-                        <h3 class="text-xs font-black text-orange-400 uppercase mb-2 border-b border-orange-500/30 pb-1" data-lang-key="player_2">JUGADOR 2 (COBRE)</h3>
-                        <div class="space-y-3">
-                            <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="name_label">Nombre</label><input type="text" id="p2-name" value="Piloto 2" class="w-full p-1.5 rounded-lg border-l-4 border-orange-500 text-xs bg-white/10 text-white border-y border-r border-white/20" /></div>
-                            <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="car_label">Coche</label><input type="text" id="p2-car" value="Audi R8" class="w-full p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20" /></div>
-                             <div><label class="block text-[10px] font-bold text-gray-300 mb-1" data-lang-key="sound_p2">Sonido</label><select id="p2-sound" class="w-full p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="C4">Grave (C4)</option><option value="C5">Beep (C5)</option><option value="G5" selected>Agudo (G5)</option></select></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-4 pt-3 border-t border-white/20 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                     <div><label class="block text-[10px] font-bold text-gray-300 mb-1 uppercase" data-lang-key="track_length_label">Pista (m)</label><input type="number" id="track-length-input" value="15" min="1" step="0.5" class="w-full p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20" /></div>
-                     <div>
-                        <label class="block text-[10px] font-bold text-gray-300 mb-1 uppercase" data-lang-key="race_condition_label">Carrera</label>
-                        <div class="flex gap-2">
-                            <select id="race-condition-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="laps" selected>Vueltas</option><option value="time">Tiempo</option></select>
-                            <select id="lap-limit-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="50">50</option><option value="Infinity">∞</option></select>
-                            <select id="time-limit-select" class="w-1/2 p-1.5 rounded-lg text-xs bg-white/10 text-white border border-white/20 hidden"><option value="5">5 min</option><option value="10">10 min</option></select>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-2 rounded-lg border border-white/20 bg-white/5">
-                         <label class="text-xs font-bold text-gray-200" data-lang-key="voice_comments">Voz:</label>
-                         <input type="checkbox" id="voice-toggle" checked class="w-5 h-5 accent-blue-500 cursor-pointer"/>
-                    </div>
-                </div>
-                <div class="mt-4 flex gap-4 items-center justify-center p-3 bg-red-900/20 rounded-lg border border-red-500/30">
-                    <label class="text-xs font-black text-red-300 uppercase" data-lang-key="safety_time_label">Anti-Rebotes:</label>
-                    <select id="safety-time-select" class="p-1.5 rounded-lg text-xs bg-black text-white border border-red-500/50"><option value="1000">1s</option><option value="3000" selected>3s</option><option value="5000">5s</option><option value="10000">10s</option></select>
                 </div>
             </div>
         </div>
@@ -1186,8 +1195,42 @@
             broadcastState(); syncToCloud();
         }
 
+        function loadHistoryLists() {
+            const drivers = JSON.parse(localStorage.getItem('krono_history_drivers') || '[]');
+            const cars = JSON.parse(localStorage.getItem('krono_history_cars') || '[]');
+            const dlDrivers = document.getElementById('drivers-list');
+            const dlCars = document.getElementById('cars-list');
+            if (dlDrivers) { dlDrivers.innerHTML = ''; drivers.forEach(d => dlDrivers.innerHTML += `<option value="${d}">`); }
+            if (dlCars) { dlCars.innerHTML = ''; cars.forEach(c => dlCars.innerHTML += `<option value="${c}">`); }
+        }
+
+        function saveToHistory(type, val) {
+            if (!val || val.trim() === '') return;
+            const key = type === 'driver' ? 'krono_history_drivers' : 'krono_history_cars';
+            let list = JSON.parse(localStorage.getItem(key) || '[]');
+            
+            const defaults = ["Piloto 1", "Piloto 2", "Driver 1", "Driver 2", "Pilote 1", "Pilote 2"];
+            if (type === 'driver' && defaults.includes(val)) return;
+            if (type === 'car' && ["Porsche 911", "Audi R8"].includes(val)) return;
+            
+            if (!list.includes(val.trim())) {
+                list.unshift(val.trim());
+                if (list.length > 20) list.pop(); // Limitar a los 20 más recientes
+                localStorage.setItem(key, JSON.stringify(list));
+                loadHistoryLists();
+            }
+        }
+
         function startRace() {
             configPanel.classList.remove('open'); 
+            
+            // Guardar en el historial de autocompletado
+            saveToHistory('driver', document.getElementById('p1-name').value);
+            saveToHistory('car', document.getElementById('p1-car').value);
+            if (activePlayers === 2) {
+                saveToHistory('driver', document.getElementById('p2-name').value);
+                saveToHistory('car', document.getElementById('p2-car').value);
+            }
             
             const timesPanel = document.getElementById('times-traffic-panel');
             if(timesPanel) { timesPanel.classList.remove('hidden'); timesPanel.classList.add('flex'); }
@@ -2008,7 +2051,13 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             }
             broadcastState(); syncToCloud(); 
         };
-        document.getElementById('central-config-btn').onclick = () => document.getElementById('config-panel').classList.toggle('open');
+        document.getElementById('central-config-btn').onclick = () => {
+            const panel = document.getElementById('config-panel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                document.getElementById('main-app-container').scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
         document.getElementById('pause-race-btn').onclick = togglePause;
         document.getElementById('camera-on-btn').onclick = startWebcam; 
         document.getElementById('camera-off-btn').onclick = stopWebcam;
@@ -2267,6 +2316,7 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
         window.onload = () => {
             window.updateThreshold(1); window.updateThreshold(2);
             loadLocalConfig();
+            loadHistoryLists();
             
             const fieldsToWatch = ['p1-name', 'p1-car', 'p2-name', 'p2-car', 'track-length-input', 'p1-sound', 'p2-sound', 'game-mode-select', 'race-condition-select', 'lap-limit-select', 'time-limit-select', 'safety-time-select'];
             fieldsToWatch.forEach(id => {
@@ -2280,6 +2330,17 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
                         saveLocalConfig();
                         if (!isTVMode) { broadcastState(); syncToCloud(); } 
                     }); 
+                }
+            });
+
+            // Previsualización de sonidos al cambiarlos
+            ['p1-sound', 'p2-sound'].forEach(id => {
+                const selectEl = document.getElementById(id);
+                if (selectEl) {
+                    selectEl.addEventListener('change', async (e) => {
+                        await Tone.start();
+                        synth.triggerAttackRelease(e.target.value, "0.1");
+                    });
                 }
             });
             
@@ -2311,7 +2372,7 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
         let lastProcessedCmdTs = 0;
         function handleRemoteCommand(action) {
             if (action === 'PAUSE') {
-                if (isRaceActive) togglePause();
+                togglePause();
             } else if (action === 'NEW_RACE') {
                 const resetBtn = document.getElementById('reset-race-btn');
                 if (resetBtn && !resetBtn.disabled) resetBtn.click();
