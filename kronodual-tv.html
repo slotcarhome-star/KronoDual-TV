@@ -353,7 +353,7 @@
                      <div>
                         <label class="block text-[9px] font-bold text-gray-300 mb-0.5 uppercase" data-lang-key="race_condition_label">Carrera</label>
                         <div class="flex gap-1">
-                            <select id="race-condition-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="laps" selected>Vueltas</option><option value="time">Tiempo</option></select>
+                            <select id="race-condition-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="laps" selected data-lang-key="race_mode_laps">Vueltas</option><option value="time" data-lang-key="race_mode_time">Tiempo</option></select>
                             <select id="lap-limit-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="50">50</option><option value="Infinity">∞</option></select>
                             <select id="time-limit-select" class="w-1/2 p-1 rounded-lg text-[10px] bg-white/10 text-white border border-white/20 hidden"><option value="5">5 min</option><option value="10">10 min</option></select>
                         </div>
@@ -627,7 +627,7 @@
                 </div>
 
                 <div class="flex flex-col items-center w-1/3 pointer-events-none min-w-0 px-2">
-                    <span class="text-slate-400 font-rajdhani font-semibold cq-text-sm mb-1 tracking-widest truncate w-full text-center">TIEMPO GLOBAL</span>
+                    <span class="text-slate-400 font-rajdhani font-semibold cq-text-sm mb-1 tracking-widest truncate w-full text-center" data-lang-key="tv_global_time">TIEMPO GLOBAL</span>
                     <span id="tv-race-time" class="tv-font cq-text-5xl font-black text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] truncate w-full text-center">00:00.0</span>
                 </div>
 
@@ -657,35 +657,35 @@
             <div id="w-p1-stats" class="tv-widget tv-panel flex flex-col justify-center p-4 border-l-4 border-yellow-400/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                <span class="relative z-10 shrink-0 text-yellow-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(250,204,21,0.5)] w-full truncate">Estadísticas Oro</span>
+                <span class="relative z-10 shrink-0 text-yellow-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(250,204,21,0.5)] w-full truncate" data-lang-key="tv_stats_gold">Estadísticas Oro</span>
                 <div class="grid grid-cols-2 gap-1 sm:gap-2 mt-1 pointer-events-none w-full min-h-0 flex-1 content-center">
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VUELTAS</span><span id="tv-p1-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">CONSISTENCIA</span><span id="tv-p1-cons" class="font-bold text-blue-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] truncate block">--%</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">MEJOR</span><span id="tv-p1-best" class="font-bold text-green-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(74,222,128,0.5)] truncate block">--.---</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">ÚLTIMA</span><span id="tv-p1-last" class="font-bold text-white tv-font cq-text-lg truncate block">--.---</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VEL. MED</span><span id="tv-p1-spd" class="font-bold text-white tv-font cq-text-lg truncate block">--.-</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VEL. MÁX</span><span id="tv-p1-max" class="font-bold text-purple-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] truncate block">--.-</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_laps">VUELTAS</span><span id="tv-p1-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_consistency">CONSISTENCIA</span><span id="tv-p1-cons" class="font-bold text-blue-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] truncate block">--%</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_best">MEJOR</span><span id="tv-p1-best" class="font-bold text-green-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(74,222,128,0.5)] truncate block">--.---</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_last">ÚLTIMA</span><span id="tv-p1-last" class="font-bold text-white tv-font cq-text-lg truncate block">--.---</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_avg_spd">VEL. MED</span><span id="tv-p1-spd" class="font-bold text-white tv-font cq-text-lg truncate block">--.-</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_max_spd">VEL. MÁX</span><span id="tv-p1-max" class="font-bold text-purple-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] truncate block">--.-</span></div>
                 </div>
             </div>
 
             <div id="w-p2-stats" class="tv-widget tv-panel flex flex-col justify-center p-4 border-l-4 border-orange-500/50 group">
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-orange-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                <span class="relative z-10 shrink-0 text-orange-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(249,115,22,0.5)] w-full truncate">Estadísticas Cobre</span>
+                <span class="relative z-10 shrink-0 text-orange-400 font-rajdhani font-bold mb-2 border-b border-slate-700 pb-1 uppercase tracking-widest cq-text-sm pointer-events-none drop-shadow-[0_0_5px_rgba(249,115,22,0.5)] w-full truncate" data-lang-key="tv_stats_copper">Estadísticas Cobre</span>
                 <div class="grid grid-cols-2 gap-1 sm:gap-2 mt-1 pointer-events-none w-full min-h-0 flex-1 content-center">
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VUELTAS</span><span id="tv-p2-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">CONSISTENCIA</span><span id="tv-p2-cons" class="font-bold text-blue-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] truncate block">--%</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">MEJOR</span><span id="tv-p2-best" class="font-bold text-green-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(74,222,128,0.5)] truncate block">--.---</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">ÚLTIMA</span><span id="tv-p2-last" class="font-bold text-white tv-font cq-text-lg truncate block">--.---</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VEL. MED</span><span id="tv-p2-spd" class="font-bold text-white tv-font cq-text-lg truncate block">--.-</span></div>
-                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate">VEL. MÁX</span><span id="tv-p2-max" class="font-bold text-purple-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] truncate block">--.-</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_laps">VUELTAS</span><span id="tv-p2-laps" class="font-bold text-white tv-font cq-text-lg truncate block">0</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_consistency">CONSISTENCIA</span><span id="tv-p2-cons" class="font-bold text-blue-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] truncate block">--%</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_best">MEJOR</span><span id="tv-p2-best" class="font-bold text-green-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(74,222,128,0.5)] truncate block">--.---</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_last">ÚLTIMA</span><span id="tv-p2-last" class="font-bold text-white tv-font cq-text-lg truncate block">--.---</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_avg_spd">VEL. MED</span><span id="tv-p2-spd" class="font-bold text-white tv-font cq-text-lg truncate block">--.-</span></div>
+                    <div class="min-w-0"><span class="text-slate-400 block cq-text-xs font-bold truncate" data-lang-key="tv_max_spd">VEL. MÁX</span><span id="tv-p2-max" class="font-bold text-purple-400 tv-font cq-text-lg drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] truncate block">--.-</span></div>
                 </div>
             </div>
 
             <div id="w-combined-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-cyan-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="relative z-10 shrink-0 cq-text-sm text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 pointer-events-none drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] w-full truncate">Evolución Tiempos & Delta (S)</span>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-cyan-400 font-rajdhani font-bold uppercase tracking-widest mb-1 pointer-events-none drop-shadow-[0_0_5px_rgba(34,211,238,0.5)] w-full truncate" data-lang-key="tv_evol_time">Evolución Tiempos & Delta (S)</span>
                  <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
                      <canvas id="tv-combined-graph" class="absolute inset-0 w-full h-full"></canvas>
                  </div>
@@ -694,7 +694,7 @@
             <div id="w-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="relative z-10 shrink-0 cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none w-full truncate">Comparativa Barras</span>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-slate-300 font-rajdhani font-bold uppercase tracking-widest pointer-events-none w-full truncate" data-lang-key="tv_bar_comp">Comparativa Barras</span>
                  <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
                      <canvas id="tv-lap-graph" class="absolute inset-0 w-full h-full"></canvas>
                  </div>
@@ -703,7 +703,7 @@
             <div id="w-speed-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-purple-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="relative z-10 shrink-0 cq-text-sm text-purple-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] w-full truncate">Curva Velocidad (Km/h)</span>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-purple-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(192,132,252,0.5)] w-full truncate" data-lang-key="tv_speed_curve">Curva Velocidad (Km/h)</span>
                  <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
                      <canvas id="tv-speed-graph" class="absolute inset-0 w-full h-full"></canvas>
                  </div>
@@ -712,7 +712,7 @@
             <div id="w-consistency-graph" class="tv-widget tv-panel flex flex-col p-4 group">
                  <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-blue-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                  <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
-                 <span class="relative z-10 shrink-0 cq-text-sm text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] w-full truncate">Evolución Consistencia (%)</span>
+                 <span class="relative z-10 shrink-0 cq-text-sm text-blue-400 font-rajdhani font-bold uppercase tracking-widest pointer-events-none drop-shadow-[0_0_5px_rgba(96,165,250,0.5)] w-full truncate" data-lang-key="tv_evol_cons">Evolución Consistencia (%)</span>
                  <div class="relative w-full flex-1 min-h-0 mt-2 pointer-events-none">
                      <canvas id="tv-consistency-graph" class="absolute inset-0 w-full h-full"></canvas>
                  </div>
@@ -722,16 +722,16 @@
                 <div class="drag-handle absolute top-3 right-3 opacity-50 md:opacity-0 md:group-hover:opacity-100 transition-opacity text-slate-400 hover:text-yellow-400 z-20 p-2 -m-2 cursor-move"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg></div>
                 <div class="resize-widget-handle"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 0 1 4 0v4"/><path d="M13 11V8a2 2 0 0 1 4 0v3"/><path d="M17 12v-1a2 2 0 0 1 4 0v4a6 6 0 0 1-6 6H9a6 6 0 0 1-5.1-3l-2.4-3.6a2 2 0 0 1 3.3-2.2l4.2 2.8V5a2 2 0 0 1 4 0v6"/></svg></div>
                 <div class="bg-slate-800/50 p-2 border-b border-slate-700/50 shrink-0 text-center pointer-events-none">
-                    <h3 class="text-slate-300 font-rajdhani font-bold uppercase tracking-widest cq-text-sm truncate">Historial Cara a Cara</h3>
+                    <h3 class="text-slate-300 font-rajdhani font-bold uppercase tracking-widest cq-text-sm truncate" data-lang-key="tv_history">Historial Cara a Cara</h3>
                 </div>
                 <div class="flex-1 overflow-y-auto p-2 tv-scrollbar min-h-0 w-full pointer-events-none">
                     <table class="w-full text-left table-fixed">
                         <thead class="sticky top-0 bg-slate-800/90 backdrop-blur z-10">
                             <tr>
-                                <th class="py-1 px-1 text-slate-400 font-rajdhani cq-text-xs w-[15%] truncate">V</th>
+                                <th class="py-1 px-1 text-slate-400 font-rajdhani cq-text-xs w-[15%] truncate" data-lang-key="tv_col_v">V</th>
                                 <th class="py-1 px-1 text-yellow-400 font-rajdhani cq-text-xs w-[30%] truncate">P1</th>
                                 <th class="py-1 px-1 text-orange-400 font-rajdhani cq-text-xs w-[30%] truncate">P2</th>
-                                <th class="py-1 px-1 text-slate-400 font-rajdhani cq-text-xs text-right w-[25%] truncate">DIF</th>
+                                <th class="py-1 px-1 text-slate-400 font-rajdhani cq-text-xs text-right w-[25%] truncate" data-lang-key="tv_diff">DIF</th>
                             </tr>
                         </thead>
                         <tbody id="tv-lap-tbody" class="tv-font text-slate-200 cq-text-sm"></tbody>
@@ -749,7 +749,7 @@
     
     <div id="resultsModal" class="modal-overlay hidden z-[100]">
         <div class="modal-content p-4 sm:p-8 text-center max-w-3xl w-full mx-4 flex flex-col max-h-[95vh]">
-            <h3 class="text-2xl sm:text-4xl font-black text-yellow-500 mb-2 drop-shadow-md uppercase tracking-widest shrink-0">¡Carrera Finalizada!</h3>
+            <h3 class="text-2xl sm:text-4xl font-black text-yellow-500 mb-2 drop-shadow-md uppercase tracking-widest shrink-0" data-lang-key="race_finished_title">¡Carrera Finalizada!</h3>
             <div class="bg-black/40 inline-block px-4 sm:px-6 py-2 rounded-full border border-yellow-500/50 mb-4 shadow-lg shrink-0 self-center">
                 <p id="winner-text" class="text-lg sm:text-2xl font-bold text-green-400"></p>
             </div>
@@ -758,21 +758,21 @@
                 <div id="p1-summary-card" class="bg-yellow-900/30 p-3 sm:p-4 rounded-xl border border-yellow-500/50 w-full sm:w-1/2 shadow-inner">
                     <h4 id="modal-p1-name" class="font-black text-yellow-400 border-b border-yellow-500/50 pb-1 mb-2 text-base sm:text-lg">P1</h4>
                     <div class="grid grid-cols-2 gap-1 sm:gap-2 text-left text-xs sm:text-sm">
-                        <span class="text-gray-400 font-bold">Tiempo Total:</span> <span id="modal-p1-total" class="text-yellow-200 font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Vueltas:</span> <span id="modal-p1-laps" class="text-white font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Mejor Vuelta:</span> <span id="modal-p1-best" class="text-green-400 font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Consistencia:</span> <span id="modal-p1-cons" class="text-blue-400 font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Vel. Media:</span> <span id="modal-p1-spd" class="text-white font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_total_time">Tiempo Total:</span> <span id="modal-p1-total" class="text-yellow-200 font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_laps">Vueltas:</span> <span id="modal-p1-laps" class="text-white font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_best_lap">Mejor Vuelta:</span> <span id="modal-p1-best" class="text-green-400 font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_consistency">Consistencia:</span> <span id="modal-p1-cons" class="text-blue-400 font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_avg_speed">Vel. Media:</span> <span id="modal-p1-spd" class="text-white font-mono font-bold text-right">--</span>
                     </div>
                 </div>
                 <div id="p2-summary-card" class="bg-orange-900/30 p-3 sm:p-4 rounded-xl border border-orange-500/50 w-full sm:w-1/2 shadow-inner">
                     <h4 id="modal-p2-name" class="font-black text-orange-400 border-b border-orange-500/50 pb-1 mb-2 text-base sm:text-lg">P2</h4>
                     <div class="grid grid-cols-2 gap-1 sm:gap-2 text-left text-xs sm:text-sm">
-                        <span class="text-gray-400 font-bold">Tiempo Total:</span> <span id="modal-p2-total" class="text-orange-200 font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Vueltas:</span> <span id="modal-p2-laps" class="text-white font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Mejor Vuelta:</span> <span id="modal-p2-best" class="text-green-400 font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Consistencia:</span> <span id="modal-p2-cons" class="text-blue-400 font-mono font-bold text-right">--</span>
-                        <span class="text-gray-400 font-bold">Vel. Media:</span> <span id="modal-p2-spd" class="text-white font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_total_time">Tiempo Total:</span> <span id="modal-p2-total" class="text-orange-200 font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_laps">Vueltas:</span> <span id="modal-p2-laps" class="text-white font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_best_lap">Mejor Vuelta:</span> <span id="modal-p2-best" class="text-green-400 font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_consistency">Consistencia:</span> <span id="modal-p2-cons" class="text-blue-400 font-mono font-bold text-right">--</span>
+                        <span class="text-gray-400 font-bold" data-lang-key="modal_avg_speed">Vel. Media:</span> <span id="modal-p2-spd" class="text-white font-mono font-bold text-right">--</span>
                     </div>
                 </div>
             </div>
@@ -786,7 +786,7 @@
                         <h5 id="modal-table-p1-name" class="text-yellow-400 font-bold text-xs mb-1 uppercase tracking-widest border-b border-yellow-500/30 pb-1">P1</h5>
                         <table class="w-full text-left text-xs sm:text-sm">
                             <thead class="sticky top-0 bg-gray-900/95 text-gray-400 z-10 shadow-sm">
-                                <tr><th class="p-1 border-b border-white/10 text-center">V</th><th class="p-1 border-b border-white/10 text-right">Tiempo</th><th class="p-1 border-b border-white/10 text-right">Km/h</th></tr>
+                                <tr><th class="p-1 border-b border-white/10 text-center" data-lang-key="tv_col_v">V</th><th class="p-1 border-b border-white/10 text-right" data-lang-key="modal_col_time">Tiempo</th><th class="p-1 border-b border-white/10 text-right" data-lang-key="modal_col_speed">Km/h</th></tr>
                             </thead>
                             <tbody id="modal-lap-list-p1" class="text-gray-200 divide-y divide-white/5 font-mono"></tbody>
                         </table>
@@ -795,7 +795,7 @@
                         <h5 id="modal-table-p2-name" class="text-orange-400 font-bold text-xs mb-1 uppercase tracking-widest border-b border-orange-500/30 pb-1">P2</h5>
                         <table class="w-full text-left text-xs sm:text-sm">
                             <thead class="sticky top-0 bg-gray-900/95 text-gray-400 z-10 shadow-sm">
-                                <tr><th class="p-1 border-b border-white/10 text-center">V</th><th class="p-1 border-b border-white/10 text-right">Tiempo</th><th class="p-1 border-b border-white/10 text-right">Km/h</th></tr>
+                                <tr><th class="p-1 border-b border-white/10 text-center" data-lang-key="tv_col_v">V</th><th class="p-1 border-b border-white/10 text-right" data-lang-key="modal_col_time">Tiempo</th><th class="p-1 border-b border-white/10 text-right" data-lang-key="modal_col_speed">Km/h</th></tr>
                             </thead>
                             <tbody id="modal-lap-list-p2" class="text-gray-200 divide-y divide-white/5 font-mono"></tbody>
                         </table>
@@ -805,19 +805,19 @@
 
             <!-- CONTENEDOR ANÁLISIS IA (NUEVO) -->
             <div id="ai-analysis-container" class="hidden mt-3 text-left bg-indigo-900/40 border border-indigo-500/50 p-3 sm:p-4 rounded-xl relative shadow-inner overflow-hidden">
-                <h4 class="text-indigo-300 font-bold text-xs uppercase tracking-widest mb-1 flex items-center shrink-0"><span class="mr-2 text-base">🎙️</span> Comentarista IA en Directo</h4>
+                <h4 class="text-indigo-300 font-bold text-xs uppercase tracking-widest mb-1 flex items-center shrink-0"><span class="mr-2 text-base">🎙️</span> <span data-lang-key="modal_ai_title">Comentarista IA en Directo</span></h4>
                 <div id="ai-analysis-content" class="text-sm text-indigo-100 font-sans italic leading-relaxed overflow-y-auto max-h-32 no-scrollbar"></div>
             </div>
             
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4 shrink-0">
                 <button id="ai-analyze-btn" class="flex-1 p-2 sm:p-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transition-colors flex items-center justify-center border border-indigo-400/50">
-                    ✨ Analizar Carrera
+                    ✨ <span data-lang-key="modal_ai_btn">Analizar Carrera</span>
                 </button>
                 <button id="export-excel-btn" class="flex-1 p-2 sm:p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg transition-colors flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Exportar CSV
+                    <span data-lang-key="modal_export_btn">Exportar CSV</span>
                 </button>
-                <button id="modal-restart-btn" class="flex-1 p-2 sm:p-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-xl shadow-lg transition-colors border border-gray-500/50">Cerrar y Reiniciar</button>
+                <button id="modal-restart-btn" class="flex-1 p-2 sm:p-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-xl shadow-lg transition-colors border border-gray-500/50" data-lang-key="modal_close_btn">Cerrar y Reiniciar</button>
             </div>
         </div>
     </div>
@@ -844,24 +844,30 @@
         const translations = {
             es: { 
                 start_race: "INICIAR", config: "CONFIG", reset_race: "REINICIAR", pause: "PAUSA", resume: "REANUDAR", video_status_init: "Inicia la cámara para 30FPS IA", video_status_ready: "CÁMARA IA LISTA", video_status_off: "Cámara Apagada", completed: "Completado", winner: "Ganador:", voice_completed: "Carrera terminada", voice_winner: "Victoria para ", voice_record: "Vuelta rápida de ", voice_calibrated: "Sensores calibrados", voice_ready: "Listos", voice_false_start: "Salida Nula de",
-                history_btn: "Historial", config_title: "Configuración", language_label: "Idioma", game_mode_label: "Modo", mode_2p: "🏁 2 JUGADORES (Duelo)", mode_1p: "⏱️ 1 JUGADOR (Contrarreloj)", player_1: "JUGADOR 1 (ORO)", player_2: "JUGADOR 2 (COBRE)", name_label: "Nombre", car_label: "Coche", sound_p1: "Sonido", sound_p2: "Sonido", track_length_label: "Pista (m)", race_condition_label: "Carrera", voice_comments: "Voz:", safety_time_label: "Anti-Rebotes:", global_time: "GLOBAL", calibrating_title: "Calibrando Sensores...", flag_yellow: "PAUSA", false_start: "¡SALIDA NULA!",
+                history_btn: "Historial", config_title: "Configuración", language_label: "Idioma", game_mode_label: "Modo", mode_2p: "🏁 2 JUGADORES (Duelo)", mode_1p: "⏱️ 1 JUGADOR (Contrarreloj)", player_1: "JUGADOR 1 (ORO)", player_2: "JUGADOR 2 (COBRE)", name_label: "Nombre", car_label: "Coche", sound_p1: "Sonido", sound_p2: "Sonido", track_length_label: "Pista (m)", race_condition_label: "Carrera", voice_comments: "Voz:", safety_time_label: "Anti-Rebotes:", global_time: "GLOBAL", calibrating_title: "Calibrando Sensores...", flag_yellow: "PAUSA", false_start: "¡SALIDA NULA!", race_mode_laps: "Vueltas", race_mode_time: "Tiempo",
                 tv_stats_gold: "Estadísticas Oro", tv_stats_copper: "Estadísticas Cobre", tv_laps: "VUELTAS", tv_consistency: "CONSISTENCIA", tv_best: "MEJOR", tv_last: "ÚLTIMA", tv_avg_spd: "VEL. MED", tv_max_spd: "VEL. MÁX", tv_evol_time: "Evolución Tiempos & Delta (S)", tv_history: "Historial Cara a Cara", tv_speed_curve: "Curva Velocidad (Km/h)", tv_evol_cons: "Evolución Consistencia (%)", tv_bar_comp: "Comparativa Barras", tv_diff: "DIF",
                 tv_mode_duel: "MODO DUELO", tv_mode_time: "CONTRARRELOJ", tv_status_pause: "BANDERA AMARILLA (PAUSA)", tv_status_false_start: "SALIDA NULA", tv_status_ready: "PREPARADOS...", tv_status_racing: "CARRERA EN CURSO", tv_status_finished: "CARRERA FINALIZADA", tv_status_waiting: "ESPERANDO...", tv_status_link: "ENLACE ACTIVO. ESPERANDO COCHES...", tv_status_uplink: "ESTABLECIENDO UPLINK...", tv_status_searching: "BUSCANDO SEÑAL DE TELEMETRÍA", tv_status_inactive: "SALA INACTIVA O CERRADA", tv_status_error: "ERROR DE CONEXIÓN",
-                lap_breakdown: "Desglose de Vueltas por Piloto", csv_header: "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n", default_p1: "Piloto 1", default_p2: "Piloto 2", race_telemetry: "Telemetría en Vivo"
+                lap_breakdown: "Desglose de Vueltas por Piloto", csv_header: "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n", default_p1: "Piloto 1", default_p2: "Piloto 2", race_telemetry: "Telemetría en Vivo",
+                leader: "LÍDER", tie: "EMPATE", finish: "META", laps_short: "V: ", tv_col_v: "V", tv_global_time: "TIEMPO GLOBAL", no_laps: "Sin vueltas", best_lap_badge: "Mejor", race_finished_title: "¡Carrera Finalizada!",
+                modal_total_time: "Tiempo Total:", modal_laps: "Vueltas:", modal_best_lap: "Mejor Vuelta:", modal_consistency: "Consistencia:", modal_avg_speed: "Vel. Media:", modal_col_time: "Tiempo", modal_col_speed: "Km/h", modal_ai_title: "Comentarista IA en Directo", modal_ai_btn: "Analizar Carrera", modal_export_btn: "Exportar CSV", modal_close_btn: "Cerrar y Reiniciar", ai_analyzing: "Analizando...", ai_redo: "Rehacer Análisis IA", ai_error: "El comentarista se ha quedado sin voz. Revisa tu conexión a internet e inténtalo de nuevo.", ai_connecting: "Conectando con el comentarista IA..."
             },
             en: { 
                 start_race: "START", config: "CONFIG", reset_race: "RESET", pause: "PAUSE", resume: "RESUME", video_status_init: "Start camera for 30FPS AI", video_status_ready: "AI CAMERA READY", video_status_off: "Camera Off", completed: "Completed", winner: "Winner:", voice_completed: "Race finished", voice_winner: "Winner ", voice_record: "Fastest lap for ", voice_calibrated: "Sensors calibrated", voice_ready: "Ready", voice_false_start: "False start for",
-                history_btn: "History", config_title: "Configuration", language_label: "Language", game_mode_label: "Mode", mode_2p: "🏁 2 PLAYERS (Duel)", mode_1p: "⏱️ 1 PLAYER (Time Trial)", player_1: "PLAYER 1 (GOLD)", player_2: "PLAYER 2 (COPPER)", name_label: "Name", car_label: "Car", sound_p1: "Sound", sound_p2: "Sound", track_length_label: "Track (m)", race_condition_label: "Race", voice_comments: "Voice:", safety_time_label: "Anti-Bounce:", global_time: "GLOBAL", calibrating_title: "Calibrating Sensors...", flag_yellow: "PAUSE", false_start: "FALSE START!",
+                history_btn: "History", config_title: "Configuration", language_label: "Language", game_mode_label: "Mode", mode_2p: "🏁 2 PLAYERS (Duel)", mode_1p: "⏱️ 1 PLAYER (Time Trial)", player_1: "PLAYER 1 (GOLD)", player_2: "PLAYER 2 (COPPER)", name_label: "Name", car_label: "Car", sound_p1: "Sound", sound_p2: "Sound", track_length_label: "Track (m)", race_condition_label: "Race", voice_comments: "Voice:", safety_time_label: "Anti-Bounce:", global_time: "GLOBAL", calibrating_title: "Calibrating Sensors...", flag_yellow: "PAUSE", false_start: "FALSE START!", race_mode_laps: "Laps", race_mode_time: "Time",
                 tv_stats_gold: "Gold Stats", tv_stats_copper: "Copper Stats", tv_laps: "LAPS", tv_consistency: "CONSISTENCY", tv_best: "BEST", tv_last: "LAST", tv_avg_spd: "AVG SPD", tv_max_spd: "MAX SPD", tv_evol_time: "Time Evolution & Delta (S)", tv_history: "Head-to-Head History", tv_speed_curve: "Speed Curve (Km/h)", tv_evol_cons: "Consistency Evolution (%)", tv_bar_comp: "Bar Comparison", tv_diff: "DIFF",
                 tv_mode_duel: "DUEL MODE", tv_mode_time: "TIME TRIAL", tv_status_pause: "YELLOW FLAG (PAUSED)", tv_status_false_start: "FALSE START", tv_status_ready: "GET READY...", tv_status_racing: "RACE IN PROGRESS", tv_status_finished: "RACE FINISHED", tv_status_waiting: "WAITING...", tv_status_link: "LINK ACTIVE. WAITING FOR CARS...", tv_status_uplink: "ESTABLISHING UPLINK...", tv_status_searching: "SEARCHING TELEMETRY SIGNAL", tv_status_inactive: "INACTIVE OR CLOSED ROOM", tv_status_error: "CONNECTION ERROR",
-                lap_breakdown: "Lap Breakdown by Driver", csv_header: "Driver,Lap,Time(ms),Formatted Time,Avg Speed(km/h)\n", default_p1: "Driver 1", default_p2: "Driver 2", race_telemetry: "Live Telemetry"
+                lap_breakdown: "Lap Breakdown by Driver", csv_header: "Driver,Lap,Time(ms),Formatted Time,Avg Speed(km/h)\n", default_p1: "Driver 1", default_p2: "Driver 2", race_telemetry: "Live Telemetry",
+                leader: "LEADER", tie: "TIE", finish: "FINISH", laps_short: "L: ", tv_col_v: "L", tv_global_time: "GLOBAL TIME", no_laps: "No laps", best_lap_badge: "Best", race_finished_title: "Race Finished!",
+                modal_total_time: "Total Time:", modal_laps: "Laps:", modal_best_lap: "Best Lap:", modal_consistency: "Consistency:", modal_avg_speed: "Avg Speed:", modal_col_time: "Time", modal_col_speed: "Km/h", modal_ai_title: "Live AI Commentator", modal_ai_btn: "Analyze Race", modal_export_btn: "Export CSV", modal_close_btn: "Close & Restart", ai_analyzing: "Analyzing...", ai_redo: "Redo AI Analysis", ai_error: "The commentator lost their voice. Check your connection and try again.", ai_connecting: "Connecting to AI commentator..."
             },
             fr: {
                 start_race: "DÉMARRER", config: "CONFIG", reset_race: "RÉINITIALISER", pause: "PAUSE", resume: "REPRENDRE", video_status_init: "Démarrer caméra pour 30FPS IA", video_status_ready: "CAMÉRA IA PRÊTE", video_status_off: "Caméra Désactivée", completed: "Terminé", winner: "Gagnant:", voice_completed: "Course terminée", voice_winner: "Victoire pour ", voice_record: "Meilleur tour pour ", voice_calibrated: "Capteurs calibrés", voice_ready: "Prêts", voice_false_start: "Faux départ de",
-                history_btn: "Historique", config_title: "Configuration", language_label: "Langue", game_mode_label: "Mode", mode_2p: "🏁 2 JOUEURS (Duel)", mode_1p: "⏱️ 1 JOUEUR (Contre-la-montre)", player_1: "JOUEUR 1 (OR)", player_2: "JOUEUR 2 (CUIVRE)", name_label: "Nom", car_label: "Voiture", sound_p1: "Son", sound_p2: "Son", track_length_label: "Piste (m)", race_condition_label: "Course", voice_comments: "Voix:", safety_time_label: "Anti-Rebond:", global_time: "GLOBAL", calibrating_title: "Calibrage Capteurs...", flag_yellow: "PAUSE", false_start: "FAUX DÉPART!",
+                history_btn: "Historique", config_title: "Configuration", language_label: "Langue", game_mode_label: "Mode", mode_2p: "🏁 2 JOUEURS (Duel)", mode_1p: "⏱️ 1 JOUEUR (Contre-la-montre)", player_1: "JOUEUR 1 (OR)", player_2: "JOUEUR 2 (CUIVRE)", name_label: "Nom", car_label: "Voiture", sound_p1: "Son", sound_p2: "Son", track_length_label: "Piste (m)", race_condition_label: "Course", voice_comments: "Voix:", safety_time_label: "Anti-Rebond:", global_time: "GLOBAL", calibrating_title: "Calibrage Capteurs...", flag_yellow: "PAUSE", false_start: "FAUX DÉPART!", race_mode_laps: "Tours", race_mode_time: "Temps",
                 tv_stats_gold: "Stats Or", tv_stats_copper: "Stats Cuivre", tv_laps: "TOURS", tv_consistency: "CONSISTANCE", tv_best: "MEILLEUR", tv_last: "DERNIER", tv_avg_spd: "VIT MOY", tv_max_spd: "VIT MAX", tv_evol_time: "Évolution Temps & Delta (S)", tv_history: "Historique Face à Face", tv_speed_curve: "Courbe de Vitesse (Km/h)", tv_evol_cons: "Évolution Consistance (%)", tv_bar_comp: "Comparaison Barres", tv_diff: "DIFF",
                 tv_mode_duel: "MODE DUEL", tv_mode_time: "CONTRE-LA-MONTRE", tv_status_pause: "DRAPEAU JAUNE (PAUSE)", tv_status_false_start: "FAUX DÉPART", tv_status_ready: "PRÊTS...", tv_status_racing: "COURSE EN COURS", tv_status_finished: "COURSE TERMINÉE", tv_status_waiting: "EN ATTENTE...", tv_status_link: "LIEN ACTIF. EN ATTENTE DE VOITURES...", tv_status_uplink: "ÉTABLISSEMENT LIAISON...", tv_status_searching: "RECHERCHE SIGNAL TÉLÉMÉTRIE", tv_status_inactive: "SALLE INACTIVE OU FERMÉE", tv_status_error: "ERREUR DE CONNEXION",
-                lap_breakdown: "Détail des Tours par Pilote", csv_header: "Pilote,Tour,Temps(ms),Temps Formaté,Vitesse Moyenne(km/h)\n", default_p1: "Pilote 1", default_p2: "Pilote 2", race_telemetry: "Télémétrie en Direct"
+                lap_breakdown: "Détail des Tours par Pilote", csv_header: "Pilote,Tour,Temps(ms),Temps Formaté,Vitesse Moyenne(km/h)\n", default_p1: "Pilote 1", default_p2: "Pilote 2", race_telemetry: "Télémétrie en Direct",
+                leader: "LEADER", tie: "ÉGALITÉ", finish: "ARRIVÉE", laps_short: "T: ", tv_col_v: "T", tv_global_time: "TEMPS GLOBAL", no_laps: "Pas de tours", best_lap_badge: "Record", race_finished_title: "Course Terminée !",
+                modal_total_time: "Temps Total:", modal_laps: "Tours:", modal_best_lap: "Meilleur Tour:", modal_consistency: "Régularité:", modal_avg_speed: "Vit. Moyenne:", modal_col_time: "Temps", modal_col_speed: "Km/h", modal_ai_title: "Commentateur IA en Direct", modal_ai_btn: "Analyser Course", modal_export_btn: "Exporter CSV", modal_close_btn: "Fermer & Relancer", ai_analyzing: "Analyse en cours...", ai_redo: "Refaire l'Analyse IA", ai_error: "Le commentateur a perdu sa voix. Vérifiez votre connexion internet et réessayez.", ai_connecting: "Connexion au commentateur IA..."
             }
         };
 
@@ -950,6 +956,7 @@
                 const p2Input = document.getElementById('p2-name');
                 if (p2Input && ["Piloto 2", "Driver 2", "Pilote 2"].includes(p2Input.value)) p2Input.value = t.default_p2;
             }
+            updateLapCountersUI();
             localStorage.setItem('krono_lang', lang); triggerCloudSync();
         }
         function speak(textKey, suffix = "") {
@@ -958,7 +965,12 @@
             const t = translations[currentLang] || translations['es'];
             let msgText = (t[textKey] || textKey) + suffix;
             const utter = new SpeechSynthesisUtterance(msgText);
-            utter.lang = currentLang === 'es' ? 'es-ES' : 'en-US';
+            
+            // Asignar el idioma correcto para el motor de voz (Acento)
+            if (currentLang === 'es') utter.lang = 'es-ES';
+            else if (currentLang === 'fr') utter.lang = 'fr-FR';
+            else utter.lang = 'en-US';
+            
             window.speechSynthesis.speak(utter);
         }
         function setGameMode(mode) {
@@ -1265,9 +1277,11 @@
             const timesPanel = document.getElementById('times-traffic-panel');
             if(timesPanel) { timesPanel.classList.remove('hidden'); timesPanel.classList.add('flex'); }
             
-            startRaceBtn.disabled = true; resetRaceBtn.disabled = true; pauseRaceBtn.disabled = true; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden');
+            startRaceBtn.disabled = true; resetRaceBtn.disabled = false; pauseRaceBtn.disabled = true; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden');
             document.getElementById('traffic-light-wrapper').classList.remove('traffic-hidden');
-            isPaused = false; pauseText.textContent = "PAUSA";
+            isPaused = false; 
+            const t = translations[currentLang] || translations['es'];
+            pauseText.textContent = t.pause || "PAUSA";
             
             const iconPause = document.getElementById('icon-pause');
             const iconPlay = document.getElementById('icon-play');
@@ -1341,7 +1355,11 @@
 
             if(raceMode === 'laps' && totalLapsTarget !== Infinity) {
                 if(p.laps >= totalLapsTarget) {
-                    p.finished = true; document.getElementById(p.lapCountId).textContent = "FIN"; document.getElementById(p.currentLapId).textContent = "META"; polySynth.triggerAttackRelease(["E6"], "0.2");
+                    p.finished = true; 
+                    const t = translations[currentLang] || translations['es'];
+                    document.getElementById(p.lapCountId).textContent = t.finish || "FIN"; 
+                    document.getElementById(p.currentLapId).textContent = t.finish || "META"; 
+                    polySynth.triggerAttackRelease(["E6"], "0.2");
                     if (activePlayers === 1 && players[0].finished) endRace(); else if (activePlayers === 2 && players.every(pl=>pl.finished)) endRace();
                 }
             }
@@ -1349,7 +1367,9 @@
         }
 
         function updatePlayerUI(p) {
-            const elLapCount = document.getElementById(p.lapCountId); if (elLapCount) elLapCount.textContent = raceMode === 'time' ? `V: ${p.laps}` : `V: ${p.laps} / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
+            const t = translations[currentLang] || translations['es'];
+            const elLapCount = document.getElementById(p.lapCountId); 
+            if (elLapCount) elLapCount.textContent = raceMode === 'time' ? `${t.laps_short}${p.laps}` : `${t.laps_short}${p.laps} / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
             const elBestLap = document.getElementById(p.bestLapId); if (elBestLap) elBestLap.textContent = formatTime(p.bestLap); 
             
             const lastTimeString = p.lapHistory.length>0 ? formatTime(p.lapHistory[p.lapHistory.length-1]) : "--.---";
@@ -1372,6 +1392,7 @@
         }
 
         function updateGaps() {
+             const t = translations[currentLang] || translations['es'];
              if (players[0].laps > 0 && players[1].laps > 0) {
                  const minLaps = Math.min(players[0].laps, players[1].laps);
                  const t1 = players[0].lapHistory.slice(0, minLaps).reduce((a,b)=>a+b,0);
@@ -1380,14 +1401,14 @@
                  const diffSec = (Math.abs(diff) / 1000).toFixed(3);
                  
                  if (diff < 0) {
-                     players[0].gapText = "LÍDER"; 
+                     players[0].gapText = t.leader; 
                      players[1].gapText = `+${diffSec}s`;
                  } else if (diff > 0) {
-                     players[1].gapText = "LÍDER"; 
+                     players[1].gapText = t.leader; 
                      players[0].gapText = `+${diffSec}s`;
                  } else {
-                     players[0].gapText = "EMPATE"; 
-                     players[1].gapText = "EMPATE";
+                     players[0].gapText = t.tie; 
+                     players[1].gapText = t.tie;
                  }
              } else {
                  players[0].gapText = "--"; 
@@ -1398,8 +1419,8 @@
                  const gapEl = document.getElementById(players[i].gapId);
                  if (gapEl) {
                      gapEl.textContent = players[i].gapText;
-                     if (players[i].gapText === "LÍDER") gapEl.style.color = "#4ade80"; 
-                     else if (players[i].gapText === "EMPATE") gapEl.style.color = "#facc15";
+                     if (players[i].gapText === t.leader) gapEl.style.color = "#4ade80"; 
+                     else if (players[i].gapText === t.tie) gapEl.style.color = "#facc15";
                      else if (players[i].gapText.startsWith('+')) gapEl.style.color = "#f87171"; 
                      else gapEl.style.color = "white";
                  }
@@ -1408,6 +1429,7 @@
 
         function endRace() {
             isRaceActive = false; clearInterval(raceIntervalId); pauseRaceBtn.disabled = true; 
+            const t = translations[currentLang] || translations['es'];
             
             players.forEach(p => { p.referencePixels = null; }); 
             document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden');
@@ -1425,7 +1447,7 @@
                 } 
             }
             
-            document.getElementById('winner-text').textContent = activePlayers===1 ? "Completado" : `Ganador: ${document.getElementById(winner.nameId).value}`;
+            document.getElementById('winner-text').textContent = activePlayers===1 ? t.completed : `${t.winner} ${document.getElementById(winner.nameId).value}`;
             
             document.getElementById('p2-summary-card').style.display = activePlayers === 2 ? 'block' : 'none';
             document.getElementById('modal-table-p2-container').style.display = activePlayers === 2 ? 'block' : 'none';
@@ -1450,7 +1472,7 @@
                 tbody.innerHTML = '';
                 
                 if (p.lapHistory.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" class="text-center p-4 text-gray-500 text-xs">Sin vueltas</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="3" class="text-center p-4 text-gray-500 text-xs">${t.no_laps || "Sin vueltas"}</td></tr>`;
                 } else {
                     p.lapHistory.forEach((lapT, index) => {
                         const speed = (trackLen / (lapT / 1000)) * 3.6;
@@ -1458,7 +1480,7 @@
                         const tr = document.createElement('tr');
                         tr.className = "hover:bg-white/5 transition-colors";
                         
-                        const bestBadge = isBest ? `<span class="ml-1 text-[8px] sm:text-[9px] bg-green-500/20 text-green-400 border border-green-500/50 px-1 py-0.5 rounded uppercase font-sans font-bold">Mejor</span>` : '';
+                        const bestBadge = isBest ? `<span class="ml-1 text-[8px] sm:text-[9px] bg-green-500/20 text-green-400 border border-green-500/50 px-1 py-0.5 rounded uppercase font-sans font-bold">${t.best_lap_badge || "Mejor"}</span>` : '';
                         const timeColor = isBest ? 'text-green-400 font-bold' : (p.id === 1 ? 'text-yellow-100' : 'text-orange-100');
                         
                         tr.innerHTML = `
@@ -1479,7 +1501,10 @@
             const aiContainer = document.getElementById('ai-analysis-container');
             if (aiContainer) aiContainer.classList.add('hidden');
             const aiBtn = document.getElementById('ai-analyze-btn');
-            if (aiBtn) { aiBtn.disabled = false; aiBtn.innerHTML = '✨ Analizar Carrera'; }
+            if (aiBtn) { 
+                aiBtn.disabled = false; 
+                aiBtn.innerHTML = `✨ <span data-lang-key="modal_ai_btn">${t.modal_ai_btn || 'Analizar Carrera'}</span>`; 
+            }
 
             speak('voice_completed'); broadcastState(); syncToCloud();
         }
@@ -1731,6 +1756,11 @@
             function updateTVUI() {
                 if(!tvData || !tvData.players) return;
                 
+                if (tvData.currentLang && tvData.currentLang !== currentLang) {
+                    setLanguage(tvData.currentLang);
+                }
+                const t = translations[currentLang] || translations['es'];
+                
                 // --- REPRODUCCIÓN DE AUDIO Y VOZ EN MODO TV ---
                 if (isTVMode && previousTvData) {
                     if (tvData.raceAborted && !previousTvData.raceAborted) {
@@ -1770,26 +1800,26 @@
                 
                 const baseStatusClass = "text-xl lg:text-2xl font-rajdhani font-bold uppercase tracking-widest px-6 py-2 rounded-xl border shadow-lg transition-colors duration-300 ";
                 if (tvData.isPaused) {
-                    statusEl.textContent = "BANDERA AMARILLA (PAUSA)";
+                    statusEl.textContent = t.tv_status_pause || "BANDERA AMARILLA (PAUSA)";
                     statusEl.className = baseStatusClass + "bg-yellow-900/40 border-yellow-500/50 text-yellow-400 tv-pulse";
                 } else if (tvData.raceAborted) {
-                    statusEl.textContent = "SALIDA NULA";
+                    statusEl.textContent = t.tv_status_false_start || "SALIDA NULA";
                     statusEl.className = baseStatusClass + "bg-red-900/40 border-red-500/50 text-red-500 tv-pulse";
                 } else if (tvData.isCountdown) {
-                    statusEl.textContent = "PREPARADOS...";
+                    statusEl.textContent = t.tv_status_ready || "PREPARADOS...";
                     statusEl.className = baseStatusClass + "bg-orange-900/40 border-orange-500/50 text-orange-400";
                 } else if (tvData.isRaceActive) {
-                    statusEl.textContent = "CARRERA EN CURSO";
+                    statusEl.textContent = t.tv_status_racing || "CARRERA EN CURSO";
                     statusEl.className = baseStatusClass + "bg-emerald-900/30 border-emerald-500/30 text-emerald-400";
                 } else if (tvData.lapHistory && tvData.lapHistory.length > 0) {
-                    statusEl.textContent = "CARRERA FINALIZADA";
+                    statusEl.textContent = t.tv_status_finished || "CARRERA FINALIZADA";
                     statusEl.className = baseStatusClass + "bg-blue-900/30 border-blue-500/30 text-blue-400";
                 } else {
                     if (cloudRoomCode) {
-                        statusEl.innerHTML = `<div class="flex items-center space-x-2"><span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span></span><span>ENLACE ACTIVO</span></div>`;
+                        statusEl.innerHTML = `<div class="flex items-center space-x-2"><span class="relative flex h-3 w-3 mr-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span></span><span>${t.tv_status_link ? t.tv_status_link.split('.')[0] : "ENLACE ACTIVO"}</span></div>`;
                         statusEl.className = baseStatusClass + "bg-slate-800/90 border-cyan-500/30 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.15)]";
                     } else {
-                        statusEl.textContent = "ESPERANDO...";
+                        statusEl.textContent = t.tv_status_waiting || "ESPERANDO...";
                         statusEl.className = baseStatusClass + "bg-slate-800/80 border-slate-600 text-slate-400";
                     }
                 }
@@ -1810,16 +1840,20 @@
                     document.getElementById('tv-p1-name').textContent = p1.name; 
                     
                     let p1CurrentText = "00.000";
-                    if (p1.finished) p1CurrentText = "META";
+                    if (p1.finished) p1CurrentText = t.finish || "META";
                     else if (p1.laps > 0) p1CurrentText = formatTime(p1.lapHistory[p1.lapHistory.length-1]);
                     else if (p1.hasCrossedStart) p1CurrentText = "--.---";
                     document.getElementById('tv-p1-current').textContent = p1CurrentText;
                     
                     const tvP1Gap = document.getElementById('tv-p1-gap');
-                    tvP1Gap.textContent = p1.gapText;
-                    if(p1.gapText === 'LÍDER') tvP1Gap.style.color = '#4ade80';
-                    else if(p1.gapText === 'EMPATE') tvP1Gap.style.color = '#facc15';
-                    else if(p1.gapText.startsWith('+')) tvP1Gap.style.color = '#f87171';
+                    let gap1 = p1.gapText;
+                    if (gap1 === "LÍDER" || gap1 === "LEADER") gap1 = t.leader || gap1;
+                    if (gap1 === "EMPATE" || gap1 === "TIE" || gap1 === "ÉGALITÉ") gap1 = t.tie || gap1;
+                    tvP1Gap.textContent = gap1;
+
+                    if(gap1 === t.leader) tvP1Gap.style.color = '#4ade80';
+                    else if(gap1 === t.tie) tvP1Gap.style.color = '#facc15';
+                    else if(gap1.startsWith('+')) tvP1Gap.style.color = '#f87171';
                     else tvP1Gap.style.color = 'white';
                     
                     document.getElementById('tv-p1-laps').textContent = p1.laps;
@@ -1831,7 +1865,8 @@
 
                     const hP1Name = document.getElementById('tv-header-p1-name'); if(hP1Name) hP1Name.textContent = p1.name;
                     const hP1Car = document.getElementById('tv-header-p1-car'); if(hP1Car) hP1Car.textContent = p1.car || '-';
-                    const hP1Laps = document.getElementById('tv-header-p1-laps'); if(hP1Laps) hP1Laps.textContent = tvData.raceMode === 'time' ? `V: ${p1.laps}` : `V: ${p1.laps} / ${tvData.totalLapsTarget===Infinity?'∞':tvData.totalLapsTarget}`;
+                    const hP1Laps = document.getElementById('tv-header-p1-laps'); 
+                    if(hP1Laps) hP1Laps.textContent = tvData.raceMode === 'time' ? `${t.laps_short}${p1.laps}` : `${t.laps_short}${p1.laps} / ${tvData.totalLapsTarget===Infinity?'∞':tvData.totalLapsTarget}`;
                 }
                 if (tvData.activePlayers === 2 && p2) { 
                     if(tvGridContainer) tvGridContainer.classList.remove('single-player');
@@ -1841,16 +1876,20 @@
                     document.getElementById('tv-p2-name').textContent = p2.name; 
                     
                     let p2CurrentText = "00.000";
-                    if (p2.finished) p2CurrentText = "META";
+                    if (p2.finished) p2CurrentText = t.finish || "META";
                     else if (p2.laps > 0) p2CurrentText = formatTime(p2.lapHistory[p2.lapHistory.length-1]);
                     else if (p2.hasCrossedStart) p2CurrentText = "--.---";
                     document.getElementById('tv-p2-current').textContent = p2CurrentText;
                     
                     const tvP2Gap = document.getElementById('tv-p2-gap');
-                    tvP2Gap.textContent = p2.gapText;
-                    if(p2.gapText === 'LÍDER') tvP2Gap.style.color = '#4ade80';
-                    else if(p2.gapText === 'EMPATE') tvP2Gap.style.color = '#facc15';
-                    else if(p2.gapText.startsWith('+')) tvP2Gap.style.color = '#f87171';
+                    let gap2 = p2.gapText;
+                    if (gap2 === "LÍDER" || gap2 === "LEADER") gap2 = t.leader || gap2;
+                    if (gap2 === "EMPATE" || gap2 === "TIE" || gap2 === "ÉGALITÉ") gap2 = t.tie || gap2;
+                    tvP2Gap.textContent = gap2;
+
+                    if(gap2 === t.leader) tvP2Gap.style.color = '#4ade80';
+                    else if(gap2 === t.tie) tvP2Gap.style.color = '#facc15';
+                    else if(gap2.startsWith('+')) tvP2Gap.style.color = '#f87171';
                     else tvP2Gap.style.color = 'white';
 
                     document.getElementById('tv-p2-laps').textContent = p2.laps;
@@ -1863,7 +1902,8 @@
                     const hP2Container = document.getElementById('tv-header-p2-container'); if(hP2Container) hP2Container.style.display = 'flex';
                     const hP2Name = document.getElementById('tv-header-p2-name'); if(hP2Name) hP2Name.textContent = p2.name;
                     const hP2Car = document.getElementById('tv-header-p2-car'); if(hP2Car) hP2Car.textContent = p2.car || '-';
-                    const hP2Laps = document.getElementById('tv-header-p2-laps'); if(hP2Laps) hP2Laps.textContent = tvData.raceMode === 'time' ? `V: ${p2.laps}` : `V: ${p2.laps} / ${tvData.totalLapsTarget===Infinity?'∞':tvData.totalLapsTarget}`;
+                    const hP2Laps = document.getElementById('tv-header-p2-laps'); 
+                    if(hP2Laps) hP2Laps.textContent = tvData.raceMode === 'time' ? `${t.laps_short}${p2.laps}` : `${t.laps_short}${p2.laps} / ${tvData.totalLapsTarget===Infinity?'∞':tvData.totalLapsTarget}`;
                 } else { 
                     if(tvGridContainer) tvGridContainer.classList.add('single-player');
 
@@ -2061,13 +2101,14 @@
             const btn = document.getElementById('ai-analyze-btn');
             const container = document.getElementById('ai-analysis-container');
             const content = document.getElementById('ai-analysis-content');
+            const t = translations[currentLang] || translations['es'];
             
             if (!btn || !container || !content) return;
             
             btn.disabled = true;
-            btn.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Analizando...';
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ${t.ai_analyzing || 'Analizando...'}`;
             container.classList.remove('hidden');
-            content.innerHTML = '<span class="animate-pulse">Conectando con el comentarista IA...</span>';
+            content.innerHTML = `<span class="animate-pulse">${t.ai_connecting || 'Conectando con el comentarista IA...'}</span>`;
 
             // Extraer telemetría de la carrera para el Prompt
             let raceDataStr = `Modo de carrera: ${raceMode === 'laps' ? totalLapsTarget + ' Vueltas' : formatTime(raceDurationTarget) + ' Tiempo'}.\n`;
@@ -2079,12 +2120,16 @@
             });
             const winnerText = document.getElementById('winner-text').textContent;
             raceDataStr += `Resultado final: ${winnerText}`;
+            
+            const targetLangStr = currentLang === 'en' ? 'Inglés' : currentLang === 'fr' ? 'Francés' : 'Español';
 
             const promptText = `Actúa como un comentarista deportivo de carreras de motor (especialista en Scalextric/Slot) muy entusiasta, apasionado y algo excéntrico.
 La carrera acaba de terminar. Aquí tienes la telemetría oficial extraída de los sensores:
 ${raceDataStr}
 
-Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrera, celebrando al ganador, mencionando algún detalle técnico como la velocidad media, la lucha por la constancia o el mejor tiempo, usando un tono increíblemente emocionante.`;
+Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrera, celebrando al ganador, mencionando algún detalle técnico como la velocidad media, la lucha por la constancia o el mejor tiempo, usando un tono increíblemente emocionante.
+
+IMPORTANTE: Escribe tu respuesta ÚNICAMENTE en el idioma: ${targetLangStr}.`;
 
             let retries = 5;
             let delay = 1000;
@@ -2119,22 +2164,45 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             if (success) {
                 content.innerHTML = resultText.replace(/\n/g, '<br>');
             } else {
-                content.innerHTML = '<span class="text-red-400">El comentarista se ha quedado sin voz. Revisa tu conexión a internet e inténtalo de nuevo.</span>';
+                content.innerHTML = `<span class="text-red-400">${t.ai_error || 'El comentarista se ha quedado sin voz. Revisa tu conexión a internet e inténtalo de nuevo.'}</span>`;
             }
 
             btn.disabled = false;
-            btn.innerHTML = '✨ Rehacer Análisis IA';
+            btn.innerHTML = `✨ ${t.ai_redo || 'Rehacer Análisis IA'}`;
         }
 
         // 7. EVENT LISTENERS
         document.getElementById('start-race-btn').onclick = startRace;
         document.getElementById('reset-race-btn').onclick = () => { 
-            isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; falseStartAlert.classList.remove('show'); yellowFlagOverlay.classList.add('hidden'); document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden');
+            isRaceActive = false; 
+            isPaused = false; 
+            isCountdown = false;
+            raceAborted = true; // Fundamental para matar cualquier cuenta atrás activa
+            clearInterval(raceIntervalId); 
+            
+            startRaceBtn.disabled = false; 
+            pauseRaceBtn.disabled = true;
+            resetRaceBtn.disabled = true; // Se deshabilita hasta iniciar una nueva carrera
+            
+            const t = translations[currentLang] || translations['es'];
+            pauseText.textContent = t.pause || "PAUSA";
+            
+            falseStartAlert.classList.remove('show'); 
+            yellowFlagOverlay.classList.add('hidden'); 
+            document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden');
             
             const iconPause = document.getElementById('icon-pause');
             const iconPlay = document.getElementById('icon-play');
             if (iconPlay) iconPlay.classList.add('hidden');
             if (iconPause) iconPause.classList.remove('hidden');
+
+            document.getElementById('race-time').textContent = raceMode === 'time' ? formatTime(raceDurationTarget) : "00:00.000"; 
+            players.forEach(p => {
+                p.laps=0; p.lapHistory=[]; p.bestLap=Infinity; p.totalTime=0; p.finished=false; p.hasCrossedStart=false; p.gapText="--";
+                updatePlayerUI(p); 
+                const curLapEl = document.getElementById(p.currentLapId); if(curLapEl) curLapEl.textContent = "00.000"; 
+                const gapEl = document.getElementById(p.gapId); if(gapEl) gapEl.textContent = "--"; 
+            });
 
             if (cameraStream) {
                 const headerPanel = document.getElementById('app-header-panel');
@@ -2186,10 +2254,30 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
             resModal.classList.remove('open');
             setTimeout(() => {
                 resModal.classList.add('hidden');
-                document.getElementById('race-time').textContent = "00:00.000"; 
-                isRaceActive=false; clearInterval(raceIntervalId); startRaceBtn.disabled=false; pauseRaceBtn.disabled = true; isPaused = false; 
-                document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden'); 
                 
+                isRaceActive = false; 
+                isPaused = false;
+                isCountdown = false;
+                raceAborted = true;
+                clearInterval(raceIntervalId); 
+                
+                startRaceBtn.disabled = false; 
+                pauseRaceBtn.disabled = true;
+                resetRaceBtn.disabled = true;
+                
+                const t = translations[currentLang] || translations['es'];
+                pauseText.textContent = t.pause || "PAUSA";
+                
+                document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden'); 
+                document.getElementById('race-time').textContent = raceMode === 'time' ? formatTime(raceDurationTarget) : "00:00.000"; 
+                
+                players.forEach(p => {
+                    p.laps=0; p.lapHistory=[]; p.bestLap=Infinity; p.totalTime=0; p.finished=false; p.hasCrossedStart=false; p.gapText="--";
+                    updatePlayerUI(p); 
+                    const curLapEl = document.getElementById(p.currentLapId); if(curLapEl) curLapEl.textContent = "00.000"; 
+                    const gapEl = document.getElementById(p.gapId); if(gapEl) gapEl.textContent = "--"; 
+                });
+
                 const iconPause = document.getElementById('icon-pause');
                 const iconPlay = document.getElementById('icon-play');
                 if (iconPlay) iconPlay.classList.add('hidden');
@@ -2235,8 +2323,9 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
         
         function updateLapCountersUI() {
             if (!isRaceActive && raceMode === 'laps') {
-                document.getElementById('p1-lap-count').textContent = `V: 0 / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
-                document.getElementById('p2-lap-count').textContent = `V: 0 / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
+                const t = translations[currentLang] || translations['es'];
+                document.getElementById('p1-lap-count').textContent = `${t.laps_short || 'V: '}0 / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
+                document.getElementById('p2-lap-count').textContent = `${t.laps_short || 'V: '}0 / ${totalLapsTarget===Infinity?'∞':totalLapsTarget}`;
             }
         }
         
@@ -2248,7 +2337,10 @@ Escribe un resumen épico (máximo 3 o 4 líneas) narrando el final de la carrer
                 raceMode = 'laps'; updateLapCountersUI();
             } else { 
                 lapLimitSelect.classList.add('hidden'); timeLimitSelect.classList.remove('hidden'); 
-                raceMode = 'time'; document.getElementById('p1-lap-count').textContent = "V: 0"; document.getElementById('p2-lap-count').textContent = "V: 0";
+                raceMode = 'time'; 
+                const t = translations[currentLang] || translations['es'];
+                document.getElementById('p1-lap-count').textContent = `${t.laps_short || 'V: '}0`; 
+                document.getElementById('p2-lap-count').textContent = `${t.laps_short || 'V: '}0`;
             } 
             triggerCloudSync(); 
         });
