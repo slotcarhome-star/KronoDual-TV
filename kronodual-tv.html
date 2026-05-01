@@ -1153,7 +1153,7 @@
                             else if (crossed) {
                                 if (!p.hasCrossedStart) {
                                     p.hasCrossedStart = true; p.lapStartTime = now; p.lastRecordTime = now; p.isLineBlocked = true;
-                                    document.getElementById(p.msgId).textContent = "GO!"; synth.triggerAttackRelease(p.soundTone, "0.1");
+                                    document.getElementById(p.msgId).textContent = "GO!"; polySynth.triggerAttackRelease(p.soundTone, "0.1", Tone.now());
                                     updatePlayerUI(p);
                                     broadcastState(); syncToCloud();
                                 } else recordLap(p);
@@ -1311,8 +1311,10 @@
                 await new Promise(r=>setTimeout(r, 600)); 
                 
                 isCountdown = true; raceAborted = false; speak('voice_ready');
+                broadcastState(); syncToCloud(); // <-- ESTA LÍNEA AVISA A LA TV PARA QUE SUENEN LOS ROJOS
+                
                 const lights = [1,2,3,4,5].map(i=>document.getElementById('light-'+i)); lights.forEach(l=>l.className="light");
-                for(let i=0;i<5;i++){ if(raceAborted) return; lights[i].classList.add('red'); synth.triggerAttackRelease("C4","0.1", Tone.now()); await new Promise(r=>setTimeout(r,1000)); }
+                for(let i=0;i<5;i++){ if(raceAborted) return; lights[i].classList.add('red'); polySynth.triggerAttackRelease("C4","0.1", Tone.now()); await new Promise(r=>setTimeout(r,1000)); }
                 if(raceAborted) return; await new Promise(r=>setTimeout(r, Math.random()*1500+500));
                 if(raceAborted) return; isCountdown = false; lights.forEach(l=>{l.classList.remove('red'); l.classList.add('green');}); polySynth.triggerAttackRelease(["C5","G5"],"0.5", Tone.now());
                 
@@ -1350,7 +1352,7 @@
             if (lapSpeed > p.maxSpeed) p.maxSpeed = lapSpeed;
 
             let isNewRecord = false; if (lapTime < p.bestLap) { p.bestLap = lapTime; recordNotification.classList.add('show'); setTimeout(()=>recordNotification.classList.remove('show'),2000); isNewRecord = true; }
-            synth.triggerAttackRelease(p.soundTone, "0.1"); 
+            polySynth.triggerAttackRelease(p.soundTone, "0.1", Tone.now()); 
             updatePlayerUI(p);
             if (activePlayers === 2) updateGaps(); // Actualiza el Delta congelado al cruzar la meta
             
@@ -1784,7 +1786,7 @@
                                 clearInterval(tvBeepInterval);
                                 return;
                             }
-                            synth.triggerAttackRelease("C4", "0.1", Tone.now());
+                            polySynth.triggerAttackRelease("C4", "0.1", Tone.now());
                             beepCount++;
                         }, 1000);
                     }
@@ -1792,7 +1794,7 @@
                         const prevP = previousTvData.players.find(x => x.id === p.id);
                         if (!prevP) return;
                         if (p.laps > prevP.laps) {
-                            synth.triggerAttackRelease(p.soundTone, "0.1", Tone.now());
+                            polySynth.triggerAttackRelease(p.soundTone, "0.1", Tone.now());
                             if (p.bestLap < prevP.bestLap || (prevP.bestLap === null && p.bestLap !== null && p.laps > 1)) {
                                 const lastLapTime = p.lapHistory[p.lapHistory.length-1];
                                 if (lastLapTime) speak('voice_record', p.name + "! " + (lastLapTime/1000).toFixed(2));
@@ -2020,7 +2022,7 @@
                 setTimeout(() => { overlay.classList.remove('ai-glitching'); overlay.classList.add('hidden'); }, 600);
             });
             
-            // 5 ORGANIZACIONES AUTOMÁTICAS (PRESETS TIPO PUZZLE)
+            // 9 ORGANIZACIONES AUTOMÁTICAS (PRESETS TIPO PUZZLE)
             const layouts = [
                 { // 0: Default Balanceado
                     'w-time': { cols: 12, rows: 1, order: 1 },
@@ -2081,6 +2083,54 @@
                     'w-speed-graph': { cols: 4, rows: 2, order: 8 },
                     'w-consistency-graph': { cols: 4, rows: 2, order: 9 },
                     'w-history': { cols: 4, rows: 2, order: 10 }
+                },
+                { // 5: Pantalla Dividida (Split Screen VS)
+                    'w-time': { cols: 12, rows: 1, order: 1 },
+                    'w-p1-main': { cols: 6, rows: 2, order: 2 },
+                    'w-p2-main': { cols: 6, rows: 2, order: 3 },
+                    'w-p1-stats': { cols: 6, rows: 2, order: 4 },
+                    'w-p2-stats': { cols: 6, rows: 2, order: 5 },
+                    'w-combined-graph': { cols: 6, rows: 3, order: 6 },
+                    'w-history': { cols: 6, rows: 3, order: 7 },
+                    'w-speed-graph': { cols: 4, rows: 2, order: 8 },
+                    'w-consistency-graph': { cols: 4, rows: 2, order: 9 },
+                    'w-graph': { cols: 4, rows: 2, order: 10 }
+                },
+                { // 6: Centro de Datos (Énfasis Tablas)
+                    'w-time': { cols: 12, rows: 1, order: 1 },
+                    'w-p1-main': { cols: 6, rows: 1, order: 2 },
+                    'w-p2-main': { cols: 6, rows: 1, order: 3 },
+                    'w-history': { cols: 12, rows: 3, order: 4 },
+                    'w-p1-stats': { cols: 3, rows: 2, order: 5 },
+                    'w-combined-graph': { cols: 6, rows: 2, order: 6 },
+                    'w-p2-stats': { cols: 3, rows: 2, order: 7 },
+                    'w-speed-graph': { cols: 4, rows: 2, order: 8 },
+                    'w-consistency-graph': { cols: 4, rows: 2, order: 9 },
+                    'w-graph': { cols: 4, rows: 2, order: 10 }
+                },
+                { // 7: Analítica Visual (Gráficos Gigantes)
+                    'w-time': { cols: 12, rows: 1, order: 1 },
+                    'w-combined-graph': { cols: 12, rows: 3, order: 2 },
+                    'w-speed-graph': { cols: 6, rows: 2, order: 3 },
+                    'w-consistency-graph': { cols: 6, rows: 2, order: 4 },
+                    'w-p1-main': { cols: 3, rows: 1, order: 5 },
+                    'w-p1-stats': { cols: 3, rows: 1, order: 6 },
+                    'w-p2-stats': { cols: 3, rows: 1, order: 7 },
+                    'w-p2-main': { cols: 3, rows: 1, order: 8 },
+                    'w-history': { cols: 8, rows: 2, order: 9 },
+                    'w-graph': { cols: 4, rows: 2, order: 10 }
+                },
+                { // 8: Compacto 3 Columnas Central
+                    'w-time': { cols: 12, rows: 1, order: 1 },
+                    'w-p1-main': { cols: 4, rows: 1, order: 2 },
+                    'w-history': { cols: 4, rows: 3, order: 3 },
+                    'w-p2-main': { cols: 4, rows: 1, order: 4 },
+                    'w-p1-stats': { cols: 4, rows: 2, order: 5 },
+                    'w-p2-stats': { cols: 4, rows: 2, order: 6 },
+                    'w-combined-graph': { cols: 12, rows: 2, order: 7 },
+                    'w-speed-graph': { cols: 4, rows: 2, order: 8 },
+                    'w-graph': { cols: 4, rows: 2, order: 9 },
+                    'w-consistency-graph': { cols: 4, rows: 2, order: 10 }
                 }
             ];
             
@@ -2587,7 +2637,7 @@ IMPORTANTE: Escribe tu respuesta ÚNICAMENTE en el idioma: ${targetLangStr}.`;
                 if (selectEl) {
                     selectEl.addEventListener('change', async (e) => {
                         await Tone.start();
-                        synth.triggerAttackRelease(e.target.value, "0.1");
+                        polySynth.triggerAttackRelease(e.target.value, "0.1", Tone.now());
                     });
                 }
             });
