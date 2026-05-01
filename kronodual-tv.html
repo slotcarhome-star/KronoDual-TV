@@ -392,7 +392,7 @@
                     </button>
                     <button id="direct-tv-btn" class="shrink-0 flex items-center text-blue-800 hover:text-blue-900 transition-colors px-3 py-1.5 rounded-lg bg-blue-100/90 hover:bg-blue-100 border border-blue-400 shadow-md" title="Cambiar a Dashboard TV">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-                        <span class="text-[10px] font-bold uppercase tracking-wider">Telemetría TV</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider" data-lang-key="direct_tv_btn">Telemetría TV</span>
                     </button>
                     <button id="fullscreen-btn" class="shrink-0 flex items-center justify-center text-slate-800 hover:text-slate-900 transition-colors px-3 py-1.5 rounded-lg bg-slate-200/90 hover:bg-slate-200 border border-slate-400 shadow-md" title="Pantalla Completa">
                         <svg id="fs-icon-enter" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:mr-1"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
@@ -740,6 +740,15 @@
             </div>
             
         </div>
+        
+        <!-- TV AI OVERLAY (Comentarista IA) -->
+        <div id="tv-ai-overlay" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-11/12 max-w-5xl bg-indigo-950/90 backdrop-blur-xl border border-indigo-400 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.6)] z-50 p-6 text-center transition-all duration-700 translate-y-[150%] opacity-0">
+            <div class="flex items-center justify-center mb-3">
+                <span class="animate-pulse mr-3 text-2xl">🎙️</span>
+                <h4 class="text-indigo-300 font-rajdhani font-black text-xl uppercase tracking-[0.2em] drop-shadow-md" data-lang-key="modal_ai_title">Comentarista IA en Directo</h4>
+            </div>
+            <div id="tv-ai-text" class="text-white font-sans italic text-xl md:text-3xl leading-relaxed drop-shadow-sm"></div>
+        </div>
     </div>
 
     <!-- ================= MODALES ================= -->
@@ -844,7 +853,7 @@
         const translations = {
             es: { 
                 start_race: "INICIAR", config: "CONFIG", reset_race: "REINICIAR", pause: "PAUSA", resume: "REANUDAR", video_status_init: "Inicia la cámara para 30FPS IA", video_status_ready: "CÁMARA IA LISTA", video_status_off: "Cámara Apagada", completed: "Completado", winner: "Ganador:", voice_completed: "Carrera terminada", voice_winner: "Victoria para ", voice_record: "Vuelta rápida de ", voice_calibrated: "Sensores calibrados", voice_ready: "Listos", voice_false_start: "Salida Nula de",
-                history_btn: "Historial", config_title: "Configuración", language_label: "Idioma", game_mode_label: "Modo", mode_2p: "🏁 2 JUGADORES (Duelo)", mode_1p: "⏱️ 1 JUGADOR (Contrarreloj)", player_1: "JUGADOR 1 (ORO)", player_2: "JUGADOR 2 (COBRE)", name_label: "Nombre", car_label: "Coche", sound_p1: "Sonido", sound_p2: "Sonido", track_length_label: "Pista (m)", race_condition_label: "Carrera", voice_comments: "Voz:", safety_time_label: "Anti-Rebotes:", global_time: "GLOBAL", calibrating_title: "Calibrando Sensores...", flag_yellow: "PAUSA", false_start: "¡SALIDA NULA!", race_mode_laps: "Vueltas", race_mode_time: "Tiempo",
+                history_btn: "Historial", direct_tv_btn: "Telemetría TV", config_title: "Configuración", language_label: "Idioma", game_mode_label: "Modo", mode_2p: "🏁 2 JUGADORES (Duelo)", mode_1p: "⏱️ 1 JUGADOR (Contrarreloj)", player_1: "JUGADOR 1 (ORO)", player_2: "JUGADOR 2 (COBRE)", name_label: "Nombre", car_label: "Coche", sound_p1: "Sonido", sound_p2: "Sonido", track_length_label: "Pista (m)", race_condition_label: "Carrera", voice_comments: "Voz:", safety_time_label: "Anti-Rebotes:", global_time: "GLOBAL", calibrating_title: "Calibrando Sensores...", flag_yellow: "PAUSA", false_start: "¡SALIDA NULA!", race_mode_laps: "Vueltas", race_mode_time: "Tiempo",
                 tv_stats_gold: "Estadísticas Oro", tv_stats_copper: "Estadísticas Cobre", tv_laps: "VUELTAS", tv_consistency: "CONSISTENCIA", tv_best: "MEJOR", tv_last: "ÚLTIMA", tv_avg_spd: "VEL. MED", tv_max_spd: "VEL. MÁX", tv_evol_time: "Evolución Tiempos & Delta (S)", tv_history: "Historial Cara a Cara", tv_speed_curve: "Curva Velocidad (Km/h)", tv_evol_cons: "Evolución Consistencia (%)", tv_bar_comp: "Comparativa Barras", tv_diff: "DIF",
                 tv_mode_duel: "MODO DUELO", tv_mode_time: "CONTRARRELOJ", tv_status_pause: "BANDERA AMARILLA (PAUSA)", tv_status_false_start: "SALIDA NULA", tv_status_ready: "PREPARADOS...", tv_status_racing: "CARRERA EN CURSO", tv_status_finished: "CARRERA FINALIZADA", tv_status_waiting: "ESPERANDO...", tv_status_link: "ENLACE ACTIVO. ESPERANDO COCHES...", tv_status_uplink: "ESTABLECIENDO UPLINK...", tv_status_searching: "BUSCANDO SEÑAL DE TELEMETRÍA", tv_status_inactive: "SALA INACTIVA O CERRADA", tv_status_error: "ERROR DE CONEXIÓN",
                 lap_breakdown: "Desglose de Vueltas por Piloto", csv_header: "Piloto,Vuelta,Tiempo(ms),Tiempo Formateado,Velocidad Media(km/h)\n", default_p1: "Piloto 1", default_p2: "Piloto 2", race_telemetry: "Telemetría en Vivo",
@@ -853,7 +862,7 @@
             },
             en: { 
                 start_race: "START", config: "CONFIG", reset_race: "RESET", pause: "PAUSE", resume: "RESUME", video_status_init: "Start camera for 30FPS AI", video_status_ready: "AI CAMERA READY", video_status_off: "Camera Off", completed: "Completed", winner: "Winner:", voice_completed: "Race finished", voice_winner: "Winner ", voice_record: "Fastest lap for ", voice_calibrated: "Sensors calibrated", voice_ready: "Ready", voice_false_start: "False start for",
-                history_btn: "History", config_title: "Configuration", language_label: "Language", game_mode_label: "Mode", mode_2p: "🏁 2 PLAYERS (Duel)", mode_1p: "⏱️ 1 PLAYER (Time Trial)", player_1: "PLAYER 1 (GOLD)", player_2: "PLAYER 2 (COPPER)", name_label: "Name", car_label: "Car", sound_p1: "Sound", sound_p2: "Sound", track_length_label: "Track (m)", race_condition_label: "Race", voice_comments: "Voice:", safety_time_label: "Anti-Bounce:", global_time: "GLOBAL", calibrating_title: "Calibrating Sensors...", flag_yellow: "PAUSE", false_start: "FALSE START!", race_mode_laps: "Laps", race_mode_time: "Time",
+                history_btn: "History", direct_tv_btn: "TV Telemetry", config_title: "Configuration", language_label: "Language", game_mode_label: "Mode", mode_2p: "🏁 2 PLAYERS (Duel)", mode_1p: "⏱️ 1 PLAYER (Time Trial)", player_1: "PLAYER 1 (GOLD)", player_2: "PLAYER 2 (COPPER)", name_label: "Name", car_label: "Car", sound_p1: "Sound", sound_p2: "Sound", track_length_label: "Track (m)", race_condition_label: "Race", voice_comments: "Voice:", safety_time_label: "Anti-Bounce:", global_time: "GLOBAL", calibrating_title: "Calibrating Sensors...", flag_yellow: "PAUSE", false_start: "FALSE START!", race_mode_laps: "Laps", race_mode_time: "Time",
                 tv_stats_gold: "Gold Stats", tv_stats_copper: "Copper Stats", tv_laps: "LAPS", tv_consistency: "CONSISTENCY", tv_best: "BEST", tv_last: "LAST", tv_avg_spd: "AVG SPD", tv_max_spd: "MAX SPD", tv_evol_time: "Time Evolution & Delta (S)", tv_history: "Head-to-Head History", tv_speed_curve: "Speed Curve (Km/h)", tv_evol_cons: "Consistency Evolution (%)", tv_bar_comp: "Bar Comparison", tv_diff: "DIFF",
                 tv_mode_duel: "DUEL MODE", tv_mode_time: "TIME TRIAL", tv_status_pause: "YELLOW FLAG (PAUSED)", tv_status_false_start: "FALSE START", tv_status_ready: "GET READY...", tv_status_racing: "RACE IN PROGRESS", tv_status_finished: "RACE FINISHED", tv_status_waiting: "WAITING...", tv_status_link: "LINK ACTIVE. WAITING FOR CARS...", tv_status_uplink: "ESTABLISHING UPLINK...", tv_status_searching: "SEARCHING TELEMETRY SIGNAL", tv_status_inactive: "INACTIVE OR CLOSED ROOM", tv_status_error: "CONNECTION ERROR",
                 lap_breakdown: "Lap Breakdown by Driver", csv_header: "Driver,Lap,Time(ms),Formatted Time,Avg Speed(km/h)\n", default_p1: "Driver 1", default_p2: "Driver 2", race_telemetry: "Live Telemetry",
@@ -862,7 +871,7 @@
             },
             fr: {
                 start_race: "DÉMARRER", config: "CONFIG", reset_race: "RÉINITIALISER", pause: "PAUSE", resume: "REPRENDRE", video_status_init: "Démarrer caméra pour 30FPS IA", video_status_ready: "CAMÉRA IA PRÊTE", video_status_off: "Caméra Désactivée", completed: "Terminé", winner: "Gagnant:", voice_completed: "Course terminée", voice_winner: "Victoire pour ", voice_record: "Meilleur tour pour ", voice_calibrated: "Capteurs calibrés", voice_ready: "Prêts", voice_false_start: "Faux départ de",
-                history_btn: "Historique", config_title: "Configuration", language_label: "Langue", game_mode_label: "Mode", mode_2p: "🏁 2 JOUEURS (Duel)", mode_1p: "⏱️ 1 JOUEUR (Contre-la-montre)", player_1: "JOUEUR 1 (OR)", player_2: "JOUEUR 2 (CUIVRE)", name_label: "Nom", car_label: "Voiture", sound_p1: "Son", sound_p2: "Son", track_length_label: "Piste (m)", race_condition_label: "Course", voice_comments: "Voix:", safety_time_label: "Anti-Rebond:", global_time: "GLOBAL", calibrating_title: "Calibrage Capteurs...", flag_yellow: "PAUSE", false_start: "FAUX DÉPART!", race_mode_laps: "Tours", race_mode_time: "Temps",
+                history_btn: "Historique", direct_tv_btn: "Télémétrie TV", config_title: "Configuration", language_label: "Langue", game_mode_label: "Mode", mode_2p: "🏁 2 JOUEURS (Duel)", mode_1p: "⏱️ 1 JOUEUR (Contre-la-montre)", player_1: "JOUEUR 1 (OR)", player_2: "JOUEUR 2 (CUIVRE)", name_label: "Nom", car_label: "Voiture", sound_p1: "Son", sound_p2: "Son", track_length_label: "Piste (m)", race_condition_label: "Course", voice_comments: "Voix:", safety_time_label: "Anti-Rebond:", global_time: "GLOBAL", calibrating_title: "Calibrage Capteurs...", flag_yellow: "PAUSE", false_start: "FAUX DÉPART!", race_mode_laps: "Tours", race_mode_time: "Temps",
                 tv_stats_gold: "Stats Or", tv_stats_copper: "Stats Cuivre", tv_laps: "TOURS", tv_consistency: "CONSISTANCE", tv_best: "MEILLEUR", tv_last: "DERNIER", tv_avg_spd: "VIT MOY", tv_max_spd: "VIT MAX", tv_evol_time: "Évolution Temps & Delta (S)", tv_history: "Historique Face à Face", tv_speed_curve: "Courbe de Vitesse (Km/h)", tv_evol_cons: "Évolution Consistance (%)", tv_bar_comp: "Comparaison Barres", tv_diff: "DIFF",
                 tv_mode_duel: "MODE DUEL", tv_mode_time: "CONTRE-LA-MONTRE", tv_status_pause: "DRAPEAU JAUNE (PAUSE)", tv_status_false_start: "FAUX DÉPART", tv_status_ready: "PRÊTS...", tv_status_racing: "COURSE EN COURS", tv_status_finished: "COURSE TERMINÉE", tv_status_waiting: "EN ATTENTE...", tv_status_link: "LIEN ACTIF. EN ATTENTE DE VOITURES...", tv_status_uplink: "ÉTABLISSEMENT LIAISON...", tv_status_searching: "RECHERCHE SIGNAL TÉLÉMÉTRIE", tv_status_inactive: "SALLE INACTIVE OU FERMÉE", tv_status_error: "ERREUR DE CONNEXION",
                 lap_breakdown: "Détail des Tours par Pilote", csv_header: "Pilote,Tour,Temps(ms),Temps Formaté,Vitesse Moyenne(km/h)\n", default_p1: "Pilote 1", default_p2: "Pilote 2", race_telemetry: "Télémétrie en Direct",
@@ -923,6 +932,7 @@
         let raceDurationTarget = 0;
         let isPaused = false;
         let pauseStartTimestamp = 0;
+        let aiAnalysisText = ""; // Nuevo estado global para el locutor IA
         
         const players = [
             {
@@ -1291,6 +1301,7 @@
             raceMode = raceConditionSelect.value;
             if (raceMode === 'laps') totalLapsTarget = lapLimitSelect.value==='Infinity'?Infinity:parseInt(lapLimitSelect.value); else { totalLapsTarget = Infinity; raceDurationTarget = parseInt(timeLimitSelect.value) * 60000; }
             blindTimeMs = parseInt(safetyTimeSelect.value);
+            aiAnalysisText = ""; // Limpiar texto IA
 
             players.forEach(p => {
                 p.soundTone = document.getElementById(p.soundId).value; p.laps=0; p.lapHistory=[]; p.bestLap=Infinity; p.totalTime=0; p.lastRecordTime=0; p.finished=false; p.hasCrossedStart=false; 
@@ -1305,13 +1316,14 @@
             broadcastState(); syncToCloud();
 
             (async()=>{
+                await Tone.start();
                 await new Promise(r=>setTimeout(r, 600)); 
                 
                 isCountdown = true; raceAborted = false; speak('voice_ready');
                 const lights = [1,2,3,4,5].map(i=>document.getElementById('light-'+i)); lights.forEach(l=>l.className="light");
-                for(let i=0;i<5;i++){ if(raceAborted) return; lights[i].classList.add('red'); synth.triggerAttackRelease("C4","0.1"); await new Promise(r=>setTimeout(r,1000)); }
+                for(let i=0;i<5;i++){ if(raceAborted) return; lights[i].classList.add('red'); synth.triggerAttackRelease("C4","0.1", Tone.now()); await new Promise(r=>setTimeout(r,1000)); }
                 if(raceAborted) return; await new Promise(r=>setTimeout(r, Math.random()*1500+500));
-                if(raceAborted) return; isCountdown = false; lights.forEach(l=>{l.classList.remove('red'); l.classList.add('green');}); polySynth.triggerAttackRelease(["C5","G5"],"0.5");
+                if(raceAborted) return; isCountdown = false; lights.forEach(l=>{l.classList.remove('red'); l.classList.add('green');}); polySynth.triggerAttackRelease(["C5","G5"],"0.5", Tone.now());
                 
                 isRaceActive=true; isDetectionReady=true; resetRaceBtn.disabled=false; pauseRaceBtn.disabled=false; 
                 document.getElementById('traffic-light-wrapper').classList.add('traffic-hidden');
@@ -1513,6 +1525,7 @@
             return {
                 timestamp: Date.now(), raceMode: raceMode, activePlayers: activePlayers, trackLength: parseFloat(trackLengthInput.value) || 15, totalLapsTarget: totalLapsTarget, raceDurationTarget: raceDurationTarget, isRaceActive: isRaceActive, isCountdown: isCountdown, isPaused: isPaused, raceAborted: raceAborted, raceStartTime: raceStartTime, currentLang: currentLang,
                 voiceEnabled: voiceToggle.checked, falseStartName: falseStartPlayerName.textContent,
+                aiAnalysisText: aiAnalysisText,
                 players: players.map(p => {
                     return { 
                         id: p.id, name: document.getElementById(p.nameId).value, car: document.getElementById(p.carId).value, laps: p.laps, bestLap: p.bestLap, lapHistory: p.lapHistory, 
@@ -1764,33 +1777,67 @@
                 // --- REPRODUCCIÓN DE AUDIO Y VOZ EN MODO TV ---
                 if (isTVMode && previousTvData) {
                     if (tvData.raceAborted && !previousTvData.raceAborted) {
-                        polySynth.triggerAttackRelease(["C2", "F#2", "C3"], "1");
+                        polySynth.triggerAttackRelease(["C2", "F#2", "C3"], "1", Tone.now());
                         speak('voice_false_start', " " + tvData.falseStartName);
                     }
                     if (tvData.isRaceActive && !previousTvData.isRaceActive && !tvData.isPaused && !tvData.raceAborted) {
-                        polySynth.triggerAttackRelease(["C5","G5"],"0.5");
+                        polySynth.triggerAttackRelease(["C5","G5"], "0.5", Tone.now());
                     }
                     if (tvData.isCountdown && !previousTvData.isCountdown) {
                         speak('voice_ready');
-                        synth.triggerAttackRelease("C4","0.1"); 
+                        // Replicar la secuencia del semáforo en la TV
+                        let beepCount = 0;
+                        const tvBeepInterval = setInterval(() => {
+                            // Detener si se cancela la carrera, si la cuenta atrás termina, o si ya dimos 5 pitidos
+                            if (!tvData.isCountdown || tvData.raceAborted || beepCount >= 5) {
+                                clearInterval(tvBeepInterval);
+                                return;
+                            }
+                            synth.triggerAttackRelease("C4", "0.1", Tone.now());
+                            beepCount++;
+                        }, 1000);
                     }
                     tvData.players.forEach(p => {
                         const prevP = previousTvData.players.find(x => x.id === p.id);
                         if (!prevP) return;
                         if (p.laps > prevP.laps) {
-                            synth.triggerAttackRelease(p.soundTone, "0.1");
+                            synth.triggerAttackRelease(p.soundTone, "0.1", Tone.now());
                             if (p.bestLap < prevP.bestLap || (prevP.bestLap === null && p.bestLap !== null && p.laps > 1)) {
                                 const lastLapTime = p.lapHistory[p.lapHistory.length-1];
                                 if (lastLapTime) speak('voice_record', p.name + "! " + (lastLapTime/1000).toFixed(2));
                             }
                         }
                         if (p.finished && !prevP.finished) {
-                            polySynth.triggerAttackRelease(["E6"], "0.2");
+                            polySynth.triggerAttackRelease(["E6"], "0.2", Tone.now());
                         }
                     });
                     if (!tvData.isRaceActive && previousTvData.isRaceActive && !tvData.raceAborted && !tvData.isPaused) {
                         speak('voice_completed');
                     }
+                }
+
+                // AI COMMENTATOR TV LOGIC
+                const tvAiOverlay = document.getElementById('tv-ai-overlay');
+                const tvAiTextEl = document.getElementById('tv-ai-text');
+                
+                if (tvData.aiAnalysisText && (!previousTvData || tvData.aiAnalysisText !== previousTvData.aiAnalysisText)) {
+                    if (tvAiOverlay && tvAiTextEl) {
+                        tvAiTextEl.innerHTML = tvData.aiAnalysisText;
+                        tvAiOverlay.classList.remove('translate-y-[150%]', 'opacity-0');
+                    }
+                    if (isTVMode && tvData.voiceEnabled) {
+                        window.speechSynthesis.cancel(); // Detiene audios pendientes ("carrera terminada" etc.)
+                        const plainText = tvData.aiAnalysisText.replace(/<br>/g, ' ');
+                        const utter = new SpeechSynthesisUtterance(plainText);
+                        utter.lang = tvData.currentLang === 'en' ? 'en-US' : (tvData.currentLang === 'fr' ? 'fr-FR' : 'es-ES');
+                        utter.pitch = 1.1; // Darle efecto un poco más dinámico
+                        utter.rate = 1.05;
+                        window.speechSynthesis.speak(utter);
+                    }
+                }
+                
+                if ((!tvData.aiAnalysisText || tvData.isRaceActive || tvData.isCountdown) && tvAiOverlay) {
+                    tvAiOverlay.classList.add('translate-y-[150%]', 'opacity-0');
                 }
 
                 if (tvData.timestamp && (Date.now() - tvData.timestamp > 7200000)) { tvData.isRaceActive = false; tvData.isCountdown = false; tvData.isPaused = false; tvData.raceAborted = false; }
@@ -2162,7 +2209,9 @@ IMPORTANTE: Escribe tu respuesta ÚNICAMENTE en el idioma: ${targetLangStr}.`;
             }
 
             if (success) {
-                content.innerHTML = resultText.replace(/\n/g, '<br>');
+                aiAnalysisText = resultText.replace(/\n/g, '<br>');
+                content.innerHTML = aiAnalysisText;
+                broadcastState(); syncToCloud(); // <-- Sincronizar inmediatamente al TV
             } else {
                 content.innerHTML = `<span class="text-red-400">${t.ai_error || 'El comentarista se ha quedado sin voz. Revisa tu conexión a internet e inténtalo de nuevo.'}</span>`;
             }
@@ -2172,13 +2221,17 @@ IMPORTANTE: Escribe tu respuesta ÚNICAMENTE en el idioma: ${targetLangStr}.`;
         }
 
         // 7. EVENT LISTENERS
-        document.getElementById('start-race-btn').onclick = startRace;
+        document.getElementById('start-race-btn').onclick = async () => { 
+            await Tone.start();
+            startRace(); 
+        };
         document.getElementById('reset-race-btn').onclick = () => { 
             isRaceActive = false; 
             isPaused = false; 
             isCountdown = false;
             raceAborted = true; // Fundamental para matar cualquier cuenta atrás activa
             clearInterval(raceIntervalId); 
+            aiAnalysisText = ""; // Limpiar texto IA
             
             startRaceBtn.disabled = false; 
             pauseRaceBtn.disabled = true;
