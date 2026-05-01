@@ -740,15 +740,6 @@
             </div>
             
         </div>
-        
-        <!-- TV AI OVERLAY (Comentarista IA) -->
-        <div id="tv-ai-overlay" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-11/12 max-w-5xl bg-indigo-950/90 backdrop-blur-xl border border-indigo-400 rounded-3xl shadow-[0_0_40px_rgba(99,102,241,0.6)] z-50 p-6 text-center transition-all duration-700 translate-y-[150%] opacity-0">
-            <div class="flex items-center justify-center mb-3">
-                <span class="animate-pulse mr-3 text-2xl">🎙️</span>
-                <h4 class="text-indigo-300 font-rajdhani font-black text-xl uppercase tracking-[0.2em] drop-shadow-md" data-lang-key="modal_ai_title">Comentarista IA en Directo</h4>
-            </div>
-            <div id="tv-ai-text" class="text-white font-sans italic text-xl md:text-3xl leading-relaxed drop-shadow-sm"></div>
-        </div>
     </div>
 
     <!-- ================= MODALES ================= -->
@@ -1816,15 +1807,8 @@
                     }
                 }
 
-                // AI COMMENTATOR TV LOGIC
-                const tvAiOverlay = document.getElementById('tv-ai-overlay');
-                const tvAiTextEl = document.getElementById('tv-ai-text');
-                
+                // AI COMMENTATOR TV LOGIC (SOLO AUDIO)
                 if (tvData.aiAnalysisText && (!previousTvData || tvData.aiAnalysisText !== previousTvData.aiAnalysisText)) {
-                    if (tvAiOverlay && tvAiTextEl) {
-                        tvAiTextEl.innerHTML = tvData.aiAnalysisText;
-                        tvAiOverlay.classList.remove('translate-y-[150%]', 'opacity-0');
-                    }
                     if (isTVMode && tvData.voiceEnabled) {
                         window.speechSynthesis.cancel(); // Detiene audios pendientes ("carrera terminada" etc.)
                         const plainText = tvData.aiAnalysisText.replace(/<br>/g, ' ');
@@ -1834,10 +1818,6 @@
                         utter.rate = 1.05;
                         window.speechSynthesis.speak(utter);
                     }
-                }
-                
-                if ((!tvData.aiAnalysisText || tvData.isRaceActive || tvData.isCountdown) && tvAiOverlay) {
-                    tvAiOverlay.classList.add('translate-y-[150%]', 'opacity-0');
                 }
 
                 if (tvData.timestamp && (Date.now() - tvData.timestamp > 7200000)) { tvData.isRaceActive = false; tvData.isCountdown = false; tvData.isPaused = false; tvData.raceAborted = false; }
